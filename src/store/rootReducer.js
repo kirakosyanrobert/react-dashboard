@@ -1,9 +1,9 @@
 import {createStore, combineReducers, compose, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
-import filters from './filters/filtersReducer';
+import users from './test/testReducer';
 
 const rootReducer = combineReducers({
-    filters,
+    users,
 })
 
 const composeEnhancers =
