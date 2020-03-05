@@ -1,25 +1,73 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Form } from 'react-bootstrap'
 
-import { Button, ButtonVariants, ButtonSizes } from '../../components/ui/Button';
+import { Button, ButtonVariants, ButtonActionTypes } from '../../components/ui/Button';
 import { useNavigation } from '../../hooks';
 import { StorageKey } from '../../consts';
-
-export function LoginPage() {
+import { imitateLogin } from '../../helpers/imitateLogin';
+ 
+//TODO make LoginForm component
+function LoginPage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const {navigate, routes} = useNavigation();
 
+   async function handleLoginFormSubmit(e) {
+      e.preventDefault();
+      if(email && password) {
+          const { success, token }  = await imitateLogin({email, password});
+          if(success) {
+            localStorage.setItem(StorageKey.Token, token);
+            navigate(routes.home);
+          } else {
+            alert('Incorrect Email or password!')
+          }
+
+      } else {
+         alert('Fill in inputs');
+      }
+    }
+
+
     return (
-        <div>
-          <Button
-            title="Go To Home"
-            variant={ButtonVariants.Warning}
-            size={ButtonSizes.Medium}
-            onClick={() => navigate(routes.home)}
-          />
-          <Button
-            title="Login"
-            variant={ButtonVariants.Primary}
-            onClick={() => localStorage.setItem(StorageKey.Token, 'Auth-Token')}
-          />
+        <div className="d-flex justify-content-center align-items-center">
+              <Form onSubmit={handleLoginFormSubmit}>
+                <Form.Group controlId="formBasicEmail">
+                  <Form.Label>Email address</Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder="Enter email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </Form.Group>
+
+                <Form.Group controlId="formBasicPassword">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </Form.Group>
+                
+                <div className="d-flex justify-content-between">
+                    <Button
+                        title="Login"
+                        type={ButtonActionTypes.Submit}
+                        variant={ButtonVariants.Primary}
+                        onClick={handleLoginFormSubmit}
+                      />
+                    <Button
+                        title="Sign up first"
+                        variant={ButtonVariants.Light}
+                        onClick={() => navigate(routes.signUp)}
+                    />
+                </div>
+              </Form>
         </div>
     )
 }
+
+export default LoginPage;

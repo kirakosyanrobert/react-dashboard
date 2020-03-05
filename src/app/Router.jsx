@@ -1,44 +1,41 @@
 import React from 'react';
-import {Router as ReactRouter, Switch } from 'react-router-dom';
+import { Router as ReactRouter, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 
-import HomePage from '../pages/HomePage/HomePage';
-import { LoginPage } from '../pages/LoginPage/LoginPage';
+import AdminContainer from './AdminContainer/AdminContainer';
+import LoginPage from '../pages/LoginPage/LoginPage';
+import SignUpPage from '../pages/SigeUpPage/SigeUpPage';
 import { Route } from '../components/ui/Route';
 
-import Wrapper from '../containers/Wrapper';
-import PageContent from '../containers/PageContent';
-import RouterContainer from '../containers/RouterContainer';
-import SettingsPage from '../pages/SettingsPage/SettingsPage';
-
+import { useEffectOnce } from '../hooks';
+import { StorageKey } from '../consts';
 
 const history = createBrowserHistory();
 
+//TODO Remove test data
+const testAdminData = [{email: 'admin@gmail.com', password: '1111'}];
+
 export function Router() {
+    useEffectOnce(() => {
+        const exists = localStorage.getItem(StorageKey.Users);
+        if(!exists) {
+            localStorage.setItem(StorageKey.Users, JSON.stringify(testAdminData));
+        }
+    });
 
     const Routes = {
-        Root: '/',
-        Home: '/home',
-        Settings: '/settings',
-        Login: '/login'
+        Admin: '/',
+        Login: '/login',
+        SignUp: '/sign-up'
     }
-
-    
 
     return (
         <ReactRouter history={history}>
-           <Wrapper>
-              <PageContent>
-                     <RouterContainer>
-                        <Switch>
-                            <Route path={Routes.Login} component={LoginPage} />
-                            <Route guarded={true} path={Routes.Home} component={HomePage} />
-                            <Route guarded={true} path={Routes.Settings} component={SettingsPage} />
-                            <Route exact path={Routes.Root} component={HomePage} />
-                        </Switch>
-                    </RouterContainer>
-              </PageContent>
-            </Wrapper>
+            <Switch>
+                <Route exact path={Routes.Login} component={LoginPage} />
+                <Route exact path={Routes.SignUp} component={SignUpPage} />
+                <Route guarded path={Routes.Admin} component={AdminContainer} />
+            </Switch>
         </ReactRouter>
     )
 }
