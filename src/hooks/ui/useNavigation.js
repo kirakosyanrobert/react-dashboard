@@ -2,7 +2,9 @@ import { useHistory } from 'react-router-dom';
 
 const routes = {
     home: '/home',
+    settings: '/settings',
     login: '/login',
+    signUp: '/sign-up',
     root: '/'
 }
 
