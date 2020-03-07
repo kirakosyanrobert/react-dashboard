@@ -16,7 +16,11 @@ function CreateModeratorForm ({onCreate}) {
     function handleSubmit (e) {
         e.preventDefault();
         const data = {id: Date.now().toString(), ...formData};
-        onCreate(data);
+        if(!!data.firstName && !!data.lastName && !!data.email && !!data.password) {
+          onCreate(data);
+        } else {
+          alert('inputs can`t be empty!');
+        }
     }
 
     return (
