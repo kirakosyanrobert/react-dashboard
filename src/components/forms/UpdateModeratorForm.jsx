@@ -3,20 +3,13 @@ import { Form } from 'react-bootstrap';
 
 import { Button, ButtonVariants, ButtonActionTypes } from '../ui/Button';
 
-const formInitialState = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: ''
-}
 
-function CreateModeratorForm ({onCreate}) {
-    const [formData, setFormData] = useState(formInitialState);
+function UpdateModeratorForm ({moderator, onUpdate}) {
+    const [formData, setFormData] = useState(moderator);
    
     function handleSubmit (e) {
         e.preventDefault();
-        const data = {id: Date.now().toString(), ...formData};
-        onCreate(data);
+        onUpdate(formData);
     }
 
     return (
@@ -59,7 +52,7 @@ function CreateModeratorForm ({onCreate}) {
                   />
                 </Form.Group>
                 <Button
-                    title="Create"
+                    title="Save"
                     variant={ButtonVariants.Primary}
                     type={ButtonActionTypes.Submit}
                     onClick={handleSubmit}
@@ -67,4 +60,4 @@ function CreateModeratorForm ({onCreate}) {
             </Form>
     )
 }
-export default CreateModeratorForm;
+export default UpdateModeratorForm;
