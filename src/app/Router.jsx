@@ -10,16 +10,22 @@ import { Route } from '../components/ui/Route';
 import { useEffectOnce } from '../hooks';
 import { StorageKey } from '../consts';
 
+
 const history = createBrowserHistory();
 
 //TODO Remove test data
-const testAdminData = [{email: 'admin@gmail.com', password: '1111'}];
+const superAdminData = [{email: 'admin@gmail.com', password: '1111'}];
+const ModeratorsData = require('../MockData.json');
+
 
 export function Router() {
     useEffectOnce(() => {
-        const exists = localStorage.getItem(StorageKey.Users);
-        if(!exists) {
-            localStorage.setItem(StorageKey.Users, JSON.stringify(testAdminData));
+        const exists = localStorage.getItem(StorageKey.Super);
+        const moderatorsExists = localStorage.getItem(StorageKey.Moderators);
+
+        if(!exists || !moderatorsExists) {
+            localStorage.setItem(StorageKey.Super, JSON.stringify(superAdminData));
+            localStorage.setItem(StorageKey.Moderators, JSON.stringify(ModeratorsData.moderators));
         }
     });
 
