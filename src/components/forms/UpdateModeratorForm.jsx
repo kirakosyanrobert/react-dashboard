@@ -9,7 +9,11 @@ function UpdateModeratorForm ({moderator, onUpdate}) {
    
     function handleSubmit (e) {
         e.preventDefault();
-        onUpdate(formData);
+        if(!!formData.firstName && !!formData.lastName && !!formData.email && !!formData.password) {
+          onUpdate(formData);
+        } else {
+          alert('Inputs can`t be empty!');
+        }
     }
 
     return (

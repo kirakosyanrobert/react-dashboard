@@ -8,7 +8,7 @@ function ModeratorsTable ({
     onDelete,
 }) {
     return (
-        <Table  bordered hover size="sm" responsive="md">
+        <Table bordered hover size="sm" responsive="md">
             <thead>
                 <tr>
                     <th>#</th>

@@ -43,7 +43,10 @@ function ModeratorsPage() {
     function handleDeleteModerator(moderatorId) {
         //Request to delete moderator
         // if success
-        setModerators(moderators.filter(moderator => moderator.id !== moderatorId));
+        const confirmDelete = window.confirm("are you sure ?");
+        if(confirmDelete) {
+            setModerators(moderators.filter(moderator => moderator.id !== moderatorId));
+        }
     }
 
     // save in localStorage for all actions
@@ -52,7 +55,7 @@ function ModeratorsPage() {
     }, [moderators]);
     
     return (
-        <div>
+        <div className="px-4">
             <Modal
                 title={"Create New Moderator"}
                 open={showCreateModal}
@@ -72,7 +75,7 @@ function ModeratorsPage() {
                 />
             </Modal>
 
-            <div className="d-flex p-4">
+            <div className="d-flex py-4">
                 <Button
                     title="Create new Moderator"
                     variant={ButtonVariants.Primary}
