@@ -8,7 +8,7 @@ function ModeratorsTable ({
     onDelete,
 }) {
     return (
-        <Table striped bordered hover size="sm" responsive="md">
+        <Table  bordered hover size="sm" responsive="md">
             <thead>
                 <tr>
                     <th>#</th>
@@ -33,7 +33,7 @@ function ModeratorsTable ({
                                 title="Edit"
                                 outlined
                                 variant={ButtonVariants.Primary}
-                                onClick={() => {}}
+                                onClick={() => onEdit(moderator)}
                             />
                         </td>
                         <td>
@@ -41,7 +41,7 @@ function ModeratorsTable ({
                                 title="Delete"
                                 outlined
                                 variant={ButtonVariants.Danger}
-                                onClick={() => {}}
+                                onClick={() => onDelete(moderator.id)}
                             />
                         </td>
                     </tr>
