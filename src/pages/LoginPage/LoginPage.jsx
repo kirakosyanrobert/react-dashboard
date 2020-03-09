@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import { Form } from 'react-bootstrap'
 
 import { Button, ButtonVariants, ButtonActionTypes } from '../../components/ui/Button';
-import { useNavigation } from '../../hooks';
+import { useNavigation, useTranslation } from '../../hooks';
 import { StorageKey } from '../../consts';
 import { imitateLogin } from '../../helpers/imitateLogin';
+import { LanguageSwitcher } from '../../components/ui/LanguageSwitcher/LanguageSwitcher';
  
 //TODO make LoginForm component
 function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const {navigate, routes} = useNavigation();
+  const translate = useTranslation();
 
    async function handleLoginFormSubmit(e) {
       e.preventDefault();
@@ -28,10 +30,12 @@ function LoginPage() {
       }
     }
 
+   
 
     return (
         <div className="d-flex justify-content-center align-items-center">
               <Form onSubmit={handleLoginFormSubmit}>
+                  <LanguageSwitcher />
                 <Form.Group controlId="formBasicEmail">
                   <Form.Label>Email address</Form.Label>
                   <Form.Control
@@ -54,7 +58,7 @@ function LoginPage() {
                 
                 <div className="d-flex justify-content-between">
                     <Button
-                        title="Login"
+                        title={translate(({buttons}) => buttons.login)}
                         type={ButtonActionTypes.Submit}
                         variant={ButtonVariants.Primary}
                         onClick={handleLoginFormSubmit}
