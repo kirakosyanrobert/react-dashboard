@@ -10,6 +10,7 @@ function Sidebar() {
   const Links = [
     {title: 'Home', path: routes.home},
     {title: 'Moderators', path: routes.moderators},
+    {title: 'Organizations', path: routes.organizations},
     {title: 'Settings', path: routes.settings}
   ]
 
