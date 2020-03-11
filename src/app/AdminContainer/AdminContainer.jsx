@@ -8,6 +8,7 @@ import ModeratorsPage from '../../pages/ModeratorsPage/ModeratorsPage';
 import SettingsPage from '../../pages/SettingsPage/SettingsPage';
 import OrganizationsPage from '../../pages/OrganizationsPage/OrganizationsPage';
 import CreateOrganizationPage from '../../pages/CreateOrganizationPage/CreateOrganizationPage';
+import OrganizationDetailsPage from '../../pages/OrganizationDetailsPage/OrganizationDetailsPage';
 
 
 
@@ -18,6 +19,7 @@ function AdminContainer () {
         Home: '/home',
         Moderators: '/moderators',
         Organizations: '/organizations',
+        OrganizationDetails: '/organizations/:id',
         CreateOrganization: '/create-organization',
         Settings: '/settings',
     }
@@ -29,6 +31,12 @@ function AdminContainer () {
                 <Route exact guarded path={AdminRoutes.Home} component={HomePage} />
                 <Route exact guarded path={AdminRoutes.Moderators} component={ModeratorsPage} />
                 <Route exact guarded path={AdminRoutes.Organizations} component={OrganizationsPage} />
+                <Route 
+                    exact 
+                    guarded 
+                    path={AdminRoutes.OrganizationDetails} 
+                    component={OrganizationDetailsPage} 
+                />
                 <Route
                     exact
                     guarded

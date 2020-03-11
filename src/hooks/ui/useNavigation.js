@@ -4,6 +4,7 @@ const routes = {
     home: '/home',
     moderators: '/moderators',
     organizations: '/organizations',
+    organizationDetails: (id) => `/organizations/${id}`,
     createOrganization: '/create-organization',
     settings: '/settings',
     login: '/login',
