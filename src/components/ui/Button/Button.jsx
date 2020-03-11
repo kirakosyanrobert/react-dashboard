@@ -27,6 +27,7 @@ export const ButtonSizes = {
 
 //TODO: add Loading, Left and Right Icons for Button
 export function Button({
+    className,
     title,
     outlined = false,
     variant = ButtonVariants.Secondary,
@@ -45,6 +46,7 @@ export function Button({
             block={block}
             disabled={disabled}
             onClick={onClick}
+            className={className}
         >
             {title}
         </BaseButton>

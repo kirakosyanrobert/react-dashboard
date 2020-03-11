@@ -18,9 +18,11 @@ function OrganizationsPage () {
             setOrganizations(JSON.parse(orgData));
         }
     });
-    
 
 
+    function handleNavigateOrganizationDetailsPage(orgId) {
+        navigate(routes.organizationDetails(orgId))
+    }
 
 
     function handleDeleteOrganization(organizationId) {
@@ -51,7 +53,7 @@ function OrganizationsPage () {
             ?
                 <OrganizationsTable
                     organizations={organizations}
-                    onEdit={(orgId) => console.log(orgId)}
+                    onDetails={handleNavigateOrganizationDetailsPage}
                     onDelete={handleDeleteOrganization}
                 />
             :

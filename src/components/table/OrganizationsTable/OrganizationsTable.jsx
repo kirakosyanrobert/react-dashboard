@@ -4,7 +4,7 @@ import { Button, ButtonVariants } from '../../ui/Button';
 
 function OrganizationsTable ({
     organizations,
-    onEdit,
+    onDetails,
     onDelete,
 }) {
     return (
@@ -13,7 +13,7 @@ function OrganizationsTable ({
                 <tr>
                     <th>#</th>
                     <th>Title</th>
-                    <th>Edit</th>
+                    <th>Details</th>
                     <th>Delete</th>
                 </tr>
             </thead>
@@ -24,10 +24,10 @@ function OrganizationsTable ({
                         <td>{organization.title}</td>
                         <td>
                             <Button
-                                title="Edit"
+                                title="Details"
                                 outlined
                                 variant={ButtonVariants.Primary}
-                                onClick={() => onEdit(organization.id)}
+                                onClick={() => onDetails(organization.id)}
                             />
                         </td>
                         <td>
