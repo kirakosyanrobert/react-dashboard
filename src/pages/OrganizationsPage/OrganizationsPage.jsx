@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { Button, ButtonVariants } from '../../components/ui/Button';
-import { useNavigation, useEffectOnce } from '../../hooks';
+import { useNavigation, useEffectOnce, useTranslation } from '../../hooks';
 import { StorageKey } from '../../consts';
 import OrganizationsTable from '../../components/table/OrganizationsTable/OrganizationsTable';
 
@@ -9,6 +9,7 @@ import OrganizationsTable from '../../components/table/OrganizationsTable/Organi
 function OrganizationsPage () {
     const [organizations, setOrganizations] = useState([]);
     const { routes, navigate } = useNavigation();
+    const translate = useTranslation();
 
     useEffectOnce(() => {
         const orgData = localStorage.getItem(StorageKey.Organizations);
@@ -43,7 +44,7 @@ function OrganizationsPage () {
         <div className="px-4">
             <div className="d-flex py-4">
                 <Button
-                    title="Create Organization >>"
+                    title={translate(({buttons}) => buttons.createOrganization)}
                     variant={ButtonVariants.Primary}
                     onClick={() => navigate(routes.createOrganization)}
                 />

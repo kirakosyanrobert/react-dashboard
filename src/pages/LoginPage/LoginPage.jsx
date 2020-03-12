@@ -37,20 +37,18 @@ function LoginPage() {
               <Form onSubmit={handleLoginFormSubmit}>
                   <LanguageSwitcher />
                 <Form.Group controlId="formBasicEmail">
-                  <Form.Label>Email address</Form.Label>
+                  <Form.Label>{translate(({inputs}) => inputs.email.title)}</Form.Label>
                   <Form.Control
                     type="email"
-                    placeholder="Enter email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPassword">
-                  <Form.Label>Password</Form.Label>
+                  <Form.Label>{translate(({inputs}) => inputs.password.title)}</Form.Label>
                   <Form.Control
                     type="password"
-                    placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
@@ -58,13 +56,14 @@ function LoginPage() {
                 
                 <div className="d-flex justify-content-between">
                     <Button
+                        className="mr-4"
                         title={translate(({buttons}) => buttons.login)}
                         type={ButtonActionTypes.Submit}
                         variant={ButtonVariants.Primary}
                         onClick={handleLoginFormSubmit}
                       />
                     <Button
-                        title="Sign up first"
+                        title={translate(({buttons}) => buttons.signUp)}
                         variant={ButtonVariants.Light}
                         onClick={() => navigate(routes.signUp)}
                     />

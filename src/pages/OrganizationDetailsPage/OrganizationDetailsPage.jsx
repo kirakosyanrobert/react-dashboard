@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { useNavigation, useEffectOnce } from '../../hooks';
+import { useNavigation, useEffectOnce, useTranslation } from '../../hooks';
 import { Button } from '../../components/ui/Button';
 import { StorageKey } from '../../consts';
 import OrganizationDetailsForm from '../../components/forms/OrganizationDetailsForm';
@@ -10,6 +10,7 @@ function OrganizationDetailsPage() {
     const [organization, setOrganization] = useState({});
     const [allowEdit, setAllowEdit] = useState(false);
     const { routes, navigate } = useNavigation();
+    const translate = useTranslation();
     const { id: orgId } = useParams(); 
 
     useEffectOnce(() => {
@@ -48,7 +49,7 @@ function OrganizationDetailsPage() {
                     onClick={() => navigate(routes.organizations)}
                 />
                  <Button
-                    title={allowEdit ? "Discard" : "Edit"}
+                    title={allowEdit ? translate(({buttons}) => buttons.cancel) : translate(({buttons}) => buttons.edit)}
                     outlined
                     onClick={() => setAllowEdit(!allowEdit)}
                 />

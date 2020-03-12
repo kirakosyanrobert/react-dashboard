@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { useEffectOnce } from '../../hooks'
+import { useEffectOnce, useTranslation } from '../../hooks'
 import ModeratorsTable from '../../components/table/ModeratorsTable/ModeratorsTable';
 import Modal from '../../components/ui/Modal/Modal';
 import { Button, ButtonVariants } from '../../components/ui/Button';
@@ -13,6 +13,7 @@ function ModeratorsPage() {
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
     const [updatingModerator, setUpdatingModerator] = useState({});
+    const translate = useTranslation();
 
     useEffectOnce(() => {
         const moderatorsData = JSON.parse(localStorage.getItem(StorageKey.Moderators));
@@ -77,7 +78,7 @@ function ModeratorsPage() {
 
             <div className="d-flex py-4">
                 <Button
-                    title="Create new Moderator"
+                    title={translate(({buttons}) => buttons.createModerator)}
                     variant={ButtonVariants.Primary}
                     onClick={() => setShowCreateModal(true)}
                 />
