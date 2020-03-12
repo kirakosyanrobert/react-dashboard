@@ -19,7 +19,7 @@ export function LanguageSwitcher () {
     }
 
     return (
-        <div className="d-flex justify-content-between" style={{width: 150}}>
+        <div className="d-flex justify-content-between" style={{width: 150, margin: '.5rem auto'}}>
             <Button
                 title="EN"
                 size={ButtonSizes.Small}

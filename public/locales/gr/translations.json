@@ -1,5 +1,61 @@
 {
     "buttons": {
-        "login": "Login GR"
+        "login": "Login",
+        "logOut": "Log Out",
+        "signUp": "Sign Up",
+        "close": "Close",
+        "create": "Create",
+        "edit": "Edit",
+        "delete": "Delete",
+        "details": "Details",
+        "save": "Save",
+        "cancel": "Cancel",
+        "createModerator": "Create Moderator",
+        "createOrganization": "Create Organization"
+    },
+    "inputs": {
+        "email": {
+            "title": "Email"
+        },
+        "password": {
+            "title": "Password"
+        },
+        "firstName": {
+            "title": "First name"
+        },
+        "lastName": {
+            "title": "Last name"
+        },
+        "title": {
+            "title": "Title"
+        },
+        "website": {
+            "title": "Website"
+        },
+        "address": {
+            "title": "Address"
+        },
+        "postCode": {
+            "title": "Postcode"
+        },
+        "numberOfFloors": {
+            "title": "Number of floors"
+        }
+    },
+    "navigation": {
+        "home": "Home",
+        "moderators": "Moderators",
+        "organizations": "Organizations",
+        "settings": "Settings"
+    },
+    "table": {
+        "firstName": "First name",
+        "lastName": "Last name",
+        "email": "Email",
+        "password": "Password",
+        "edit": "Edit",
+        "details": "Details",
+        "delete": "Delete",
+        "title": "Title"
     }
 }

@@ -3,19 +3,23 @@ import { NavLink } from 'react-router-dom';
 
 import './Sidebar.scss';
 import { useNavigation } from '../../hooks';
+import { useTranslation } from '../../hooks';
+import { LanguageSwitcher } from '../ui/LanguageSwitcher'
 
 function Sidebar() {
   const { routes } = useNavigation();
+  const translate = useTranslation();
 
   const Links = [
-    {title: 'Home', path: routes.home},
-    {title: 'Moderators', path: routes.moderators},
-    {title: 'Organizations', path: routes.organizations},
-    {title: 'Settings', path: routes.settings}
+    {title: translate(({navigation}) => navigation.home), path: routes.home},
+    {title: translate(({navigation}) => navigation.moderators), path: routes.moderators},
+    {title: translate(({navigation}) => navigation.organizations), path: routes.organizations},
+    {title: translate(({navigation}) => navigation.settings), path: routes.settings}
   ]
 
     return (
          <div className="bg-light border-right" id="sidebar-wrapper">
+           <LanguageSwitcher />
             <div className="sidebar-heading">Gmap Dashboard</div>
             <div className="list-group list-group-flush">
               {Links.map((link, index) => (

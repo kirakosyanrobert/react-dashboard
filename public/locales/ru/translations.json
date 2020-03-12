@@ -1,5 +1,61 @@
 {
     "buttons": {
-        "login": "Войти"
+        "login": "Войти",
+        "logOut": "Выйти",
+        "signUp": "Зарегистрироваться",
+        "close": "Закрыть",
+        "create": "Создать",
+        "edit": "Изменить",
+        "delete": "Удалить",
+        "details": "Детали",
+        "save": "Сохранить",
+        "cancel": "Отменить",
+        "createModerator": "Создать Модератора",
+        "createOrganization": "Создать Организацию"
+    },
+    "inputs": {
+        "email": {
+            "title": "Почта"
+        },
+        "password": {
+            "title": "Пароль"
+        },
+        "firstName": {
+            "title": "Имя"
+        },
+        "lastName": {
+            "title": "Фамилия"
+        },
+        "title": {
+            "title": "Название"
+        },
+        "website": {
+            "title": "Сайт"
+        },
+        "address": {
+            "title": "Адрес"
+        },
+        "postCode": {
+            "title": "Почтовый Индекс"
+        },
+        "numberOfFloors": {
+            "title": "Количество этажей"
+        }
+    },
+    "navigation": {
+        "home": "Главная",
+        "moderators": "Модераторы",
+        "organizations": "Организации",
+        "settings": "Настройки"
+    },
+    "table": {
+        "firstName": "Имя",
+        "lastName": "Фамилия",
+        "email": "Почта",
+        "password": "Пароль",
+        "edit": "Изменить",
+        "details": "Детали",
+        "delete": "Удалить",
+        "title": "Название"
     }
 }

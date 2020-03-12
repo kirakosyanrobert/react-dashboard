@@ -10,6 +10,7 @@ function CreateOrganizationPage () {
     const { routes, navigate } = useNavigation();
 
     function handleCreate(newOrganization) {
+        console.log(newOrganization)
         //Request To Create
         //Success
         // I dont check orgData exists or not;

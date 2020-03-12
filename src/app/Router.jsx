@@ -4,7 +4,7 @@ import { createBrowserHistory } from 'history';
 
 import AdminContainer from './AdminContainer/AdminContainer';
 import LoginPage from '../pages/LoginPage/LoginPage';
-import SignUpPage from '../pages/SigeUpPage/SigeUpPage';
+import SignUpPage from '../pages/SignUpPage/SignUpPage';
 import { Route } from '../components/ui/Route';
 
 import { useEffectOnce } from '../hooks';

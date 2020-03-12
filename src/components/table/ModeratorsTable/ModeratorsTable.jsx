@@ -1,23 +1,29 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
+
 import { Button, ButtonVariants } from '../../ui/Button';
+import { useTranslation } from '../../../hooks';
+
 
 function ModeratorsTable ({
     moderators,
     onEdit,
     onDelete,
 }) {
+
+    const translate = useTranslation();
+
     return (
         <Table bordered hover size="sm" responsive="md">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Password</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    <th>{translate(({table}) => table.firstName)}</th>
+                    <th>{translate(({table}) => table.lastName)}</th>
+                    <th>{translate(({table}) => table.email)}</th>
+                    <th>{translate(({table}) => table.password)}</th>
+                    <th>{translate(({table}) => table.edit)}</th>
+                    <th>{translate(({table}) => table.delete)}</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,7 +36,7 @@ function ModeratorsTable ({
                         <td>{moderator.password}</td>
                         <td>
                             <Button
-                                title="Edit"
+                                title={translate(({buttons}) => buttons.edit)}
                                 outlined
                                 variant={ButtonVariants.Primary}
                                 onClick={() => onEdit(moderator)}
@@ -38,7 +44,7 @@ function ModeratorsTable ({
                         </td>
                         <td>
                             <Button
-                                title="Delete"
+                                title={translate(({buttons}) => buttons.delete)}
                                 outlined
                                 variant={ButtonVariants.Danger}
                                 onClick={() => onDelete(moderator.id)}
