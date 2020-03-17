@@ -3,7 +3,7 @@ import React from 'react';
 import { Button } from '../../components/ui/Button';
 import { useNavigation } from '../../hooks';
 import { StorageKey } from '../../consts';
-import CreateOrganizationForm from '../../components/forms/CreateOrganizationForm';
+import CreateOrganizationForm from '../../components/forms/CreateOrganizationForm/CreateOrganizationForm';
 
 
 function CreateOrganizationPage () {

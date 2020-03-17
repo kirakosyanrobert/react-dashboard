@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Form, InputGroup, FormControl, Badge } from 'react-bootstrap';
 import { v4 as uuid } from 'uuid';
 
-import { Button, ButtonVariants, ButtonActionTypes } from '../ui/Button';
-import { useTranslation } from '../../hooks';
+import './CreateOrganizationForm.scss';
+import { Button, ButtonVariants, ButtonActionTypes } from '../../ui/Button';
+import { useTranslation } from '../../../hooks';
 
 // title: '',
 // email: '',
@@ -68,6 +69,7 @@ function CreateOrganizationForm ({onCreate}) {
     const [phoneNumbers, setPhoneNumbers] = useState(['']);
     const [newTag, setNewTag] = useState('#');
     const [tags, setTags] = useState([]);
+    const [workingHours, setWorkingHours] = useState([[], [], [], [], [], [], []]);
 
 
 
@@ -85,7 +87,8 @@ function CreateOrganizationForm ({onCreate}) {
                 numberOfFloors: +numberOfFloors,
                 coordinates: {...coordinates, lat: +coordinates.lat, lon: +coordinates.lon},
                 phoneNumbers,
-                tags
+                tags,
+                workingHours
             };
             onCreate(org);
         } else {
@@ -121,6 +124,12 @@ function CreateOrganizationForm ({onCreate}) {
     }
 
     // function handleRemoveTag() {}
+
+    function handleGetWorkingHours (index, place, value) {
+        const tempWorkingHours = [...workingHours];
+        tempWorkingHours[index][place] = value;
+        setWorkingHours(tempWorkingHours);
+    }
 
     return (
         <Form onSubmit={handleSubmit}>
@@ -246,18 +255,39 @@ function CreateOrganizationForm ({onCreate}) {
                 </div>
             </Form.Group>
 
-            <div className="d-flex flex-nowrap justify-content-between bg-light mb-4"
-                 >
+            <div className="timepicker-container">
                 {days.map((day, index) => (
-                        <div key={`day-${index}`}>
-                            {day}
-                            {hours.map((hour, i) => (
-                                <div key={`hour-${i}`}>
-                                    {hour}
-                                </div>
-                            ))}
+                        <div key={`day-${index}`} className="timepicker-element">
+                            <h5>{day}</h5>
+                            <Form.Group > 
+                                <Form.Label>Start</Form.Label>
+                                <Form.Control
+                                    as="select"
+                                    size="5"
+                                    onChange={(e) => handleGetWorkingHours(index, 0, e.target.value)}
+                                >
+                                    {hours.map((hour, i) => (
+                                        <option key={`start-hour-${i}`} value={hour}>
+                                            {hour}
+                                        </option>
+                                    ))}
+                                </Form.Control>
+                            </Form.Group>
+
+                            <Form.Group>
+                                <Form.Label>End</Form.Label>
+                                <Form.Control
+                                    as="select"
+                                    onChange={(e) => handleGetWorkingHours(index, 1, e.target.value)}
+                                >
+                                    {hours.map((hour, i) => (
+                                        <option key={`end-hour-${i}`} value={hour}>
+                                            {hour}
+                                        </option>
+                                    ))}
+                                </Form.Control>
+                            </Form.Group>
                         </div>
-                       
                 ))}
             </div>
 
