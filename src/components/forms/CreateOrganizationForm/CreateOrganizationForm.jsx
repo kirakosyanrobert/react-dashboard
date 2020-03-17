@@ -15,7 +15,6 @@ import { useTranslation } from '../../../hooks';
 // coordinates:  {lat: number, lon: number},
 // phoneNumber: ['', ''],
 // tags: ['', '', '']
-
 // workingHours: [[['9:00', '18:00'], [...], [...], [...], [], [], []]]
 
 const hours = [
@@ -46,13 +45,13 @@ const hours = [
 ];
 
 const days = [
-    'Mon',
-    'Tue',
-    'Wed',
-    'Thu',
-    'Fri',
-    'Sat',
-    'Sun'
+    'monday',
+    'tuesday',
+    'wednesday',
+    'thursday',
+    'friday',
+    'saturday',
+    'sunday'
 ]
 
 //TODO: create smaller components for this form
@@ -184,7 +183,7 @@ function CreateOrganizationForm ({onCreate}) {
 
 
             <Form.Group>
-                <Form.Label>{'Latitude'}</Form.Label>
+                <Form.Label>{translate(({inputs}) => inputs.latitude.title)}</Form.Label>
                 <Form.Control
                     type="number"
                     value={coordinates.lat}
@@ -192,7 +191,7 @@ function CreateOrganizationForm ({onCreate}) {
                 />
             </Form.Group>
             <Form.Group>
-                <Form.Label>{'Longitude'}</Form.Label>
+                <Form.Label>{translate(({inputs}) => inputs.longitude.title)}</Form.Label>
                 <Form.Control
                     type="number"
                     value={coordinates.lon}
@@ -203,7 +202,7 @@ function CreateOrganizationForm ({onCreate}) {
 
             {phoneNumbers.map((item, index) => (
                 <Form.Group key={`phone-number-input-${index}`}>
-                    <Form.Label>{`Phone number ${index + 1}`}</Form.Label>
+                    <Form.Label>{`${translate(({inputs}) => inputs.phoneNumber.title)} ${index + 1}`}</Form.Label>
                     <InputGroup className="mb-3">
                         <FormControl
                             type="text"
@@ -231,7 +230,7 @@ function CreateOrganizationForm ({onCreate}) {
 
 
             <Form.Group>
-                <Form.Label>Tags</Form.Label>
+                <Form.Label>{translate(({inputs}) => inputs.tags.title)}</Form.Label>
                 <InputGroup className="mb-3">
                     <Form.Control 
                         type="text"
@@ -240,7 +239,7 @@ function CreateOrganizationForm ({onCreate}) {
                     />
                     <InputGroup.Append>
                         <Button
-                            title="Add"
+                            title={translate(({buttons}) => buttons.add)}
                             outlined
                             onClick={handleAddTag}
                         />
@@ -258,9 +257,9 @@ function CreateOrganizationForm ({onCreate}) {
             <div className="timepicker-container">
                 {days.map((day, index) => (
                         <div key={`day-${index}`} className="timepicker-element">
-                            <h5>{day}</h5>
+                            <h5>{translate(({days}) => days[day])}</h5>
                             <Form.Group > 
-                                <Form.Label>Start</Form.Label>
+                                <Form.Label>{translate(({inputs}) => inputs.start.title)}</Form.Label>
                                 <Form.Control
                                     as="select"
                                     size="5"
@@ -275,7 +274,7 @@ function CreateOrganizationForm ({onCreate}) {
                             </Form.Group>
 
                             <Form.Group>
-                                <Form.Label>End</Form.Label>
+                                <Form.Label>{translate(({inputs}) => inputs.end.title)}</Form.Label>
                                 <Form.Control
                                     as="select"
                                     onChange={(e) => handleGetWorkingHours(index, 1, e.target.value)}
