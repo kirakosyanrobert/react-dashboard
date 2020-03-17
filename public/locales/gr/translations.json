@@ -9,6 +9,7 @@
         "delete": "Delete",
         "details": "Details",
         "save": "Save",
+        "add": "Add",
         "cancel": "Cancel",
         "createModerator": "Create Moderator",
         "createOrganization": "Create Organization"
@@ -40,6 +41,24 @@
         },
         "numberOfFloors": {
             "title": "Number of floors"
+        },
+        "latitude": {
+            "title": "Latitude"
+        },
+        "longitude": {
+            "title": "Longitude"
+        },
+        "phoneNumber": {
+            "title": "Phone number"
+        },
+        "tags": {
+            "title": "Tags"
+        },
+        "start": {
+            "title": "Start"
+        },
+        "end": {
+            "title": "End"
         }
     },
     "navigation": {
@@ -57,5 +76,14 @@
         "details": "Details",
         "delete": "Delete",
         "title": "Title"
+    },
+    "days": {
+        "monday": "MO",
+        "tuesday": "TU",
+        "wednesday": "WE",
+        "thursday": "TH",
+        "friday": "FR",
+        "saturday": "SA",
+        "sunday": "SU"
     }
 }

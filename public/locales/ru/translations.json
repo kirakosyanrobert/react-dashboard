@@ -9,6 +9,7 @@
         "delete": "Удалить",
         "details": "Детали",
         "save": "Сохранить",
+        "add": "Добавить",
         "cancel": "Отменить",
         "createModerator": "Создать Модератора",
         "createOrganization": "Создать Организацию"
@@ -40,6 +41,24 @@
         },
         "numberOfFloors": {
             "title": "Количество этажей"
+        },
+        "latitude": {
+            "title": "Широта"
+        },
+        "longitude": {
+            "title": "Долгота"
+        },
+        "phoneNumber": {
+            "title": "Номер телефона"
+        },
+        "tags": {
+            "title": "Теги"
+        },
+        "start": {
+            "title": "Начало"
+        },
+        "end": {
+            "title": "Конец"
         }
     },
     "navigation": {
@@ -57,5 +76,14 @@
         "details": "Детали",
         "delete": "Удалить",
         "title": "Название"
+    },
+    "days": {
+        "monday": "ПН",
+        "tuesday": "ВТ",
+        "wednesday": "СР",
+        "thursday": "ЧТ",
+        "friday": "ПТ",
+        "saturday": "СБ",
+        "sunday": "ВС"
     }
 }

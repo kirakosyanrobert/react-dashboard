@@ -9,6 +9,7 @@ export const Dictionary = {
         delete: 'buttons.delete',
         details: 'buttons.details',
         save: 'buttons.save',
+        add: 'buttons.add',
         cancel: 'buttons.cancel',
         createModerator: 'buttons.createModerator',
         createOrganization: 'buttons.createOrganization',
@@ -40,6 +41,24 @@ export const Dictionary = {
         },
         numberOfFloors: {
             title: 'inputs.numberOfFloors.title'
+        },
+        latitude: {
+            title: 'inputs.latitude.title'
+        },
+        longitude: {
+            title: 'inputs.longitude.title'
+        },
+        phoneNumber: {
+            title: 'inputs.phoneNumber.title'
+        },
+        tags: {
+            title: 'inputs.tags.title'
+        },
+        start: {
+            title: 'inputs.start.title'
+        },
+        end: {
+            title: 'inputs.end.title'
         }
     },
     navigation: {
@@ -57,5 +76,14 @@ export const Dictionary = {
         details: 'table.details',
         delete: 'table.delete',
         title: 'table.title'
+    },
+    days: {
+        monday: 'days.monday',
+        tuesday: 'days.tuesday',
+        wednesday: 'days.wednesday',
+        thursday: 'days.thursday',
+        friday: 'days.friday',
+        saturday: 'days.saturday',
+        sunday: 'days.sunday',
     }
 }
