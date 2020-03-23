@@ -4,6 +4,7 @@ import { Button } from '../../components/ui/Button';
 import { useNavigation } from '../../hooks';
 import { StorageKey } from '../../consts';
 import CreateOrganizationForm from '../../components/forms/CreateOrganizationForm/CreateOrganizationForm';
+import { MapView } from '../../components/maps/MapView/MapView';
 
 
 function CreateOrganizationPage () {
@@ -29,6 +30,8 @@ function CreateOrganizationPage () {
                     onClick={() => navigate(routes.organizations)}
                 />
             </div>
+            
+            <MapView />
 
             <CreateOrganizationForm onCreate={handleCreate} />
         </div>
