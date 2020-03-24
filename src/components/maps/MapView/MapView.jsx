@@ -4,20 +4,12 @@ import 'ol/ol.css';
 import { Map, View } from 'ol';
 import TileLayer from 'ol/layer/Tile';
 import OSM from "ol/source/OSM";
-import XYZ from "ol/source/XYZ";
-
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import Feature from 'ol/Feature';
-import { circular } from 'ol/geom/Polygon';
 import Point from 'ol/geom/Point';
-import {Style, Icon, Fill} from 'ol/style';
-
-import Zoom from 'ol/control/Zoom';
-import * as MapEvents from 'ol/events';
+import {Style, Icon} from 'ol/style';
 import Control from 'ol/control/Control';
-import { Interaction } from 'ol/interaction';
-import Modify from 'ol/interaction/Modify';
 import { transform } from 'ol/proj';
 import { Icons } from '../../../environment'
 
@@ -29,15 +21,13 @@ function fromLonLat (coordinates) {
     //return Array with coordinates for OL
 }
 
-// const iconStyle = new Style({
-//     image: new Icon({
-//             size: [50, 50],
-//             offset: [50, 50],
-//             color: '#8959A8',
-//             crossOrigin: 'anonymous',
-//             src: Icons.rest
-//         })
-//  });
+const iconStyle = new Style({
+    image: new Icon({
+            anchor: [0.5, 1],
+            crossOrigin: 'anonymous',
+            src: Icons.marker
+        })
+ });
 
 export class MapView extends Component {
     constructor(props) {
@@ -57,11 +47,9 @@ export class MapView extends Component {
           view: new View({
             center: this.state.center,
             zoom: this.state.zoom,
-            maxZoom : 100,
+            maxZoom : 20,
             minZoom : 7,
           }),
-        //   controls: [],
-        //   interactions: [],
         });
       }
 
@@ -74,12 +62,13 @@ export class MapView extends Component {
 
         navigator.geolocation.watchPosition((pos) => {
                 const coords = [pos.coords.longitude, pos.coords.latitude];
-                const accuracy = circular(coords, pos.coords.accuracy);
+                const iconFeature = new Feature({
+                    geometry: new Point(fromLonLat(coords))
+                 });
+                iconFeature.setStyle(iconStyle);
+
                 source.clear(true);
-                source.addFeatures([
-                    // new Feature(accuracy.transform('EPSG:4326', this.map.getView().getProjection())),
-                    new Feature(new Point(fromLonLat(coords)))
-                ]);
+                source.addFeatures([iconFeature]);
             },
                 function(error) {
                     alert(`ERROR: ${error.message}`);
@@ -92,11 +81,11 @@ export class MapView extends Component {
 
           const locate = document.createElement('div');
           locate.className = 'ol-control ol-unselectable locate';
-          locate.innerHTML = '<button title="Locate me">◎</button>';
+          locate.innerHTML = '<button type="button" title="Locate me">◎</button>';
           locate.addEventListener('click', () => {
           if (!source.isEmpty()) {
               this.map.getView().fit(source.getExtent(), {
-                maxZoom: 18,
+                maxZoom: 20,
                 duration: 500,
               });
           }
@@ -106,24 +95,6 @@ export class MapView extends Component {
           }));
 
 
-
-
-        //   const formattedFeatures = features.map(feature => {
-        //         const point = fromLonLat(feature.geometry.coordinates);
-        //         const icon = new Feature({geometry: point, featureData: feature});
-
-        //         icon.setStyle(new Style({
-        //             image: new Icon({
-        //                     color: '#8959A8',
-        //                     crossOrigin: 'anonymous',
-        //                     src: 'rest.svg'
-        //                 })
-        //         }));
-    
-        //         return icon;
-        //     });
-    
-       
         const source = new VectorSource();
         const layer = new VectorLayer({
             source: source
@@ -131,17 +102,18 @@ export class MapView extends Component {
 
         this.map.addLayer(layer);
 
-        this.map.on('click', function(e) {
+        this.map.on('click', (e) => {
             const position = e.coordinate;
+
             //convert OL format to global
             const lonlat = transform(position, 'EPSG:900913', 'EPSG:4326');
-            console.log(lonlat)
+            this.props.getCoords(lonlat)
 
             const iconFeature = new Feature({
                 geometry: new Point(position)
              });
 
-            // iconFeature.setStyle(iconStyle);
+            iconFeature.setStyle(iconStyle);
             layer.getSource().clear();
             layer.getSource().addFeature(iconFeature);
         })
@@ -169,7 +141,7 @@ export class MapView extends Component {
     render() {
         this.updateMap(); // Update map on render?
         return (
-            <div id="map" style={{ width: "100%", height: "400px" }}></div>
+            <div id="map" style={{ width: "100%", height: "500px" }}></div>
         );
     }
 }

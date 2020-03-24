@@ -5,6 +5,8 @@ import { v4 as uuid } from 'uuid';
 import './CreateOrganizationForm.scss';
 import { Button, ButtonVariants, ButtonActionTypes } from '../../ui/Button';
 import { useTranslation } from '../../../hooks';
+import { MapView } from '../../maps/MapView/MapView';
+import { MapCard } from '../../maps/MapCard/MapCard';
 
 // title: '',
 // email: '',
@@ -70,6 +72,8 @@ function CreateOrganizationForm ({onCreate}) {
     const [tags, setTags] = useState([]);
     const [workingHours, setWorkingHours] = useState([[], [], [], [], [], [], []]);
 
+    const [openMapView, setOpenMapView] = useState(false);
+
 
 
     function handleSubmit (e) {
@@ -84,7 +88,7 @@ function CreateOrganizationForm ({onCreate}) {
                 address,
                 postCode: +postCode,
                 numberOfFloors: +numberOfFloors,
-                coordinates: {...coordinates, lat: +coordinates.lat, lon: +coordinates.lon},
+                coordinates,
                 phoneNumbers,
                 tags,
                 workingHours
@@ -130,7 +134,15 @@ function CreateOrganizationForm ({onCreate}) {
         setWorkingHours(tempWorkingHours);
     }
 
+    function handleGetCoords (coords) {
+        setCoordinates({
+            lon: coords[0],
+            lat: coords[1]
+        })
+    }
+
     return (
+        <>
         <Form onSubmit={handleSubmit}>
             <Form.Group>
                 <Form.Label>{translate(({inputs}) => inputs.title.title)}</Form.Label>
@@ -198,6 +210,20 @@ function CreateOrganizationForm ({onCreate}) {
                     onChange={(e) => setCoordinates({...coordinates, lon: e.target.value})}
                 />
             </Form.Group>
+
+            <MapCard lon={coordinates.lon} lat={coordinates.lat} />
+            <Button
+                className="mb-4"
+                variant={ButtonVariants.Primary}
+                title={openMapView ? 'Hide map' : 'Show on map'}
+                onClick={() => setOpenMapView(!openMapView)}
+            />
+            {openMapView &&
+                <div
+                    className="mb-4">
+                    <MapView getCoords={handleGetCoords} />
+                </div>
+            }
 
 
             {phoneNumbers.map((item, index) => (
@@ -298,6 +324,7 @@ function CreateOrganizationForm ({onCreate}) {
                 onClick={handleSubmit}
             />
         </Form>
+        </>
     )
 }
 export default CreateOrganizationForm;
