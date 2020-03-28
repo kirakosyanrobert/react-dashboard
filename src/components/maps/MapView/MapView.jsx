@@ -58,8 +58,6 @@ export class MapView extends Component {
     componentDidMount() {
         this.map.setTarget("map");
 
-      
-
         navigator.geolocation.watchPosition((pos) => {
                 const coords = [pos.coords.longitude, pos.coords.latitude];
                 const iconFeature = new Feature({
@@ -104,10 +102,11 @@ export class MapView extends Component {
 
         this.map.on('click', (e) => {
             const position = e.coordinate;
+            const zoom = e.map.getView().getZoom();
 
             //convert OL format to global
             const lonlat = transform(position, 'EPSG:900913', 'EPSG:4326');
-            this.props.getCoords(lonlat)
+           
 
             const iconFeature = new Feature({
                 geometry: new Point(position)
@@ -116,6 +115,12 @@ export class MapView extends Component {
             iconFeature.setStyle(iconStyle);
             layer.getSource().clear();
             layer.getSource().addFeature(iconFeature);
+
+            this.props.getCoords(lonlat);
+            this.setState({
+                center: position,
+                zoom
+            });
         })
 
     
