@@ -18,10 +18,11 @@ function ModeratorsTable ({
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>{translate(({table}) => table.firstName)}</th>
-                    <th>{translate(({table}) => table.lastName)}</th>
-                    <th>{translate(({table}) => table.email)}</th>
+                    <th>{translate(({table}) => table.username)}</th>
                     <th>{translate(({table}) => table.password)}</th>
+                    <th>{translate(({table}) => table.name)}</th>
+                    <th>{translate(({table}) => table.phoneNumber)}</th>
+
                     <th>{translate(({table}) => table.edit)}</th>
                     <th>{translate(({table}) => table.delete)}</th>
                 </tr>
@@ -30,10 +31,10 @@ function ModeratorsTable ({
                 {moderators.map((moderator, index) => (
                     <tr key={moderator.id}>
                         <td>{index + 1}</td>
-                        <td>{moderator.firstName}</td>
-                        <td>{moderator.lastName}</td>
-                        <td>{moderator.email}</td>
+                        <td>{moderator.username}</td>
                         <td>{moderator.password}</td>
+                        <td>{moderator.name}</td>
+                        <td>{moderator.phoneNumber}</td>
                         <td>
                             <Button
                                 title={translate(({buttons}) => buttons.edit)}

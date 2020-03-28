@@ -5,13 +5,13 @@ import { Button, ButtonVariants, ButtonActionTypes } from '../ui/Button';
 import { useTranslation } from '../../hooks';
 
 
-function UpdateModeratorForm ({moderator, onUpdate}) {
+function UpdateModeratorForm ({moderator, onUpdate, onClose}) {
     const [formData, setFormData] = useState(moderator);
     const translate = useTranslation();
    
     function handleSubmit (e) {
         e.preventDefault();
-        if(!!formData.firstName && !!formData.lastName && !!formData.email && !!formData.password) {
+        if(!!formData.username && !!formData.password && !!formData.name && !!formData.phoneNumber) {
           onUpdate(formData);
         } else {
           alert('Inputs can`t be empty!');
@@ -21,29 +21,12 @@ function UpdateModeratorForm ({moderator, onUpdate}) {
     return (
             <Form onSubmit={handleSubmit}>
                 <Form.Group>
-                  <Form.Label>{translate(({inputs}) => inputs.firstName.title)}</Form.Label>
+                  <Form.Label>{translate(({inputs}) => inputs.username.title)}</Form.Label>
                   <Form.Control
                     type="text"
-                    value={formData.firstName}
-                    onChange={(e) => setFormData({...formData, 'firstName': e.target.value})}
+                    value={formData.username}
+                    onChange={(e) => setFormData({...formData, 'username': e.target.value})}
                   />
-                </Form.Group>
-                <Form.Group>
-                  <Form.Label>{translate(({inputs}) => inputs.lastName.title)}</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={formData.lastName}
-                    onChange={(e) => setFormData({...formData, 'lastName': e.target.value})}
-                  />
-                </Form.Group>
-
-                <Form.Group>
-                    <Form.Label>{translate(({inputs}) => inputs.email.title)}</Form.Label>
-                    <Form.Control
-                        type="email"
-                        value={formData.email}
-                        onChange={(e) => setFormData({...formData, 'email': e.target.value})}
-                    />
                 </Form.Group>
                 <Form.Group>
                   <Form.Label>{translate(({inputs}) => inputs.password.title)}</Form.Label>
@@ -53,11 +36,34 @@ function UpdateModeratorForm ({moderator, onUpdate}) {
                     onChange={(e) => setFormData({...formData, 'password': e.target.value})}
                   />
                 </Form.Group>
+                <Form.Group>
+                  <Form.Label>{translate(({inputs}) => inputs.name.title)}</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={formData.name}
+                    onChange={(e) => setFormData({...formData, 'name': e.target.value})}
+                  />
+                </Form.Group>
+
+                <Form.Group>
+                    <Form.Label>{translate(({inputs}) => inputs.phoneNumber.title)}</Form.Label>
+                    <Form.Control
+                        type="text"
+                        value={formData.phoneNumber}
+                        onChange={(e) => setFormData({...formData, 'phoneNumber': e.target.value})}
+                    />
+                </Form.Group>
+               
                 <Button
+                    className="mr-2"
                     title={translate(({buttons}) => buttons.save)}
                     variant={ButtonVariants.Primary}
                     type={ButtonActionTypes.Submit}
                     onClick={handleSubmit}
+                />
+                 <Button
+                    title={translate(({buttons}) => buttons.close)}
+                    onClick={onClose}
                 />
             </Form>
     )

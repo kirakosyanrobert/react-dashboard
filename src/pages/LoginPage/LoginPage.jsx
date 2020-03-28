@@ -1,47 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form } from 'react-bootstrap'
 
 import { Button, ButtonVariants, ButtonActionTypes } from '../../components/ui/Button';
-import { useNavigation, useTranslation } from '../../hooks';
+import { useNavigation, useTranslation, useSignInAsAdmin } from '../../hooks';
 import { StorageKey } from '../../consts';
-import { imitateLogin } from '../../helpers/imitateLogin';
 import { LanguageSwitcher } from '../../components/ui/LanguageSwitcher/LanguageSwitcher';
  
 //TODO make LoginForm component
 function LoginPage() {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const {navigate, routes} = useNavigation();
   const translate = useTranslation();
 
-   async function handleLoginFormSubmit(e) {
-      e.preventDefault();
-      if(email && password) {
-          const { success, token }  = await imitateLogin({email, password});
-          if(success) {
-            localStorage.setItem(StorageKey.Token, token);
-            navigate(routes.home);
-          } else {
-            alert('Incorrect Email or password!')
-          }
+  const [{ data: loginData }, login] = useSignInAsAdmin();
 
-      } else {
-         alert('Fill in inputs');
-      }
+    function handleLogin() {
+      login({
+        data: {
+          username,
+          password
+        }
+      })
     }
 
-   
+    useEffect(() => {
+      if(loginData) {
+        localStorage.setItem(StorageKey.Token, loginData.token);
+        navigate(routes.home);
+      }
+    }, [loginData]);
+
+
+    async function handleLoginFormSubmit(e) {
+        e.preventDefault();
+        if(username && password) {
+            handleLogin();
+        } else {
+          alert('Fill in inputs');
+        }
+      }
 
     return (
         <div className="d-flex justify-content-center align-items-center">
               <Form onSubmit={handleLoginFormSubmit}>
+                <div className="d-flex justify-content-end">
                   <LanguageSwitcher />
+                </div>
                 <Form.Group controlId="formBasicEmail">
-                  <Form.Label>{translate(({inputs}) => inputs.email.title)}</Form.Label>
+                  <Form.Label>{translate(({inputs}) => inputs.username.title)}</Form.Label>
                   <Form.Control
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                   />
                 </Form.Group>
 

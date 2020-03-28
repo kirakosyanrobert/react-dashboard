@@ -13,8 +13,15 @@ export const Dictionary = {
         cancel: 'buttons.cancel',
         createModerator: 'buttons.createModerator',
         createOrganization: 'buttons.createOrganization',
+        updateList: "buttons.updateList"
     },
     inputs: {
+        username: {
+            title: 'inputs.username.title'
+        },
+        name: {
+            title: 'inputs.name.title'
+        },
         email: {
             title: 'inputs.email.title',
         },
@@ -68,6 +75,9 @@ export const Dictionary = {
         settings: 'navigation.settings',
     },
     table: {
+        username: 'table.username',
+        name: 'table.name',
+        phoneNumber: 'table.phoneNumber',
         firstName: 'table.firstName',
         lastName: 'table.lastName',
         email: 'table.email',

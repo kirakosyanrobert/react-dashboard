@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
-import { useEffectOnce, useTranslation } from '../../hooks'
+import { useEffectOnce, useTranslation, useGetUsers, useCreateUser } from '../../hooks'
 import ModeratorsTable from '../../components/table/ModeratorsTable/ModeratorsTable';
 import Modal from '../../components/ui/Modal/Modal';
+import { Loader } from '../../components/ui/Loader';
 import { Button, ButtonVariants } from '../../components/ui/Button';
 import { StorageKey } from '../../consts';
 import CreateModeratorForm from '../../components/forms/CreateModeratorForm';
@@ -15,17 +16,51 @@ function ModeratorsPage() {
     const [updatingModerator, setUpdatingModerator] = useState({});
     const translate = useTranslation();
 
+    const [{data: usersData, loading: getUsersLoading}, getUsers] = useGetUsers();
+    const [{data: createUserData}, createUser] = useCreateUser();
+
     useEffectOnce(() => {
-        const moderatorsData = JSON.parse(localStorage.getItem(StorageKey.Moderators));
-        setModerators(moderatorsData);
+        handleGetModerators();
     });
 
-    function handleCreateModerator(newModerator) {
-        //Request to create Moderator
-        // if success
-        setModerators([newModerator, ...moderators]);
-        setShowCreateModal(false);
+    function handleGetModerators() {
+        const token = localStorage.getItem(StorageKey.Token);
+        getUsers({
+            headers: {
+                token
+            }
+        });
     }
+
+    useEffect(() => {
+        if(usersData) {
+            setModerators(usersData);
+        }
+    }, [usersData]);
+
+    
+        
+    function handleCreateModerator(newModerator) {
+        const token = localStorage.getItem(StorageKey.Token);
+        createUser({
+            headers: {
+                token
+            },
+            data: newModerator
+        })
+       
+    }
+
+    useEffect(() => {
+        if(createUserData) {
+            console.log(createUserData)
+            // setModerators([newModerator, ...moderators]);
+            // setShowCreateModal(false);
+        }
+    }, [createUserData])
+
+
+
 
     function handleToggleUpdateModal(moderator) {
         setUpdatingModerator(moderator);
@@ -35,7 +70,6 @@ function ModeratorsPage() {
     function handleUpdateModerator(updatedModerator) {
         //Request to update Moderator
         // if success
-        
         const newData = [...moderators].map(moderator => moderator.id !== updatedModerator.id ? moderator : updatedModerator)
         setModerators(newData);
         setShowEditModal(false);
@@ -50,11 +84,6 @@ function ModeratorsPage() {
         }
     }
 
-    // save in localStorage for all actions
-    useEffect(() => {
-        localStorage.setItem(StorageKey.Moderators, JSON.stringify(moderators))
-    }, [moderators]);
-    
     return (
         <div className="px-4">
             <Modal
@@ -62,7 +91,10 @@ function ModeratorsPage() {
                 open={showCreateModal}
                 onClose={() => setShowCreateModal(false)}
             >
-                <CreateModeratorForm onCreate={handleCreateModerator} />
+                <CreateModeratorForm
+                     onCreate={handleCreateModerator}
+                     onClose={() => setShowCreateModal(false)}
+                />
             </Modal>
 
             <Modal
@@ -71,12 +103,20 @@ function ModeratorsPage() {
                 onClose={() => setShowEditModal(false)}
             >
                 <UpdateModeratorForm
+                    onClose={() => setShowEditModal(false)}
                     onUpdate={handleUpdateModerator}
                     moderator={updatingModerator}
                 />
             </Modal>
 
             <div className="d-flex py-4">
+                <Button
+                    className="mr-2"
+                    title={translate(({buttons}) => buttons.updateList)}
+                    disabled={getUsersLoading}
+                    variant={ButtonVariants.Primary}
+                    onClick={handleGetModerators}
+                />
                 <Button
                     title={translate(({buttons}) => buttons.createModerator)}
                     variant={ButtonVariants.Primary}
@@ -91,7 +131,7 @@ function ModeratorsPage() {
                      onDelete={handleDeleteModerator}
                 />
             :
-                <h1>Moderators List is empty</h1>
+                <Loader />
             }
            
         </div>
