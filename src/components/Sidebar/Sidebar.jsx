@@ -19,8 +19,10 @@ function Sidebar() {
 
     return (
          <div className="bg-light border-right" id="sidebar-wrapper">
-           <LanguageSwitcher />
-            <div className="sidebar-heading">Gmap Dashboard</div>
+            <div className="d-flex justify-content-between sidebar-heading">
+              Gmap
+              <LanguageSwitcher />
+            </div>
             <div className="list-group list-group-flush">
               {Links.map((link, index) => (
                 <NavLink

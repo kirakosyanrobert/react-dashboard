@@ -12,9 +12,16 @@
         "add": "Add",
         "cancel": "Cancel",
         "createModerator": "Create Moderator",
-        "createOrganization": "Create Organization"
+        "createOrganization": "Create Organization",
+        "updateList": "Update list"
     },
     "inputs": {
+        "username": {
+            "title": "Username"
+        },
+        "name": {
+            "title": "Name"
+        },
         "email": {
             "title": "Email"
         },
@@ -68,6 +75,9 @@
         "settings": "Settings"
     },
     "table": {
+        "username": "Username",
+        "name": "Name",
+        "phoneNumber": "Phone number",
         "firstName": "First name",
         "lastName": "Last name",
         "email": "Email",

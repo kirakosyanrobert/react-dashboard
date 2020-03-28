@@ -12,9 +12,16 @@
         "add": "Добавить",
         "cancel": "Отменить",
         "createModerator": "Создать Модератора",
-        "createOrganization": "Создать Организацию"
+        "createOrganization": "Создать Организацию",
+        "updateList": "Обновления списка"
     },
     "inputs": {
+        "username": {
+            "title": "Имя пользователя"
+        },
+        "name": {
+            "title": "Название"
+        },
         "email": {
             "title": "Почта"
         },
@@ -68,6 +75,9 @@
         "settings": "Настройки"
     },
     "table": {
+        "username": "Имя пользователя",
+        "name": "Название",
+        "phoneNumber": "Номер телефона",
         "firstName": "Имя",
         "lastName": "Фамилия",
         "email": "Почта",

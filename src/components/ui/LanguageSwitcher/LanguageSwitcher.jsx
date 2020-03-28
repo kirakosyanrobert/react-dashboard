@@ -1,10 +1,10 @@
 import React from 'react';
+import { Form } from 'react-bootstrap';
 
-import { Button, ButtonSizes } from '../Button';
 import { useLanguage, LanguageCode } from '../../../hooks';
 
 export function LanguageSwitcher () {
-  const [ , changeLanguage ] = useLanguage();
+  const [ language, changeLanguage ] = useLanguage();
 
     function handleChangeLanguage(code) {
         if(code === LanguageCode.EN) {
@@ -19,22 +19,19 @@ export function LanguageSwitcher () {
     }
 
     return (
-        <div className="d-flex justify-content-between" style={{width: 150, margin: '.5rem auto'}}>
-            <Button
-                title="EN"
-                size={ButtonSizes.Small}
-                onClick={() => handleChangeLanguage(LanguageCode.EN)}
-             />
-            <Button
-                title="RU"
-                size={ButtonSizes.Small}
-                onClick={() => handleChangeLanguage(LanguageCode.RU)}
-            />
-            <Button
-                title="GR"
-                size={ButtonSizes.Small}
-                onClick={() => handleChangeLanguage(LanguageCode.GR)}
-            />
+        <div className="d-flex">
+             <Form.Group>
+              <Form.Control
+                as="select"
+                size="sm"
+                value={language}
+                onChange={(e) => handleChangeLanguage(e.target.value)}
+              >
+                <option value={LanguageCode.EN}>EN</option>
+                <option value={LanguageCode.RU}>RU</option>
+                <option value={LanguageCode.GR}>GR</option>
+              </Form.Control>
+            </Form.Group>
         </div>
     )
 

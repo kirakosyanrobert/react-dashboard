@@ -8,6 +8,7 @@ import { useNavigation, useTranslation } from '../../hooks';
 function SettingsPage() {
   const { navigate, routes } = useNavigation();
   const translate = useTranslation();
+  
   function handleLogOut () {
     localStorage.removeItem(StorageKey.Token);
     navigate(routes.login);
