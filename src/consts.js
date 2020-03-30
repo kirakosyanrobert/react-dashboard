@@ -5,3 +5,8 @@ export const StorageKey = {
     Moderators: 'moderators',
     Organizations: 'organizations'
 }
+
+export const AlertType = {
+    Notification: 'Notification',
+    Error: 'Error'
+}

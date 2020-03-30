@@ -11,7 +11,7 @@ function UpdateModeratorForm ({moderator, onUpdate, onClose}) {
    
     function handleSubmit (e) {
         e.preventDefault();
-        if(!!formData.username && !!formData.password && !!formData.name && !!formData.phoneNumber) {
+        if(!!formData.username && !!formData.phoneNumber) {
           onUpdate(formData);
         } else {
           alert('Inputs can`t be empty!');
@@ -24,6 +24,7 @@ function UpdateModeratorForm ({moderator, onUpdate, onClose}) {
                   <Form.Label>{translate(({inputs}) => inputs.username.title)}</Form.Label>
                   <Form.Control
                     type="text"
+                    name="username"
                     value={formData.username}
                     onChange={(e) => setFormData({...formData, 'username': e.target.value})}
                   />
@@ -32,10 +33,12 @@ function UpdateModeratorForm ({moderator, onUpdate, onClose}) {
                   <Form.Label>{translate(({inputs}) => inputs.password.title)}</Form.Label>
                   <Form.Control
                     type="text"
+                    name="password"
                     value={formData.password}
                     onChange={(e) => setFormData({...formData, 'password': e.target.value})}
                   />
                 </Form.Group>
+
                 <Form.Group>
                   <Form.Label>{translate(({inputs}) => inputs.name.title)}</Form.Label>
                   <Form.Control

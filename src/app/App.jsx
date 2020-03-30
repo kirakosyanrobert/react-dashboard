@@ -1,20 +1,23 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { Language } from './Language';
 
-import {store} from '../store/rootReducer';
+import { store } from '../store/rootReducer';
 import { Router } from './Router';
+import { Language } from './Language';
 import { ErrorBoundary } from './ErrorBoundary';
+import { Axios } from './Axios';
 
 
 export function App() {
   return (
     <ErrorBoundary>
-        <Language>
-            <Provider store={store}>
-                <Router />
-            </Provider>
-        </Language>
+      <Axios>
+          <Language>
+              <Provider store={store}>
+                  <Router />
+              </Provider>
+          </Language>
+      </Axios>
     </ErrorBoundary>
   );
 }

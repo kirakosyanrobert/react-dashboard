@@ -1,10 +1,9 @@
-import useAxios from 'axios-hooks'
-//TODO Add Auth token all request
+import { useAxios } from '../../API';
 
 export function useGetUsers() {
     return useAxios(
         {
-            url: 'http://176.10.124.161:7777/users',
+            url: `/users`,
             method: 'GET'
         },
         { manual: true }
@@ -14,7 +13,7 @@ export function useGetUsers() {
 export function useGetUser() {
     return useAxios(
         {
-            url: `http://176.10.124.161:7777/users/(id)`,
+            url: `/users/(id)`,
             method: 'GET'
         },
         { manual: true }
@@ -24,7 +23,7 @@ export function useGetUser() {
 export function useCreateUser() {
     return useAxios(
         {
-            url: 'http://176.10.124.161:7777/users',
+            url:  `/users`,
             method: 'POST'
         },
         { manual: true }
@@ -34,7 +33,7 @@ export function useCreateUser() {
 export function useUpdateUser() {
     return useAxios(
         {
-            url: 'http://176.10.124.161:7777/users(id)',
+            url:  `/users/(id)`,
             method: 'PUT'
         },
         { manual: true }
@@ -44,7 +43,7 @@ export function useUpdateUser() {
 export function useDeleteUser() {
     return useAxios(
         {
-            url: 'http://176.10.124.161:7777/users(id)',
+            url:  `/users/(id)`,
             method: 'DELETE'
         },
         { manual: true }
