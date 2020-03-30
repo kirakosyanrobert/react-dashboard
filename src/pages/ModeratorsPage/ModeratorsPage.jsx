@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { useEffectOnce, useTranslation, useGetUsers, useCreateUser } from '../../hooks'
+import { useEffectOnce, useTranslation, useAlerts, useGetUsers, useCreateUser, useUpdateUser, useDeleteUser } from '../../hooks'
 import ModeratorsTable from '../../components/table/ModeratorsTable/ModeratorsTable';
 import Modal from '../../components/ui/Modal/Modal';
 import { Loader } from '../../components/ui/Loader';
@@ -15,25 +15,25 @@ function ModeratorsPage() {
     const [showEditModal, setShowEditModal] = useState(false);
     const [updatingModerator, setUpdatingModerator] = useState({});
     const translate = useTranslation();
+    const { setError, setNotification } = useAlerts();
 
     const [{data: usersData, loading: getUsersLoading}, getUsers] = useGetUsers();
     const [{data: createUserData}, createUser] = useCreateUser();
+    const [{data: updateUserData}, updateUser] = useUpdateUser();
+    const [{data: deleteUserData}, deleteUser] = useDeleteUser();
 
     useEffectOnce(() => {
         handleGetModerators();
     });
 
     function handleGetModerators() {
-        const token = localStorage.getItem(StorageKey.Token);
-        getUsers({
-            headers: {
-                token
-            }
-        });
+        getUsers();
     }
 
     useEffect(() => {
         if(usersData) {
+            setNotification({ title: 'Message', message: 'success',})
+            console.log(usersData);
             setModerators(usersData);
         }
     }, [usersData]);
@@ -41,11 +41,7 @@ function ModeratorsPage() {
     
         
     function handleCreateModerator(newModerator) {
-        const token = localStorage.getItem(StorageKey.Token);
         createUser({
-            headers: {
-                token
-            },
             data: newModerator
         })
        
@@ -53,9 +49,9 @@ function ModeratorsPage() {
 
     useEffect(() => {
         if(createUserData) {
-            console.log(createUserData)
-            // setModerators([newModerator, ...moderators]);
-            // setShowCreateModal(false);
+            console.log(createUserData);
+            setModerators([createUserData, ...moderators]);
+            setShowCreateModal(false);
         }
     }, [createUserData])
 
@@ -68,21 +64,39 @@ function ModeratorsPage() {
     }
 
     function handleUpdateModerator(updatedModerator) {
-        //Request to update Moderator
-        // if success
-        const newData = [...moderators].map(moderator => moderator.id !== updatedModerator.id ? moderator : updatedModerator)
-        setModerators(newData);
-        setShowEditModal(false);
+        updateUser({
+            url: `/users/${updatedModerator.id}`,
+            data: updatedModerator
+        });
     }
 
+    useEffect(() => {
+        if(updateUserData) {
+            console.log(updateUserData);
+            // const newData = [...moderators].map(moderator => moderator.id !== updatedModerator.id ? moderator : updatedModerator)
+            // setModerators(newData);
+            setShowEditModal(false);
+        }
+    }, [updateUserData])
+
+
+
+
     function handleDeleteModerator(moderatorId) {
-        //Request to delete moderator
-        // if success
         const confirmDelete = window.confirm("are you sure ?");
         if(confirmDelete) {
-            setModerators(moderators.filter(moderator => moderator.id !== moderatorId));
+            deleteUser({
+                url: `/users/${moderatorId}`,
+            });
         }
-    }
+    };
+
+    useEffect(() => {
+        if(deleteUserData) {
+            console.log(deleteUserData);
+            // setModerators(moderators.filter(moderator => moderator.id !== moderatorId));
+        }
+    }, [deleteUserData])
 
     return (
         <div className="px-4">

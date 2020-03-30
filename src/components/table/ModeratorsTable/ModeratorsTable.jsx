@@ -29,7 +29,7 @@ function ModeratorsTable ({
             </thead>
             <tbody>
                 {moderators.map((moderator, index) => (
-                    <tr key={moderator.id}>
+                    <tr key={`table-item-${moderator.id}`}>
                         <td>{index + 1}</td>
                         <td>{moderator.username}</td>
                         <td>{moderator.password}</td>
