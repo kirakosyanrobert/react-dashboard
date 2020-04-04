@@ -1,9 +1,11 @@
 import {createStore, combineReducers, compose, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import toggleSidebar from './toggleSidebar/toggleSidebarReducer';
+import currentUser from './currentUser/currentUserReducer';
 
 const rootReducer = combineReducers({
     toggleSidebar,
+    currentUser
 })
 
 const composeEnhancers =

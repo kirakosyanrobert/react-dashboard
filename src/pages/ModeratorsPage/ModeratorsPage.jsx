@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-import { useEffectOnce, useTranslation, useAlerts, useGetUsers, useCreateUser, useUpdateUser, useDeleteUser } from '../../hooks'
+import { useEffectOnce, useTranslation, useAlerts } from '../../hooks'
 import ModeratorsTable from '../../components/table/ModeratorsTable/ModeratorsTable';
 import Modal from '../../components/ui/Modal/Modal';
 import { Loader } from '../../components/ui/Loader';
 import { Button, ButtonVariants } from '../../components/ui/Button';
-import { StorageKey } from '../../consts';
 import CreateModeratorForm from '../../components/forms/CreateModeratorForm';
 import UpdateModeratorForm from '../../components/forms/UpdateModeratorForm';
+import { doRequest } from '../../API';
 
 function ModeratorsPage() {
     const [moderators, setModerators] = useState([]);
@@ -17,45 +17,36 @@ function ModeratorsPage() {
     const translate = useTranslation();
     const { setError, setNotification } = useAlerts();
 
-    const [{data: usersData, loading: getUsersLoading}, getUsers] = useGetUsers();
-    const [{data: createUserData}, createUser] = useCreateUser();
-    const [{data: updateUserData}, updateUser] = useUpdateUser();
-    const [{data: deleteUserData}, deleteUser] = useDeleteUser();
 
     useEffectOnce(() => {
         handleGetModerators();
     });
 
-    function handleGetModerators() {
-        getUsers();
-    }
-
-    useEffect(() => {
-        if(usersData) {
-            setNotification({ title: 'Message', message: 'success',})
-            console.log(usersData);
-            setModerators(usersData);
+   async function handleGetModerators() {
+        try {
+            const data = await doRequest('/users', {
+                method: 'GET'
+            });
+            setModerators(data);
+        } catch (err) {
+            setError({message: err.message});
         }
-    }, [usersData]);
-
-    
-        
-    function handleCreateModerator(newModerator) {
-        createUser({
-            data: newModerator
-        })
-       
     }
 
-    useEffect(() => {
-        if(createUserData) {
-            console.log(createUserData);
-            setModerators([createUserData, ...moderators]);
+
+    async function handleCreateModerator(newModerator) {
+       try {
+            const data = await doRequest('/users', {
+                method: 'POST',
+                data: newModerator
+            });
+            setNotification({message: 'User Created successfully!'})
+            setModerators([data, ...moderators]);
             setShowCreateModal(false);
-        }
-    }, [createUserData])
-
-
+       } catch (err) {
+            setError({message: err.message});
+       }
+    }
 
 
     function handleToggleUpdateModal(moderator) {
@@ -63,40 +54,36 @@ function ModeratorsPage() {
         setShowEditModal(true);
     }
 
-    function handleUpdateModerator(updatedModerator) {
-        updateUser({
-            url: `/users/${updatedModerator.id}`,
-            data: updatedModerator
-        });
+    async function handleUpdateModerator(updatedModerator) {
+        try {
+            const data = await doRequest(`/users/${updatedModerator.id}`, {
+                method: 'PUT',
+                data: updatedModerator
+            });
+
+            const newData = [...moderators].map(moderator => moderator.id !== updatedModerator.id ? moderator : updatedModerator)
+            setModerators(newData);
+            setShowEditModal(false);
+        } catch (err) {
+            setError({message: err.message});
+        }
     }
 
-    useEffect(() => {
-        if(updateUserData) {
-            console.log(updateUserData);
-            // const newData = [...moderators].map(moderator => moderator.id !== updatedModerator.id ? moderator : updatedModerator)
-            // setModerators(newData);
-            setShowEditModal(false);
-        }
-    }, [updateUserData])
 
-
-
-
-    function handleDeleteModerator(moderatorId) {
+    async function handleDeleteModerator(moderatorId) {
         const confirmDelete = window.confirm("are you sure ?");
         if(confirmDelete) {
-            deleteUser({
-                url: `/users/${moderatorId}`,
-            });
+            try {
+                const data = await doRequest(`/users/${moderatorId}`, {
+                    method: 'DELETE',
+                })
+
+                setModerators(moderators.filter(moderator => moderator.id !== moderatorId));
+            } catch (err) {
+                setError({message: err.message});
+            }
         }
     };
-
-    useEffect(() => {
-        if(deleteUserData) {
-            console.log(deleteUserData);
-            // setModerators(moderators.filter(moderator => moderator.id !== moderatorId));
-        }
-    }, [deleteUserData])
 
     return (
         <div className="px-4">
@@ -127,7 +114,6 @@ function ModeratorsPage() {
                 <Button
                     className="mr-2"
                     title={translate(({buttons}) => buttons.updateList)}
-                    disabled={getUsersLoading}
                     variant={ButtonVariants.Primary}
                     onClick={handleGetModerators}
                 />

@@ -1,8 +1,7 @@
 export const StorageKey = {
     LanguageCode: 'gMap-language-code', 
     Token: 'token',
-    Super: 'super',
-    Moderators: 'moderators',
+    LoggedInUser: 'loggedInUser',
     Organizations: 'organizations'
 }
 
