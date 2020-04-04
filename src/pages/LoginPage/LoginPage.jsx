@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form } from 'react-bootstrap'
 
 import { Button, ButtonVariants, ButtonActionTypes } from '../../components/ui/Button';
-import { useNavigation, useTranslation, useSignInAsAdmin } from '../../hooks';
+import { useNavigation, useTranslation, useAlerts } from '../../hooks';
 import { StorageKey } from '../../consts';
 import { LanguageSwitcher } from '../../components/ui/LanguageSwitcher/LanguageSwitcher';
+import { doRequest } from '../../API';
  
 //TODO make LoginForm component
 function LoginPage() {
@@ -12,30 +13,27 @@ function LoginPage() {
   const [password, setPassword] = useState('');
   const {navigate, routes} = useNavigation();
   const translate = useTranslation();
-
-  const [{ data: loginData }, login] = useSignInAsAdmin();
-
-    function handleLogin() {
-      login({
-        data: {
-          username,
-          password
-        }
-      })
-    }
-
-    useEffect(() => {
-      if(loginData) {
-        localStorage.setItem(StorageKey.Token, loginData.token);
-        navigate(routes.home);
-      }
-    }, [loginData]);
-
+  const { setError } = useAlerts();
 
     async function handleLoginFormSubmit(e) {
         e.preventDefault();
+
         if(username && password) {
-            handleLogin();
+          try {
+            const data = await doRequest('/auth/admin-signin', {
+              method: 'POST',
+              data: {
+                username,
+                password
+              }
+            });
+            localStorage.setItem(StorageKey.Token, data.token);
+            localStorage.setItem(StorageKey.LoggedInUser, JSON.stringify(data))
+            navigate(routes.home);
+          } catch (err) {
+            setError({message: err.message});
+          }
+
         } else {
           alert('Fill in inputs');
         }
@@ -82,6 +80,6 @@ function LoginPage() {
               </Form>
         </div>
     )
-}
+};
 
 export default LoginPage;

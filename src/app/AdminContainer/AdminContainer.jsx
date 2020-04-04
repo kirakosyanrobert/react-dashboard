@@ -9,6 +9,7 @@ import SettingsPage from '../../pages/SettingsPage/SettingsPage';
 import OrganizationsPage from '../../pages/OrganizationsPage/OrganizationsPage';
 import CreateOrganizationPage from '../../pages/CreateOrganizationPage/CreateOrganizationPage';
 import OrganizationDetailsPage from '../../pages/OrganizationDetailsPage/OrganizationDetailsPage';
+import PageTopBar from '../../components/PageTopBar/PageTopBar';
 
 
 
@@ -28,6 +29,7 @@ function AdminContainer () {
         <div id="wrapper" className="d-flex">
             <Sidebar />
             <div id="main-wrapper">
+                <PageTopBar />
                 <Route exact guarded path={AdminRoutes.Home} component={HomePage} />
                 <Route exact guarded path={AdminRoutes.Moderators} component={ModeratorsPage} />
                 <Route exact guarded path={AdminRoutes.Organizations} component={OrganizationsPage} />
