@@ -35,7 +35,7 @@ function LoginPage() {
           }
 
         } else {
-          alert('Fill in inputs');
+          setError({message: 'Fill in inputs'});
         }
       }
 

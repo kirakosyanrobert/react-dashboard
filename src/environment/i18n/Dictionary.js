@@ -37,6 +37,12 @@ export const Dictionary = {
         title: {
             title: 'inputs.title.title'
         },
+        description: {
+            title: 'inputs.description.title'
+        },
+        note: {
+            title: 'inputs.note.title'
+        },
         website: {
             title: 'inputs.website.title'
         },
@@ -66,6 +72,9 @@ export const Dictionary = {
         },
         end: {
             title: 'inputs.end.title'
+        },
+        nearestStop: {
+            title: 'inputs.nearestStop.title'
         }
     },
     navigation: {
