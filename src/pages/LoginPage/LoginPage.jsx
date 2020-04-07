@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { Form } from 'react-bootstrap'
 
 import { Button, ButtonVariants, ButtonActionTypes } from '../../components/ui/Button';
-import { useNavigation, useTranslation, useAlerts } from '../../hooks';
+import { useNavigation, useTranslation, useAlerts, useRequest } from '../../hooks';
 import { StorageKey } from '../../consts';
 import { LanguageSwitcher } from '../../components/ui/LanguageSwitcher/LanguageSwitcher';
-import { doRequest } from '../../API';
  
 //TODO make LoginForm component
 function LoginPage() {
@@ -14,24 +13,22 @@ function LoginPage() {
   const {navigate, routes} = useNavigation();
   const translate = useTranslation();
   const { setError } = useAlerts();
+  
+  const { loading: loginLoading, request: login } = useRequest();
 
     async function handleLoginFormSubmit(e) {
         e.preventDefault();
 
         if(username && password) {
+          const loginCredentals = JSON.stringify({username, password})
           try {
-            const data = await doRequest('/auth/admin-signin', {
-              method: 'POST',
-              data: {
-                username,
-                password
-              }
-            });
+            const data = await login('/auth/admin-signin', 'POST', loginCredentals);
+              
             localStorage.setItem(StorageKey.Token, data.token);
-            localStorage.setItem(StorageKey.LoggedInUser, JSON.stringify(data))
+            localStorage.setItem(StorageKey.LoggedInUser, JSON.stringify(data));
             navigate(routes.home);
-          } catch (err) {
-            setError({message: err.message});
+          } catch(e) {
+               setError({message: e.message});
           }
 
         } else {
@@ -70,6 +67,7 @@ function LoginPage() {
                         type={ButtonActionTypes.Submit}
                         variant={ButtonVariants.Primary}
                         onClick={handleLoginFormSubmit}
+                        disabled={loginLoading}
                       />
                     <Button
                         title={translate(({buttons}) => buttons.signUp)}

@@ -11,7 +11,7 @@ const formInitialState = {
     phoneNumber: ''
 }
 
-function CreateModeratorForm ({onCreate, onClose}) {
+function CreateModeratorForm ({onCreate, onClose, loading}) {
     const [formData, setFormData] = useState(formInitialState);
     const translate = useTranslation();
    
@@ -71,6 +71,7 @@ function CreateModeratorForm ({onCreate, onClose}) {
                     variant={ButtonVariants.Primary}
                     type={ButtonActionTypes.Submit}
                     onClick={handleSubmit}
+                    disabled={loading}
                 />
                  <Button
                     title={translate(({buttons}) => buttons.close)}

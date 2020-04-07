@@ -5,7 +5,7 @@ import { Button, ButtonVariants, ButtonActionTypes } from '../ui/Button';
 import { useTranslation } from '../../hooks';
 
 
-function UpdateModeratorForm ({moderator, onUpdate, onClose}) {
+function UpdateModeratorForm ({moderator, onUpdate, onClose, loading}) {
     const [formData, setFormData] = useState(moderator);
     const translate = useTranslation();
    
@@ -63,6 +63,7 @@ function UpdateModeratorForm ({moderator, onUpdate, onClose}) {
                     variant={ButtonVariants.Primary}
                     type={ButtonActionTypes.Submit}
                     onClick={handleSubmit}
+                    disabled={loading}
                 />
                  <Button
                     title={translate(({buttons}) => buttons.close)}
