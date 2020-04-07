@@ -3,11 +3,12 @@ import { Form, InputGroup, FormControl, Badge, Col, ListGroup } from 'react-boot
 import { v4 as uuid } from 'uuid';
 
 import './CreateOrganizationForm.scss';
-import { Button, ButtonVariants, ButtonActionTypes, ButtonSizes } from '../../ui/Button';
+import { Button, ButtonVariants, ButtonActionTypes } from '../../ui/Button';
 import Modal from '../../ui/Modal/Modal';
 import { useTranslation } from '../../../hooks';
 import { MapView } from '../../maps/MapView/MapView';
 import { MapCard } from '../../maps/MapCard/MapCard';
+import ChooseOrgCategories from '../../utils/ChooseOrgCategories/ChooseOrgCategories';
 
 // title: '',
 // email: '',
@@ -64,16 +65,19 @@ function CreateOrganizationForm ({onCreate}) {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
 
-    const [categories, setCategories] = useState([{
-        category: 'Medicine',
-        subCategory: 'Hospital'
-    }]);
+    const [categories, setCategories] = useState([]);
     const [openCategoriesModal, setOpenCategoriesModal] = useState(false);
 
    
-    const [address, setAddress] = useState('');
+    const [street, setStreet] = useState('');
     const [coordinates, setCoordinates] = useState({lat: '', lon: ''});
     const [openMapView, setOpenMapView] = useState(false);
+    const [city, setCity] = useState('');
+    const [district, setDistrict] = useState('');
+    const [floor, setFloor] = useState('');
+
+
+
 
 
     const [nearestStopTitle, setNearestStopTitle] = useState('');
@@ -83,9 +87,12 @@ function CreateOrganizationForm ({onCreate}) {
 
     const [postCode, setPostCode] = useState('');
     const [numberOfFloors, setNumberOfFloors] = useState('');
-    const [phoneNumbers, setPhoneNumbers] = useState(['']);
+    
     const [newTag, setNewTag] = useState('#');
     const [tags, setTags] = useState([]);
+    const [phoneNumbers, setPhoneNumbers] = useState(['']);
+
+    const [workTimeType, setWorkTimeType] = useState('NONE');
     const [workingHours, setWorkingHours] = useState([[], [], [], [], [], [], []]);
 
     const [email, setEmail] = useState('');
@@ -101,33 +108,58 @@ function CreateOrganizationForm ({onCreate}) {
 
         if(
             title &&
+            categories.length > 0 && 
             tags.length > 0 &&
-            address && 
+
             coordinates.lat && 
             coordinates.lon &&
+            street &&
+            city && 
+            district &&
+
             nearestStopCoordinates.lat &&
             nearestStopCoordinates.lon &&
-            postCode && 
             numberOfFloors
         ) {
             const org = {
-                id: uuid(),
                 title,
+                description,
+                categories,
                 searchWords: tags,
-                address,
-                postCode: +postCode,
-                numberOfFloors: +numberOfFloors,
-                coordinates,
+
+
+                address: {
+                    coordinates: coordinates,
+                    street: street,
+                    zipCode: postCode,
+                    city: city,
+                    district: district,
+                    floor: floor
+                },
+                nearestStop: {
+                    coordinates: nearestStopCoordinates,
+                    title: nearestStopTitle
+                },
+
+                workTime: {
+                    type: workTimeType,
+                    ...(workTimeType === 'SCHEDULE' && { schedule: workingHours })
+                },
+
                 phoneNumbers,
-                tags,
-                workingHours,
                 website,
                 email,
+                note,
             };
-            // onCreate(org);
+            onCreate(org);
         } else {
             alert("Fill in Inputs");
         }
+    }
+
+
+    function handleAddCategory (newCategory) {
+        setCategories([newCategory, ...categories]);
     }
 
     function handleRemoveCategory (categoryIndex) {
@@ -198,6 +230,8 @@ function CreateOrganizationForm ({onCreate}) {
         <span className="text-danger">*</span>
     );
 
+
+
     return (
         <>
         <Modal
@@ -205,24 +239,11 @@ function CreateOrganizationForm ({onCreate}) {
             open={openCategoriesModal}
             onClose={() => setOpenCategoriesModal(false)}
         >
-            <div>
-                <ListGroup>
-                    {categories.length > 0 &&
-                        categories.map((item, index) => (
-                            <ListGroup.Item key={`categorie-edit-item-${index}`}>
-                                {`${item.category} - ${item.subCategory}`}
-                                <Button
-                                    className="float-right"
-                                    title="X"
-                                    size={ButtonSizes.Small}
-                                    variant={ButtonVariants.Danger}
-                                    onClick={() => handleRemoveCategory(index)}
-                                />
-                            </ListGroup.Item>
-                        ))
-                    }
-                </ListGroup>
-            </div>
+            <ChooseOrgCategories
+                orgCategories={categories}
+                deleteCategory={handleRemoveCategory}
+                addCategory={handleAddCategory}
+            />
         </Modal>
         <Form onSubmit={handleSubmit}>
             <Form.Group>
@@ -295,13 +316,15 @@ function CreateOrganizationForm ({onCreate}) {
                 <Col lg={6}>
                     <Form.Group>
                         <Form.Label>
-                            {translate(({inputs}) => inputs.address.title)}
+                            {/* {translate(({inputs}) => inputs.address.title)} */}
+                            Street
                             <Required />
                         </Form.Label>
                         <Form.Control
                             type="text"
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
+                            name="street"
+                            value={street}
+                            onChange={(e) => setStreet(e.target.value)}
                         />
                     </Form.Group>
                 </Col>
@@ -348,6 +371,49 @@ function CreateOrganizationForm ({onCreate}) {
                     <MapView getCoords={handleGetCoords} />
                 </div>
             }
+
+            <Form.Group>
+                <Form.Label>
+                    {/* {translate(({inputs}) => inputs.address.title)} */}
+                    City
+                    <Required />
+                </Form.Label>
+                <Form.Control
+                    type="text"
+                    name="city"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                />
+            </Form.Group>
+
+            <Form.Group>
+                <Form.Label>
+                    {/* {translate(({inputs}) => inputs.address.title)} */}
+                    District
+                    <Required />
+                </Form.Label>
+                <Form.Control
+                    type="text"
+                    name="district"
+                    value={district}
+                    onChange={(e) => setDistrict(e.target.value)}
+                />
+            </Form.Group>
+
+            <Form.Group>
+                <Form.Label>
+                    {/* {translate(({inputs}) => inputs.address.title)} */}
+                    Floor
+                </Form.Label>
+                <Form.Control
+                    type="text"
+                    name="floor"
+                    value={floor}
+                    onChange={(e) => setFloor(e.target.value)}
+                />
+            </Form.Group>
+
+            
 
 
 
@@ -411,9 +477,12 @@ function CreateOrganizationForm ({onCreate}) {
 
 
             <Form.Group>
-                <Form.Label>{translate(({inputs}) => inputs.postCode.title)}</Form.Label>
+                <Form.Label>
+                    {translate(({inputs}) => inputs.postCode.title)}
+                </Form.Label>
                 <Form.Control
-                    type="number"
+                    type="text"
+                    name="postCode"
                     value={postCode}
                     onChange={(e) => setPostCode(e.target.value)}
                 />
@@ -501,41 +570,60 @@ function CreateOrganizationForm ({onCreate}) {
                 </div>
             </Form.Group>
 
-            <div className="timepicker-container">
-                {days.map((day, index) => (
-                        <div key={`day-${index}`} className="timepicker-element">
-                            <h5>{translate(({days}) => days[day])}</h5>
-                            <Form.Group > 
-                                <Form.Label>{translate(({inputs}) => inputs.start.title)}</Form.Label>
-                                <Form.Control
-                                    as="select"
-                                    size="5"
-                                    onChange={(e) => handleGetWorkingHours(index, 0, e.target.value)}
-                                >
-                                    {hours.map((hour, i) => (
-                                        <option key={`start-hour-${i}`} value={hour}>
-                                            {hour}
-                                        </option>
-                                    ))}
-                                </Form.Control>
-                            </Form.Group>
 
-                            <Form.Group>
-                                <Form.Label>{translate(({inputs}) => inputs.end.title)}</Form.Label>
-                                <Form.Control
-                                    as="select"
-                                    onChange={(e) => handleGetWorkingHours(index, 1, e.target.value)}
-                                >
-                                    {hours.map((hour, i) => (
-                                        <option key={`end-hour-${i}`} value={hour}>
-                                            {hour}
-                                        </option>
-                                    ))}
-                                </Form.Control>
-                            </Form.Group>
-                        </div>
-                ))}
-            </div>
+
+            <Form.Group>
+                <Form.Label>
+                    Working Time
+                </Form.Label>
+                <Form.Control
+                    as="select"
+                    value={workTimeType}
+                    onChange={(e) => setWorkTimeType(e.target.value)}
+                >
+                    <option calue="NONE">None</option>
+                    <option value="ALL_TIME">All time</option>
+                    <option value="SCHEDULE">Schedule</option>
+                </Form.Control>
+            </Form.Group>
+            {workTimeType === 'SCHEDULE' && 
+                <div className="timepicker-container">
+                    {days.map((day, index) => (
+                            <div key={`day-${index}`} className="timepicker-element">
+                                <h5>{translate(({days}) => days[day])}</h5>
+                                <Form.Group > 
+                                    <Form.Label>{translate(({inputs}) => inputs.start.title)}</Form.Label>
+                                    <Form.Control
+                                        as="select"
+                                        size="5"
+                                        onChange={(e) => handleGetWorkingHours(index, 0, e.target.value)}
+                                    >
+                                        {hours.map((hour, i) => (
+                                            <option key={`start-hour-${i}`} value={hour}>
+                                                {hour}
+                                            </option>
+                                        ))}
+                                    </Form.Control>
+                                </Form.Group>
+
+                                <Form.Group>
+                                    <Form.Label>{translate(({inputs}) => inputs.end.title)}</Form.Label>
+                                    <Form.Control
+                                        as="select"
+                                        onChange={(e) => handleGetWorkingHours(index, 1, e.target.value)}
+                                    >
+                                        {hours.map((hour, i) => (
+                                            <option key={`end-hour-${i}`} value={hour}>
+                                                {hour}
+                                            </option>
+                                        ))}
+                                    </Form.Control>
+                                </Form.Group>
+                            </div>
+                    ))}
+                </div>
+            }
+
 
             <Form.Group>
                 <Form.Label>
