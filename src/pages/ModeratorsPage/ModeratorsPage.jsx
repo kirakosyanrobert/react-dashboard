@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 
-import { useEffectOnce, useTranslation, useAlerts } from '../../hooks'
+import { useEffectOnce, useTranslation, useAlerts, useRequest } from '../../hooks'
 import ModeratorsTable from '../../components/table/ModeratorsTable/ModeratorsTable';
 import Modal from '../../components/ui/Modal/Modal';
 import { Loader } from '../../components/ui/Loader';
 import { Button, ButtonVariants } from '../../components/ui/Button';
 import CreateModeratorForm from '../../components/forms/CreateModeratorForm';
 import UpdateModeratorForm from '../../components/forms/UpdateModeratorForm';
-import { doRequest } from '../../API';
+
+
 
 function ModeratorsPage() {
     const [moderators, setModerators] = useState([]);
@@ -17,6 +18,11 @@ function ModeratorsPage() {
     const translate = useTranslation();
     const { setError, setNotification } = useAlerts();
 
+    const { loading: getUsersLoading, request: getUsers } = useRequest();
+    const { loading: createUserLoading, request: createUser } = useRequest();
+    const { loading: updateUserLoading, request: updateUser } = useRequest();
+    const { request: deleteUser } = useRequest();
+
 
     useEffectOnce(() => {
         handleGetModerators();
@@ -24,9 +30,7 @@ function ModeratorsPage() {
 
    async function handleGetModerators() {
         try {
-            const data = await doRequest('/users', {
-                method: 'GET'
-            });
+            const data = await getUsers('/users');
             setModerators(data);
         } catch (err) {
             setError({message: err.message});
@@ -36,11 +40,8 @@ function ModeratorsPage() {
 
     async function handleCreateModerator(newModerator) {
        try {
-            const data = await doRequest('/users', {
-                method: 'POST',
-                data: newModerator
-            });
-            setNotification({message: 'User Created successfully!'})
+            const data = await createUser('/users', 'POST',  JSON.stringify(newModerator));
+            setNotification({message: 'User Created successfully!'});
             setModerators([data, ...moderators]);
             setShowCreateModal(false);
        } catch (err) {
@@ -56,10 +57,7 @@ function ModeratorsPage() {
 
     async function handleUpdateModerator(updatedModerator) {
         try {
-            const data = await doRequest(`/users/${updatedModerator.id}`, {
-                method: 'PUT',
-                data: updatedModerator
-            });
+           await updateUser(`/users/${updatedModerator.id}`, 'PUT', JSON.stringify(updatedModerator) );
 
             const newData = [...moderators].map(moderator => moderator.id !== updatedModerator.id ? moderator : updatedModerator)
             setModerators(newData);
@@ -74,9 +72,7 @@ function ModeratorsPage() {
         const confirmDelete = window.confirm("are you sure ?");
         if(confirmDelete) {
             try {
-                const data = await doRequest(`/users/${moderatorId}`, {
-                    method: 'DELETE',
-                })
+               await deleteUser(`/users/${moderatorId}`, 'DELETE');
 
                 setModerators(moderators.filter(moderator => moderator.id !== moderatorId));
             } catch (err) {
@@ -93,8 +89,9 @@ function ModeratorsPage() {
                 onClose={() => setShowCreateModal(false)}
             >
                 <CreateModeratorForm
-                     onCreate={handleCreateModerator}
-                     onClose={() => setShowCreateModal(false)}
+                    onCreate={handleCreateModerator}
+                    loading={createUserLoading}
+                    onClose={() => setShowCreateModal(false)}
                 />
             </Modal>
 
@@ -107,6 +104,7 @@ function ModeratorsPage() {
                     onClose={() => setShowEditModal(false)}
                     onUpdate={handleUpdateModerator}
                     moderator={updatingModerator}
+                    loading={updateUserLoading}
                 />
             </Modal>
 
@@ -116,6 +114,7 @@ function ModeratorsPage() {
                     title={translate(({buttons}) => buttons.updateList)}
                     variant={ButtonVariants.Primary}
                     onClick={handleGetModerators}
+                    disabled={getUsersLoading}
                 />
                 <Button
                     title={translate(({buttons}) => buttons.createModerator)}

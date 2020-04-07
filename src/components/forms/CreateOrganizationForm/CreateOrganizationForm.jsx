@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Form, InputGroup, FormControl, Badge, Col, ListGroup } from 'react-bootstrap';
-import { v4 as uuid } from 'uuid';
 
 import './CreateOrganizationForm.scss';
 import { Button, ButtonVariants, ButtonActionTypes } from '../../ui/Button';
