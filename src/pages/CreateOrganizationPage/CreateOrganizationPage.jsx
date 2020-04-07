@@ -10,13 +10,11 @@ function CreateOrganizationPage () {
     const { routes, navigate } = useNavigation();
 
     function handleCreate(newOrganization) {
-        console.log(newOrganization)
+        console.log(newOrganization);
+        
         //Request To Create
         //Success
         // I dont check orgData exists or not;
-        const orgsData = JSON.parse(localStorage.getItem(StorageKey.Organizations)) || []
-        orgsData.unshift(newOrganization);
-        localStorage.setItem(StorageKey.Organizations, JSON.stringify(orgsData));
         navigate(routes.organizations);
     }
 
