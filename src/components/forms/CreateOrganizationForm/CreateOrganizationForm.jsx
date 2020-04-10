@@ -234,7 +234,7 @@ function CreateOrganizationForm ({onCreate}) {
     return (
         <>
         <Modal
-            title="Categories"
+            title={translate(({inputs}) => inputs.category.title)}
             open={openCategoriesModal}
             onClose={() => setOpenCategoriesModal(false)}
         >
@@ -272,10 +272,9 @@ function CreateOrganizationForm ({onCreate}) {
 
             <Form.Group>
                 <Form.Label>
-                    {/* {translate(({inputs}) => inputs.description.title)} */}
-                    Categories
+                    {translate(({inputs}) => inputs.category.title)}
                 </Form.Label>
-                <ListGroup horizontal>
+                <ListGroup horizontal={'md'}>
                     {categories.length > 0 &&
                         categories.map((item, index) => (
                             <ListGroup.Item key={`categorie-item-${index}`}>
@@ -315,8 +314,7 @@ function CreateOrganizationForm ({onCreate}) {
                 <Col lg={6}>
                     <Form.Group>
                         <Form.Label>
-                            {/* {translate(({inputs}) => inputs.address.title)} */}
-                            Street
+                            {translate(({inputs}) => inputs.street.title)}
                             <Required />
                         </Form.Label>
                         <Form.Control
@@ -329,7 +327,7 @@ function CreateOrganizationForm ({onCreate}) {
                 </Col>
                   
                 <Col lg={6}>
-                    <Form.Row>
+                    <Form.Row className="flex-column flex-sm-row">
                         <Form.Group as={Col}>
                             <Form.Label>
                                 {translate(({inputs}) => inputs.latitude.title)}
@@ -356,7 +354,7 @@ function CreateOrganizationForm ({onCreate}) {
                         <div className="d-flex align-items-end mb-3">
                             <Button
                                 variant={ButtonVariants.Primary}
-                                title={'Show on map'}
+                                title={translate(({buttons}) => buttons.showOnMap)}
                                 disabled={openMapView}
                                 onClick={() => setOpenMapView(true)}
                             />
@@ -373,8 +371,7 @@ function CreateOrganizationForm ({onCreate}) {
 
             <Form.Group>
                 <Form.Label>
-                    {/* {translate(({inputs}) => inputs.address.title)} */}
-                    City
+                    {translate(({inputs}) => inputs.city.title)}
                     <Required />
                 </Form.Label>
                 <Form.Control
@@ -387,8 +384,7 @@ function CreateOrganizationForm ({onCreate}) {
 
             <Form.Group>
                 <Form.Label>
-                    {/* {translate(({inputs}) => inputs.address.title)} */}
-                    District
+                    {translate(({inputs}) => inputs.district.title)}
                     <Required />
                 </Form.Label>
                 <Form.Control
@@ -401,8 +397,7 @@ function CreateOrganizationForm ({onCreate}) {
 
             <Form.Group>
                 <Form.Label>
-                    {/* {translate(({inputs}) => inputs.address.title)} */}
-                    Floor
+                    {translate(({inputs}) => inputs.floor.title)}
                 </Form.Label>
                 <Form.Control
                     type="text"
@@ -433,7 +428,7 @@ function CreateOrganizationForm ({onCreate}) {
             </Col>
                 
             <Col lg={6}>
-                <Form.Row>
+                <Form.Row className="flex-column flex-sm-row">
                     <Form.Group as={Col}>
                         <Form.Label>
                             {translate(({inputs}) => inputs.latitude.title)}
@@ -573,7 +568,7 @@ function CreateOrganizationForm ({onCreate}) {
 
             <Form.Group>
                 <Form.Label>
-                    Working Time
+                    {translate(({inputs}) => inputs.workTime.title)}
                 </Form.Label>
                 <Form.Control
                     as="select"

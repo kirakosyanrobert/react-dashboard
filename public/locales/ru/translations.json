@@ -13,7 +13,8 @@
         "cancel": "Отменить",
         "createModerator": "Создать Модератора",
         "createOrganization": "Создать Организацию",
-        "updateList": "Обновления списка"
+        "updateList": "Обновления списка",
+        "showOnMap": "Показать на карте"
     },
     "inputs": {
         "username": {
@@ -75,6 +76,27 @@
         },
         "nearestStop": {
             "title": "Ближайшая остановка ОТ"
+        },
+        "category": {
+            "title": "Рубрика"
+        },
+        "subCategory": {
+            "title": "Подрубрика"
+        },
+        "street": {
+            "title": "Улица"
+        },
+        "city": {
+            "title": "Город"
+        },
+        "district": {
+            "title": "Район"
+        },
+        "floor": {
+            "title": "Этаж"
+        },
+        "workTime": {
+            "title": "Режим работы"
         }
     },
     "navigation": {

@@ -13,7 +13,8 @@ export const Dictionary = {
         cancel: 'buttons.cancel',
         createModerator: 'buttons.createModerator',
         createOrganization: 'buttons.createOrganization',
-        updateList: "buttons.updateList"
+        updateList: "buttons.updateList",
+        showOnMap: "buttons.showOnMap"
     },
     inputs: {
         username: {
@@ -75,6 +76,27 @@ export const Dictionary = {
         },
         nearestStop: {
             title: 'inputs.nearestStop.title'
+        },
+        category: {
+            title: 'inputs.category.title'
+        },
+        subCategory: {
+            title: 'inputs.subCategory.title'
+        },
+        street: {
+            title: 'inputs.street.title'
+        },
+        city: {
+            title: 'inputs.city.title'
+        },
+        district: {
+            title: 'inputs.district.title'
+        },
+        floor: {
+            title: 'inputs.floor.title'
+        },
+        workTime: {
+            title: 'inputs.workTime.title'
         }
     },
     navigation: {
