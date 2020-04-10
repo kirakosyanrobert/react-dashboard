@@ -5,19 +5,19 @@ import { store } from '../store/rootReducer';
 import { Router } from './Router';
 import { Language } from './Language';
 import { ErrorBoundary } from './ErrorBoundary';
-import { Axios } from './Axios';
+import { MessageProvider } from './MessageProvider';
 
 
 export function App() {
   return (
     <ErrorBoundary>
-      <Axios>
+      <MessageProvider>
           <Language>
               <Provider store={store}>
                   <Router />
               </Provider>
           </Language>
-      </Axios>
+      </MessageProvider>
     </ErrorBoundary>
   );
 }

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { ListGroup, Form } from 'react-bootstrap';
 
 import { Button, ButtonSizes, ButtonVariants } from '../../ui/Button';
+import { useTranslation } from '../../../hooks';
 
 
 const categoriesList = [
@@ -29,7 +30,7 @@ const categoriesList = [
             {title: 'Car Wash', value: 'carWash'},
         ]
     }
-]
+];
 
 
 function ChooseOrgCategories ({
@@ -37,6 +38,7 @@ function ChooseOrgCategories ({
     deleteCategory,
     addCategory
 }) {
+    const translate = useTranslation();
     const [selectedCategory, setSelectedCategory] = useState('');
     const [selectedSubCategory, setSelectedSubCategory] = useState('');
     const [selectedItem, setSelectedItem] = useState(undefined);
@@ -78,10 +80,12 @@ function ChooseOrgCategories ({
                     ))
                 }
             </ListGroup>
-            <div className="d-flex my-4 justify-content-between">
+            <div className="d-flex my-4 justify-content-between flex-column flex-sm-row">
 
                 <Form.Group>
-                    <Form.Label>Category</Form.Label>
+                    <Form.Label>
+                        {translate(({inputs}) => inputs.category.title)}
+                    </Form.Label>
                     <Form.Control
                         as="select"
                         value={selectedCategory}
@@ -100,7 +104,9 @@ function ChooseOrgCategories ({
                 </Form.Group>
 
                 <Form.Group>
-                    <Form.Label>Sub Category</Form.Label>
+                    <Form.Label>
+                        {translate(({inputs}) => inputs.subCategory.title)}
+                    </Form.Label>
                     <Form.Control
                         as="select"
                         value={selectedSubCategory}
@@ -124,7 +130,7 @@ function ChooseOrgCategories ({
 
                 <div className="d-flex align-items-end mb-3">
                     <Button
-                        title="Add"
+                        title={translate(({buttons}) => buttons.add)}
                         size={ButtonSizes.Medium}
                         variant={ButtonVariants.Primary}
                         onClick={handleAddCategory}

@@ -13,7 +13,8 @@
         "cancel": "Cancel",
         "createModerator": "Create Moderator",
         "createOrganization": "Create Organization",
-        "updateList": "Update list"
+        "updateList": "Update list",
+        "showOnMap": "Show on map"
     },
     "inputs": {
         "username": {
@@ -75,6 +76,27 @@
         },
         "nearestStop": {
             "title": "Nearest PT Station"
+        },
+        "category": {
+            "title": "Category"
+        },
+        "subCategory": {
+            "title": "Subcategory"
+        },
+        "street": {
+            "title": "Street"
+        },
+        "city": {
+            "title": "City"
+        },
+        "district": {
+            "title": "District"
+        },
+        "floor": {
+            "title": "Floor"
+        },
+        "workTime": {
+            "title": "Worktime"
         }
     },
     "navigation": {
