@@ -57,6 +57,9 @@ export class MapView extends Component {
       
     componentDidMount() {
         this.map.setTarget("map");
+       
+      
+
 
         navigator.geolocation.watchPosition((pos) => {
                 const coords = [pos.coords.longitude, pos.coords.latitude];
@@ -100,6 +103,8 @@ export class MapView extends Component {
 
         this.map.addLayer(layer);
 
+       
+
         this.map.on('click', (e) => {
             const position = e.coordinate;
             const zoom = e.map.getView().getZoom();
@@ -121,9 +126,22 @@ export class MapView extends Component {
                 center: position,
                 zoom
             });
-        })
+        });
 
-    
+        if(this.props.center && this.props.center.lat) {
+            const propsCenter = fromLonLat([this.props.center.lon, this.props.center.lat])
+            
+            this.map.getView().setCenter(propsCenter);
+            this.map.getView().setZoom(17);
+
+            const iconFeature = new Feature({
+                geometry: new Point(propsCenter)
+             });
+
+            iconFeature.setStyle(iconStyle);
+            layer.getSource().clear();
+            layer.getSource().addFeature(iconFeature);
+        }
     }
 
 

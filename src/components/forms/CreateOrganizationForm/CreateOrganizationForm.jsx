@@ -93,6 +93,7 @@ function CreateOrganizationForm ({onCreate}) {
 
     const [workTimeType, setWorkTimeType] = useState('NONE');
     const [workingHours, setWorkingHours] = useState([[], [], [], [], [], [], []]);
+    const [workingDays, setWorkingDays] = useState([true, true, true, true, true, true, true])
 
     const [email, setEmail] = useState('');
     const [website, setWebsite] = useState('');
@@ -207,6 +208,17 @@ function CreateOrganizationForm ({onCreate}) {
         const tempWorkingHours = [...workingHours];
         tempWorkingHours[index][place] = value;
         setWorkingHours(tempWorkingHours);
+    }
+
+    function handleGetWorkingDays (index, isWorking) {
+        const tempWorkingDays = [...workingDays];
+        tempWorkingDays[index] = isWorking;
+        setWorkingDays(tempWorkingDays);
+        if(!isWorking) {
+            const tempWorkingHours = [...workingHours];
+            tempWorkingHours[index] = [];
+            setWorkingHours(tempWorkingHours);
+        }
     }
 
     function handleGetCoords (coords) {
@@ -365,35 +377,43 @@ function CreateOrganizationForm ({onCreate}) {
             {openMapView &&
                 <div
                     className="mb-4">
-                    <MapView getCoords={handleGetCoords} />
+                    <MapView 
+                        center={coordinates}
+                        getCoords={handleGetCoords}
+                    />
                 </div>
             }
 
-            <Form.Group>
-                <Form.Label>
-                    {translate(({inputs}) => inputs.city.title)}
-                    <Required />
-                </Form.Label>
-                <Form.Control
-                    type="text"
-                    name="city"
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
-                />
-            </Form.Group>
-
-            <Form.Group>
-                <Form.Label>
-                    {translate(({inputs}) => inputs.district.title)}
-                    <Required />
-                </Form.Label>
-                <Form.Control
-                    type="text"
-                    name="district"
-                    value={district}
-                    onChange={(e) => setDistrict(e.target.value)}
-                />
-            </Form.Group>
+            <Form.Row>
+                <Col sm={6}>
+                    <Form.Group>
+                        <Form.Label>
+                            {translate(({inputs}) => inputs.city.title)}
+                            <Required />
+                        </Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="city"
+                            value={city}
+                            onChange={(e) => setCity(e.target.value)}
+                        />
+                    </Form.Group>
+                </Col>
+                <Col sm={6}>
+                    <Form.Group>
+                        <Form.Label>
+                            {translate(({inputs}) => inputs.district.title)}
+                            <Required />
+                        </Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="district"
+                            value={district}
+                            onChange={(e) => setDistrict(e.target.value)}
+                        />
+                    </Form.Group>
+                </Col>
+            </Form.Row>
 
             <Form.Group>
                 <Form.Label>
@@ -408,89 +428,95 @@ function CreateOrganizationForm ({onCreate}) {
             </Form.Group>
 
             
-
-
-
-
-        <Form.Row>
-            <Col lg={6}>
-                <Form.Group>
-                    <Form.Label>
-                        {translate(({inputs}) => inputs.nearestStop.title)}
-                        <Required />
-                    </Form.Label>
-                    <Form.Control
-                        type="text"
-                        value={nearestStopTitle}
-                        onChange={(e) => setNearestStopTitle(e.target.value)}
+            <Form.Row>
+                <Col lg={6}>
+                    <Form.Group>
+                        <Form.Label>
+                            {translate(({inputs}) => inputs.nearestStop.title)}
+                            <Required />
+                        </Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={nearestStopTitle}
+                            onChange={(e) => setNearestStopTitle(e.target.value)}
+                        />
+                    </Form.Group>
+                </Col>
+                    
+                <Col lg={6}>
+                    <Form.Row className="flex-column flex-sm-row">
+                        <Form.Group as={Col}>
+                            <Form.Label>
+                                {translate(({inputs}) => inputs.latitude.title)}
+                                <Required />
+                            </Form.Label>
+                            <Form.Control
+                                type="number"
+                                value={nearestStopCoordinates.lat}
+                                onChange={(e) => setNearestStopCoordinates({...nearestStopCoordinates, lat: e.target.value})}
+                            />
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Label>
+                                {translate(({inputs}) => inputs.longitude.title)}
+                                <Required />
+                            </Form.Label>
+                            <Form.Control
+                                type="number"
+                                value={nearestStopCoordinates.lon}
+                                onChange={(e) => setNearestStopCoordinates({...nearestStopCoordinates, lon: e.target.value})}
+                            />
+                        </Form.Group>
+                        <div className="d-flex align-items-end mb-3">
+                            <Button
+                                variant={ButtonVariants.Primary}
+                                title={translate(({buttons}) => buttons.showOnMap)}
+                                disabled={openNearestStopMap}
+                                onClick={() => setOpenNearestStopMap(true)}
+                            />
+                        </div>
+                    </Form.Row>
+                </Col>
+            </Form.Row>
+            {openNearestStopMap &&
+                <div
+                    className="mb-4">
+                    <MapView 
+                        center={nearestStopCoordinates}
+                        getCoords={handleGetNearestStopCoords}
                     />
-                </Form.Group>
-            </Col>
-                
-            <Col lg={6}>
-                <Form.Row className="flex-column flex-sm-row">
-                    <Form.Group as={Col}>
+                </div>
+            }
+
+            <Form.Row>
+                <Col sm={6}>
+                    <Form.Group>
                         <Form.Label>
-                            {translate(({inputs}) => inputs.latitude.title)}
-                            <Required />
+                            {translate(({inputs}) => inputs.postCode.title)}
+                        </Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="postCode"
+                            value={postCode}
+                            onChange={(e) => setPostCode(e.target.value)}
+                        />
+                    </Form.Group>
+                </Col>
+                <Col sm={6}>
+                    <Form.Group>
+                        <Form.Label>
+                            {translate(({inputs}) => inputs.numberOfFloors.title)}
                         </Form.Label>
                         <Form.Control
                             type="number"
-                            value={nearestStopCoordinates.lat}
-                            onChange={(e) => setNearestStopCoordinates({...nearestStopCoordinates, lat: e.target.value})}
+                            value={numberOfFloors}
+                            onChange={(e) => setNumberOfFloors(e.target.value)}
                         />
                     </Form.Group>
-                    <Form.Group as={Col}>
-                        <Form.Label>
-                            {translate(({inputs}) => inputs.longitude.title)}
-                            <Required />
-                        </Form.Label>
-                        <Form.Control
-                            type="number"
-                            value={nearestStopCoordinates.lon}
-                            onChange={(e) => setNearestStopCoordinates({...nearestStopCoordinates, lon: e.target.value})}
-                        />
-                    </Form.Group>
-                    <div className="d-flex align-items-end mb-3">
-                        <Button
-                            variant={ButtonVariants.Primary}
-                            title={'Show on map'}
-                            disabled={openNearestStopMap}
-                            onClick={() => setOpenNearestStopMap(true)}
-                        />
-                    </div>
-                </Form.Row>
-            </Col>
-        </Form.Row>
-        {openNearestStopMap &&
-            <div
-                className="mb-4">
-                <MapView getCoords={handleGetNearestStopCoords} />
-            </div>
-        }
-
-
-            <Form.Group>
-                <Form.Label>
-                    {translate(({inputs}) => inputs.postCode.title)}
-                </Form.Label>
-                <Form.Control
-                    type="text"
-                    name="postCode"
-                    value={postCode}
-                    onChange={(e) => setPostCode(e.target.value)}
-                />
-            </Form.Group>
-            <Form.Group>
-                <Form.Label>{translate(({inputs}) => inputs.numberOfFloors.title)}</Form.Label>
-                <Form.Control
-                    type="number"
-                    value={numberOfFloors}
-                    onChange={(e) => setNumberOfFloors(e.target.value)}
-                />
-            </Form.Group>
-
-
+                </Col>
+            </Form.Row>
+           
+         
 
 
 
@@ -586,10 +612,13 @@ function CreateOrganizationForm ({onCreate}) {
                             <div key={`day-${index}`} className="timepicker-element">
                                 <h5>{translate(({days}) => days[day])}</h5>
                                 <Form.Group > 
-                                    <Form.Label>{translate(({inputs}) => inputs.start.title)}</Form.Label>
+                                    <Form.Label>
+                                        {translate(({inputs}) => inputs.start.title)}
+                                    </Form.Label>
                                     <Form.Control
                                         as="select"
-                                        size="5"
+                                        disabled={!workingDays[index]}
+                                        value={workingHours[index][0] || '00:00'}
                                         onChange={(e) => handleGetWorkingHours(index, 0, e.target.value)}
                                     >
                                         {hours.map((hour, i) => (
@@ -601,9 +630,13 @@ function CreateOrganizationForm ({onCreate}) {
                                 </Form.Group>
 
                                 <Form.Group>
-                                    <Form.Label>{translate(({inputs}) => inputs.end.title)}</Form.Label>
+                                    <Form.Label>
+                                        {translate(({inputs}) => inputs.end.title)}
+                                    </Form.Label>
                                     <Form.Control
                                         as="select"
+                                        disabled={!workingDays[index]}
+                                        value={workingHours[index][1] || '00:00'}
                                         onChange={(e) => handleGetWorkingHours(index, 1, e.target.value)}
                                     >
                                         {hours.map((hour, i) => (
@@ -613,6 +646,12 @@ function CreateOrganizationForm ({onCreate}) {
                                         ))}
                                     </Form.Control>
                                 </Form.Group>
+                                <div className="d-flex align-items-center justify-content-center">
+                                    <Form.Check
+                                        checked={workingDays[index]}
+                                        onChange={(e) => handleGetWorkingDays(index, e.target.checked)}
+                                    />
+                                </div>
                             </div>
                     ))}
                 </div>
