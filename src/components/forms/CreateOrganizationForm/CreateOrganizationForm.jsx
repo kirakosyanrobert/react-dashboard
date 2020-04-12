@@ -67,7 +67,6 @@ function CreateOrganizationForm ({onCreate}) {
     const [categories, setCategories] = useState([]);
     const [openCategoriesModal, setOpenCategoriesModal] = useState(false);
 
-   
     const [street, setStreet] = useState('');
     const [coordinates, setCoordinates] = useState({lat: '', lon: ''});
     const [openMapView, setOpenMapView] = useState(false);
@@ -75,14 +74,9 @@ function CreateOrganizationForm ({onCreate}) {
     const [district, setDistrict] = useState('');
     const [floor, setFloor] = useState('');
 
-
-
-
-
     const [nearestStopTitle, setNearestStopTitle] = useState('');
     const [nearestStopCoordinates, setNearestStopCoordinates] = useState({lat: '', lon: ''});
     const [openNearestStopMap, setOpenNearestStopMap] = useState(false);
-
 
     const [postCode, setPostCode] = useState('');
     const [numberOfFloors, setNumberOfFloors] = useState('');
@@ -98,9 +92,6 @@ function CreateOrganizationForm ({onCreate}) {
     const [email, setEmail] = useState('');
     const [website, setWebsite] = useState('');
     const [note, setNote] = useState('');
-
-
-
 
 
     function handleSubmit (e) {
@@ -125,28 +116,28 @@ function CreateOrganizationForm ({onCreate}) {
                 title,
                 description,
                 categories,
-                searchWords: tags,
+                search_words: tags,
 
 
                 address: {
                     coordinates: coordinates,
                     street: street,
-                    zipCode: postCode,
+                    zip_code: postCode,
                     city: city,
                     district: district,
                     floor: floor
                 },
-                nearestStop: {
+                nearest_stop: {
                     coordinates: nearestStopCoordinates,
                     title: nearestStopTitle
                 },
 
-                workTime: {
+                work_time: {
                     type: workTimeType,
                     ...(workTimeType === 'SCHEDULE' && { schedule: workingHours })
                 },
 
-                phoneNumbers,
+                phone_numbers: phoneNumbers,
                 website,
                 email,
                 note,

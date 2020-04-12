@@ -14,7 +14,9 @@
         "createModerator": "Create Moderator",
         "createOrganization": "Create Organization",
         "updateList": "Update list",
-        "showOnMap": "Show on map"
+        "showOnMap": "Show on map",
+        "loginAsAdmin": "Login as Admin ?",
+        "loginAsUser": "Login as User ?"
     },
     "inputs": {
         "username": {

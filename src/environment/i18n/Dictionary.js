@@ -14,7 +14,9 @@ export const Dictionary = {
         createModerator: 'buttons.createModerator',
         createOrganization: 'buttons.createOrganization',
         updateList: "buttons.updateList",
-        showOnMap: "buttons.showOnMap"
+        showOnMap: "buttons.showOnMap",
+        loginAsAdmin: 'buttons.loginAsAdmin',
+        loginAsUser: 'buttons.loginAsUser'
     },
     inputs: {
         username: {

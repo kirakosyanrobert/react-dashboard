@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 
 import { Button, ButtonVariants, ButtonActionTypes } from '../ui/Button';
-import { useTranslation } from '../../hooks';
+import { useTranslation, useAlerts } from '../../hooks';
 
 const formInitialState = {
     username: '',
@@ -14,13 +14,24 @@ const formInitialState = {
 function CreateModeratorForm ({onCreate, onClose, loading}) {
     const [formData, setFormData] = useState(formInitialState);
     const translate = useTranslation();
-   
+    const { setError } = useAlerts();
+
     function handleSubmit (e) {
         e.preventDefault();
-        if(!!formData.username && !!formData.password) {
-          onCreate(formData);
+        if(
+            !!formData.username &&
+            !!formData.password &&
+            !!formData.phoneNumber &&
+            !!formData.name
+          ) {
+          onCreate({
+            username: formData.username,
+            password: formData.password,
+            name: formData.name,
+            phone_number: formData.phoneNumber
+          });
         } else {
-          alert('inputs can`t be empty!');
+          setError({message: 'Inputs can`t be empty!'});
         }
     }
 

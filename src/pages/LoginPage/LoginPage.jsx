@@ -14,7 +14,7 @@ function LoginPage() {
   const translate = useTranslation();
   const { setError } = useAlerts();
   
-  const { loading: loginLoading, request: login } = useRequest();
+  const { loading: loginLoading, request: login} = useRequest();
 
     async function handleLoginFormSubmit(e) {
         e.preventDefault();
@@ -42,8 +42,10 @@ function LoginPage() {
                 <div className="d-flex justify-content-end">
                   <LanguageSwitcher />
                 </div>
-                <Form.Group controlId="formBasicEmail">
-                  <Form.Label>{translate(({inputs}) => inputs.username.title)}</Form.Label>
+                <Form.Group>
+                  <Form.Label>
+                    {translate(({inputs}) => inputs.username.title)}
+                  </Form.Label>
                   <Form.Control
                     type="text"
                     value={username}
@@ -51,30 +53,24 @@ function LoginPage() {
                   />
                 </Form.Group>
 
-                <Form.Group controlId="formBasicPassword">
-                  <Form.Label>{translate(({inputs}) => inputs.password.title)}</Form.Label>
+                <Form.Group>
+                  <Form.Label>
+                    {translate(({inputs}) => inputs.password.title)}
+                  </Form.Label>
                   <Form.Control
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </Form.Group>
-                
-                <div className="d-flex justify-content-between">
-                    <Button
-                        className="mr-4"
-                        title={translate(({buttons}) => buttons.login)}
-                        type={ButtonActionTypes.Submit}
-                        variant={ButtonVariants.Primary}
-                        onClick={handleLoginFormSubmit}
-                        disabled={loginLoading}
-                      />
-                    <Button
-                        title={translate(({buttons}) => buttons.signUp)}
-                        variant={ButtonVariants.Light}
-                        onClick={() => navigate(routes.signUp)}
-                    />
-                </div>
+                <Button
+                    className="mr-4"
+                    title={translate(({buttons}) => buttons.login)}
+                    type={ButtonActionTypes.Submit}
+                    variant={ButtonVariants.Primary}
+                    onClick={handleLoginFormSubmit}
+                    disabled={loginLoading}
+                />
               </Form>
         </div>
     )

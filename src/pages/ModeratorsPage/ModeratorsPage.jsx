@@ -57,7 +57,7 @@ function ModeratorsPage() {
 
     async function handleUpdateModerator(updatedModerator) {
         try {
-           await updateUser(`/users/${updatedModerator.id}`, 'PUT', JSON.stringify(updatedModerator) );
+           await updateUser(`/users/${updatingModerator.id}`, 'PUT', JSON.stringify(updatedModerator) );
 
             const newData = [...moderators].map(moderator => moderator.id !== updatedModerator.id ? moderator : updatedModerator)
             setModerators(newData);
