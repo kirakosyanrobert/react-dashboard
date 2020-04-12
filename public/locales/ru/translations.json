@@ -14,7 +14,9 @@
         "createModerator": "Создать Модератора",
         "createOrganization": "Создать Организацию",
         "updateList": "Обновления списка",
-        "showOnMap": "Показать на карте"
+        "showOnMap": "Показать на карте",
+        "loginAsAdmin": "Войти как Админ ?",
+        "loginAsUser": "Войти как Юзер ?"
     },
     "inputs": {
         "username": {

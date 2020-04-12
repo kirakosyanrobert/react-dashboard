@@ -2,19 +2,30 @@ import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 
 import { Button, ButtonVariants, ButtonActionTypes } from '../ui/Button';
-import { useTranslation } from '../../hooks';
+import { useTranslation, useAlerts } from '../../hooks';
 
 
 function UpdateModeratorForm ({moderator, onUpdate, onClose, loading}) {
-    const [formData, setFormData] = useState(moderator);
+    const [formData, setFormData] = useState({...moderator, password: ''});
     const translate = useTranslation();
+    const { setError } = useAlerts();
    
     function handleSubmit (e) {
         e.preventDefault();
-        if(!!formData.username && !!formData.phoneNumber) {
-          onUpdate(formData);
+        if(
+            !!formData.username &&
+            !!formData.password &&
+            !!formData.name &&
+            !!formData.phone_number
+           ) {
+          onUpdate({
+            username: formData.username,
+            password: formData.password,
+            name: formData.name,
+            phone_number: formData.phone_number
+          });
         } else {
-          alert('Inputs can`t be empty!');
+          setError({message: 'Inputs can`t be empty!'});
         }
     }
 
@@ -52,8 +63,8 @@ function UpdateModeratorForm ({moderator, onUpdate, onClose, loading}) {
                     <Form.Label>{translate(({inputs}) => inputs.phoneNumber.title)}</Form.Label>
                     <Form.Control
                         type="text"
-                        value={formData.phoneNumber}
-                        onChange={(e) => setFormData({...formData, 'phoneNumber': e.target.value})}
+                        value={formData.phone_number}
+                        onChange={(e) => setFormData({...formData, 'phone_number': e.target.value})}
                     />
                 </Form.Group>
                

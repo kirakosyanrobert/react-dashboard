@@ -19,7 +19,6 @@ function ModeratorsTable ({
                 <tr>
                     <th>#</th>
                     <th>{translate(({table}) => table.username)}</th>
-                    <th>{translate(({table}) => table.password)}</th>
                     <th>{translate(({table}) => table.name)}</th>
                     <th>{translate(({table}) => table.phoneNumber)}</th>
 
@@ -32,9 +31,8 @@ function ModeratorsTable ({
                     <tr key={`table-item-${moderator.id}`}>
                         <td>{index + 1}</td>
                         <td>{moderator.username}</td>
-                        <td>{moderator.password}</td>
                         <td>{moderator.name}</td>
-                        <td>{moderator.phoneNumber}</td>
+                        <td>{moderator.phone_number}</td>
                         <td>
                             <Button
                                 title={translate(({buttons}) => buttons.edit)}

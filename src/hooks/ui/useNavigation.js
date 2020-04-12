@@ -8,7 +8,6 @@ const routes = {
     createOrganization: '/create-organization',
     settings: '/settings',
     login: '/login',
-    signUp: '/sign-up',
     root: '/'
 }
 
