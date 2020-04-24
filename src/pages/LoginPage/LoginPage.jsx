@@ -64,12 +64,11 @@ function LoginPage() {
                   />
                 </Form.Group>
                 <Button
-                    className="mr-4"
                     title={translate(({buttons}) => buttons.login)}
                     type={ButtonActionTypes.Submit}
                     variant={ButtonVariants.Primary}
                     onClick={handleLoginFormSubmit}
-                    disabled={loginLoading}
+                    loading={loginLoading}
                 />
               </Form>
         </div>

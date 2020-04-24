@@ -1,0 +1,31 @@
+.base-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.button-title-show {
+    opacity: 1;
+}
+
+.button-title-hide {
+    opacity: 0;
+}
+
+.withLeftIcon {
+    margin-left: .5rem;
+}
+
+.withRightIcon {
+    margin-right: .5rem;
+}
+
+.loader-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
