@@ -1,14 +1,16 @@
 import React from 'react';
+import ClipLoader from "react-spinners/ClipLoader";
 import { Button as BaseButton } from 'react-bootstrap';
+
+import './Button.scss';
+import { Icon } from '../Icon';
 
 export const ButtonVariants = {
     Primary: 'primary',
     Secondary: 'secondary',
     Success: 'success',
-    Warning: 'warning',
     Danger: 'danger',
     Info: 'info',
-    Light: 'light',
     Dark: 'dark',
     Link: 'link'
 }
@@ -25,10 +27,12 @@ export const ButtonSizes = {
    Small: 'sm'
 }
 
+
 //TODO: add Loading, Left and Right Icons for Button
 export function Button({
     className,
     title,
+    icon,
     outlined = false,
     variant = ButtonVariants.Secondary,
     type = ButtonActionTypes.Button,
@@ -36,8 +40,26 @@ export function Button({
     block = false,
     loading= false,
     disabled = false || loading,
+    leftIcon,
+    rightIcon,
     onClick
 }) {
+    if(!!icon) {
+        return (
+            <BaseButton
+            variant={outlined ? `outline-${variant}` : variant}
+            type={type}
+            size={size}
+            block={block}
+            disabled={disabled}
+            onClick={onClick}
+            className={`base-button ${className}`}
+            >
+                <Icon name={icon} size={20} color="fff" />
+            </BaseButton>
+        )
+    }
+
     return (
         <BaseButton
             variant={outlined ? `outline-${variant}` : variant}
@@ -46,9 +68,20 @@ export function Button({
             block={block}
             disabled={disabled}
             onClick={onClick}
-            className={className}
+            className={`base-button ${className}`}
         >
-            {title}
+            {!!leftIcon && <Icon name={leftIcon} size={20} color="fff" />}
+
+            <p className={`mb-0 ${loading ? 'button-title-hide' : 'button-title-show'} ${!!leftIcon ? 'withLeftIcon' : ''} ${!!rightIcon ? 'withRightIcon' : ''}`}>
+                {title}
+            </p>
+            {loading && 
+                <div className="loader-container">
+                    <ClipLoader size={15} color={'#fff'} />
+                </div>
+            }
+
+            {!!rightIcon && <Icon name={rightIcon} size={20} color="fff" />}
         </BaseButton>
     )
 }

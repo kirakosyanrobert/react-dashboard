@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { Button } from '../../components/ui/Button';
+import { Button, ButtonSizes } from '../../components/ui/Button';
 import { useNavigation } from '../../hooks';
 import CreateOrganizationForm from '../../components/forms/CreateOrganizationForm/CreateOrganizationForm';
+import { IconType } from '../../consts';
 
 
 function CreateOrganizationPage () {
@@ -21,8 +22,8 @@ function CreateOrganizationPage () {
         <div className="px-2 px-sm-3">
             <div className="d-flex py-4">
                 <Button
-                    title="<"
-                    outlined
+                    size={ButtonSizes.Small}
+                    icon={IconType.FaChevronLeft}
                     onClick={() => navigate(routes.organizations)}
                 />
             </div>

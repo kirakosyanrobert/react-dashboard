@@ -7,6 +7,7 @@ import { Loader } from '../../components/ui/Loader';
 import { Button, ButtonVariants } from '../../components/ui/Button';
 import CreateModeratorForm from '../../components/forms/CreateModeratorForm';
 import UpdateModeratorForm from '../../components/forms/UpdateModeratorForm';
+import { IconType } from '../../consts';
 
 
 
@@ -114,10 +115,11 @@ function ModeratorsPage() {
                     title={translate(({buttons}) => buttons.updateList)}
                     variant={ButtonVariants.Primary}
                     onClick={handleGetModerators}
-                    disabled={getUsersLoading}
+                    loading={getUsersLoading}
                 />
                 <Button
                     title={translate(({buttons}) => buttons.createModerator)}
+                    rightIcon={IconType.FaPlus}
                     variant={ButtonVariants.Primary}
                     onClick={() => setShowCreateModal(true)}
                 />

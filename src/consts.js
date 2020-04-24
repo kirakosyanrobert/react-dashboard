@@ -9,3 +9,8 @@ export const AlertType = {
     Notification: 'Notification',
     Error: 'Error'
 }
+
+export const IconType = {
+    FaPlus: 'FaPlus',
+    FaChevronLeft: 'FaChevronLeft'
+}
