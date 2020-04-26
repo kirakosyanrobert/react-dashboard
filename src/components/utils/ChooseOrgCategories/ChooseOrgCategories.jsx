@@ -3,6 +3,7 @@ import { ListGroup, Form } from 'react-bootstrap';
 
 import { Button, ButtonSizes, ButtonVariants } from '../../ui/Button';
 import { useTranslation } from '../../../hooks';
+import { IconType } from '../../../consts';
 
 
 const categoriesList = [
@@ -71,7 +72,7 @@ function ChooseOrgCategories ({
                             {`${item.category} - ${item.subCategory}`}
                             <Button
                                 className="float-right"
-                                title="X"
+                                icon={IconType.FaRegTrashAlt}
                                 size={ButtonSizes.Small}
                                 variant={ButtonVariants.Danger}
                                 onClick={() => deleteCategory(index)}

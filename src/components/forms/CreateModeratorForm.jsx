@@ -75,19 +75,22 @@ function CreateModeratorForm ({onCreate, onClose, loading}) {
                         onChange={(e) => setFormData({...formData, 'phoneNumber': e.target.value})}
                     />
                 </Form.Group>
-               
-                <Button
-                    className="mr-2"
-                    title={translate(({buttons}) => buttons.create)}
-                    variant={ButtonVariants.Primary}
-                    type={ButtonActionTypes.Submit}
-                    onClick={handleSubmit}
-                    disabled={loading}
-                />
-                 <Button
-                    title={translate(({buttons}) => buttons.close)}
-                    onClick={onClose}
-                />
+                <div className="d-flex justify-content-end">
+                  <Button
+                      className="mr-2"
+                      title={translate(({buttons}) => buttons.close)}
+                      onClick={onClose}
+                  />
+                  <Button
+                      title={translate(({buttons}) => buttons.create)}
+                      variant={ButtonVariants.Primary}
+                      type={ButtonActionTypes.Submit}
+                      onClick={handleSubmit}
+                      disabled={loading}
+                  />
+                
+                </div>
+              
             </Form>
     )
 }

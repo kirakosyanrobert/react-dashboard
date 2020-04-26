@@ -12,5 +12,7 @@ export const AlertType = {
 
 export const IconType = {
     FaPlus: 'FaPlus',
-    FaChevronLeft: 'FaChevronLeft'
+    FaTimes: 'FaTimes',
+    FaChevronLeft: 'FaChevronLeft',
+    FaRegTrashAlt: 'FaRegTrashAlt'
 }
