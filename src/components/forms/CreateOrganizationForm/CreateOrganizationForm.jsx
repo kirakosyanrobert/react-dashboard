@@ -8,6 +8,7 @@ import { useTranslation } from '../../../hooks';
 import { MapView } from '../../maps/MapView/MapView';
 import { MapCard } from '../../maps/MapCard/MapCard';
 import ChooseOrgCategories from '../../utils/ChooseOrgCategories/ChooseOrgCategories';
+import { IconType } from '../../../consts';
 
 // title: '',
 // email: '',
@@ -524,14 +525,12 @@ function CreateOrganizationForm ({onCreate}) {
                         />
                         <InputGroup.Append>
                             <Button
-                                title="x"
-                                outlined
+                            icon={IconType.FaTimes}
                                 disabled={index === 0}
                                 onClick={() => handleRemovePhoneNumber(index)}
                             />
                             <Button
-                                title="+"
-                                outlined
+                                icon={IconType.FaPlus}
                                 disabled={index !== (phoneNumbers.length - 1)}
                                 onClick={handleAddPhoneNumber}
                             />

@@ -3,34 +3,10 @@ import { ListGroup, Form } from 'react-bootstrap';
 
 import { Button, ButtonSizes, ButtonVariants } from '../../ui/Button';
 import { useTranslation } from '../../../hooks';
+import { IconType } from '../../../consts';
 
 
-const categoriesList = [
-    {
-        category: {title: 'Medicine', value: 'medicine'},
-        subCategories: [
-            {title: 'Pharmacy', value: 'pharmacy'},
-            {title: 'Hostpital', value: 'hostpital'},
-            {title: 'Labaratory', value: 'labaratory'},
-        ]
-    },
-    {
-        category: {title: 'Tourism', value: 'tourism'},
-        subCategories: [
-            {title: 'Excourse', value: 'excourse'},
-            {title: 'Car Rent', value: 'carRent'},
-            {title: 'MotorSycle Rent', value: 'motoRent'},
-        ]
-    },
-    {
-        category: {title: 'Car', value: 'car'},
-        subCategories: [
-            {title: 'Car service', value: 'carservice'},
-            {title: 'Car Parts', value: 'carParts'},
-            {title: 'Car Wash', value: 'carWash'},
-        ]
-    }
-];
+
 
 
 function ChooseOrgCategories ({
@@ -61,6 +37,22 @@ function ChooseOrgCategories ({
         setSelectedItem(undefined);
     }
 
+    const categoriesList = [
+        {
+            category: {
+                title: translate(({category}) => category.medicine),
+                value: 'medicine'
+            }, 
+            subCategories: [
+                {title: translate(({subCategory}) => subCategory.hospital), value: 'hospital'},
+                {title: translate(({subCategory}) => subCategory.pharmacy), value: 'pharmacy'},
+                {title: translate(({subCategory}) => subCategory.privateDoctor), value: 'private_doctor'},
+                {title: translate(({subCategory}) => subCategory.privateHospital), value: 'private_hospital'},
+                {title: translate(({subCategory}) => subCategory.laboratory), value: 'Laboratory'},
+            ]
+        }, 
+    ];
+
 
     return (
         <div>
@@ -71,7 +63,7 @@ function ChooseOrgCategories ({
                             {`${item.category} - ${item.subCategory}`}
                             <Button
                                 className="float-right"
-                                title="X"
+                                icon={IconType.FaRegTrashAlt}
                                 size={ButtonSizes.Small}
                                 variant={ButtonVariants.Danger}
                                 onClick={() => deleteCategory(index)}
