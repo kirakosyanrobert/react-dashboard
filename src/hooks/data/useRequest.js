@@ -1,8 +1,8 @@
 import {useState, useCallback} from 'react';
 import { StorageKey } from '../../consts';
 
-const API_URL = 'https://api.gmap.gr';
-// const API_URL = 'https://api-dev.gmap.gr';
+// const API_URL = 'https://api.gmap.gr';
+const API_URL = 'https://api-dev.gmap.gr';
 
 export function useRequest() {
     const [loading, setLoading] = useState(false);

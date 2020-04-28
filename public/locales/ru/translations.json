@@ -40,6 +40,9 @@
         "title": {
             "title": "Название"
         },
+        "subTitle": {
+            "title": "Подназвание"
+        },
         "description": {
             "title": "Описание"
         },

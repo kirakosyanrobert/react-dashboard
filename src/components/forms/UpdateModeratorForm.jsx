@@ -16,13 +16,13 @@ function UpdateModeratorForm ({moderator, onUpdate, onClose, loading}) {
             !!formData.username &&
             // !!formData.password &&
             !!formData.name &&
-            !!formData.phone_number
+            !!formData.phone
            ) {
           onUpdate({
             username: formData.username,
             // password: formData.password,
             name: formData.name,
-            phone_number: formData.phone_number
+            phone: formData.phone
           });
         } else {
           setError({message: 'Inputs can`t be empty!'});
@@ -63,23 +63,25 @@ function UpdateModeratorForm ({moderator, onUpdate, onClose, loading}) {
                     <Form.Label>{translate(({inputs}) => inputs.phoneNumber.title)}</Form.Label>
                     <Form.Control
                         type="text"
-                        value={formData.phone_number}
-                        onChange={(e) => setFormData({...formData, 'phone_number': e.target.value})}
+                        value={formData.phone}
+                        onChange={(e) => setFormData({...formData, 'phone': e.target.value})}
                     />
                 </Form.Group>
-               
-                <Button
-                    className="mr-2"
-                    title={translate(({buttons}) => buttons.save)}
-                    variant={ButtonVariants.Primary}
-                    type={ButtonActionTypes.Submit}
-                    onClick={handleSubmit}
-                    disabled={loading}
-                />
-                 <Button
-                    title={translate(({buttons}) => buttons.close)}
-                    onClick={onClose}
-                />
+
+                <div className="d-flex justify-content-end">
+                  <Button
+                      className="mr-2"
+                      title={translate(({buttons}) => buttons.save)}
+                      variant={ButtonVariants.Primary}
+                      type={ButtonActionTypes.Submit}
+                      onClick={handleSubmit}
+                      disabled={loading}
+                  />
+                  <Button
+                      title={translate(({buttons}) => buttons.close)}
+                      onClick={onClose}
+                  />
+                </div>
             </Form>
     )
 }

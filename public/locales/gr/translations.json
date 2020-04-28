@@ -40,6 +40,9 @@
         "title": {
             "title": "Title"
         },
+        "subTitle": {
+            "title": "Subtitle"
+        },
         "description": {
             "title": "Description"
         },

@@ -6,7 +6,7 @@ import { Button, ButtonVariants, ButtonActionTypes } from '../../ui/Button';
 import Modal from '../../ui/Modal/Modal';
 import { useTranslation } from '../../../hooks';
 import { MapView } from '../../maps/MapView/MapView';
-import { MapCard } from '../../maps/MapCard/MapCard';
+// import { MapCard } from '../../maps/MapCard/MapCard';
 import ChooseOrgCategories from '../../utils/ChooseOrgCategories/ChooseOrgCategories';
 import { IconType } from '../../../consts';
 
@@ -63,35 +63,68 @@ function CreateOrganizationForm ({onCreate}) {
     const translate = useTranslation();
     
     const [title, setTitle] = useState('');
+    const [titleGr, setTitleGr] = useState('');
+    const [titleRu, setTitleRu] = useState('');
+
+    const [subTitle, setSubTitle] = useState('');
+    const [subTitleGr, setSubTitleGr] = useState('');
+    const [subTitleRu, setSubTitleRu] = useState('');
+
     const [description, setDescription] = useState('');
+    const [descriptionGr, setDescriptionGr] = useState('');
+    const [descriptionRu, setDescriptionRu] = useState('');
 
     const [categories, setCategories] = useState([]);
     const [openCategoriesModal, setOpenCategoriesModal] = useState(false);
 
     const [street, setStreet] = useState('');
+    const [streetGr, setStreetGr] = useState('');
+    const [streetRu, setStreetRu] = useState('');
+
+    const [city, setCity] = useState('');
+    const [cityGr, setCityGr] = useState('');
+    const [cityRu, setCityRu] = useState('');
+
+    const [district, setDistrict] = useState('');
+    const [districtGr, setDistrictGr] = useState('');
+    const [districtRu, setDistrictRu] = useState('');
+
+
     const [coordinates, setCoordinates] = useState({lat: '', lon: ''});
     const [openMapView, setOpenMapView] = useState(false);
-    const [city, setCity] = useState('');
-    const [district, setDistrict] = useState('');
     const [floor, setFloor] = useState('');
 
+
     const [nearestStopTitle, setNearestStopTitle] = useState('');
+    const [nearestStopTitleGr, setNearestStopTitleGr] = useState('');
+    const [nearestStopTitleRu, setNearestStopTitleRu] = useState('');
+
     const [nearestStopCoordinates, setNearestStopCoordinates] = useState({lat: '', lon: ''});
     const [openNearestStopMap, setOpenNearestStopMap] = useState(false);
+
 
     const [postCode, setPostCode] = useState('');
     const [numberOfFloors, setNumberOfFloors] = useState('');
     
     const [newTag, setNewTag] = useState('#');
     const [tags, setTags] = useState([]);
-    const [phoneNumbers, setPhoneNumbers] = useState(['']);
+
+    const [newTagGr, setNewTagGr] = useState('#');
+    const [tagsGr, setTagsGr] = useState([]);
+
+    const [newTagRu, setNewTagRu] = useState('#');
+    const [tagsRu, setTagsRu] = useState([]);
+
 
     const [workTimeType, setWorkTimeType] = useState('NONE');
     const [workingHours, setWorkingHours] = useState([[], [], [], [], [], [], []]);
-    const [workingDays, setWorkingDays] = useState([true, true, true, true, true, true, true])
+    const [workingDays, setWorkingDays] = useState([true, true, true, true, true, true, true]);
 
-    const [email, setEmail] = useState('');
-    const [website, setWebsite] = useState('');
+
+    const [phoneNumbers, setPhoneNumbers] = useState(['']);
+    const [emails, setEmails] = useState(['']);
+    const [websites, setWebsites] = useState(['']);
+
     const [note, setNote] = useState('');
 
 
@@ -116,7 +149,12 @@ function CreateOrganizationForm ({onCreate}) {
             const org = {
                 title,
                 description,
-                categories,
+                categories: categories.map(catItem => (
+                    {   
+                        category: catItem.category.value,
+                        subCategory: catItem.subCategory.value
+                    }
+                )),
                 search_words: tags,
 
 
@@ -138,9 +176,9 @@ function CreateOrganizationForm ({onCreate}) {
                     ...(workTimeType === 'SCHEDULE' && { schedule: workingHours })
                 },
 
-                phone_numbers: phoneNumbers,
-                website,
-                email,
+                phoneNumbers,
+                emails,
+                websites,
                 note,
             };
             onCreate(org);
@@ -164,17 +202,49 @@ function CreateOrganizationForm ({onCreate}) {
         tempPhoneNumers[index] = value;
         setPhoneNumbers(tempPhoneNumers);
     }
-
     function handleAddPhoneNumber () {
         if(phoneNumbers[phoneNumbers.length - 1] !== '') {
             setPhoneNumbers([...phoneNumbers, '']);
         }
     }
-
     function handleRemovePhoneNumber (index) {
         const tempPhoneNumers = [...phoneNumbers];
         tempPhoneNumers.splice(index, 1);
         setPhoneNumbers(tempPhoneNumers);
+    }
+
+    //Emails Actions
+    function handleGetEmails(index, value) {
+        const tempEmails = [...emails];
+        tempEmails[index] = value;
+        setEmails(tempEmails);
+    }
+    function handleAddEmail () {
+        if(emails[emails.length - 1] !== '') {
+            setEmails([...emails, '']);
+        }
+    }
+    function handleRemoveEmail (index) {
+        const tempEmails = [...emails];
+        tempEmails.splice(index, 1);
+        setEmails(tempEmails);
+    }
+
+    //Websites Actions
+    function handleGetWebsites(index, value) {
+        const tempWebsites = [...websites];
+        tempWebsites[index] = value;
+        setWebsites(tempWebsites);
+    }
+    function handleAddWebsite () {
+        if(websites[websites.length - 1] !== '') {
+            setWebsites([...websites, '']);
+        }
+    }
+    function handleRemoveWebsite (index) {
+        const tempWebsites = [...websites];
+        tempWebsites.splice(index, 1);
+        setWebsites(tempWebsites);
     }
 
     //Tags Actions
@@ -190,9 +260,40 @@ function CreateOrganizationForm ({onCreate}) {
             setNewTag('#');
         }
     }
-
     function handleRemoveTag(tagIndex) {
         setTags(tags.filter((t, index) => index !== tagIndex))
+    }
+
+    function handleAddTagGr() {
+        if(newTagGr.length > 1) {
+            if(newTagGr[0] !== '#') {
+                const modifiedNewTagGr = '#' + newTagGr;
+                setTagsGr([modifiedNewTagGr, ...tagsGr])
+                setNewTagGr('#');
+                return;
+            }
+            setTagsGr([newTagGr, ...tagsGr])
+            setNewTagGr('#');
+        }
+    }
+    function handleRemoveTagGr(tagIndex) {
+        setTagsGr(tagsGr.filter((t, index) => index !== tagIndex))
+    }
+
+    function handleAddTagRu() {
+        if(newTagRu.length > 1) {
+            if(newTagRu[0] !== '#') {
+                const modifiedNewTagRu = '#' + newTagRu;
+                setTagsRu([modifiedNewTagRu, ...tagsRu])
+                setNewTagRu('#');
+                return;
+            }
+            setTagsRu([newTagRu, ...tagsRu])
+            setNewTagRu('#');
+        }
+    }
+    function handleRemoveTagRu(tagIndex) {
+        setTagsRu(tagsRu.filter((t, index) => index !== tagIndex))
     }
 
 
@@ -241,7 +342,7 @@ function CreateOrganizationForm ({onCreate}) {
             title={translate(({inputs}) => inputs.category.title)}
             open={openCategoriesModal}
             onClose={() => setOpenCategoriesModal(false)}
-        >
+        > 
             <ChooseOrgCategories
                 orgCategories={categories}
                 deleteCategory={handleRemoveCategory}
@@ -249,30 +350,130 @@ function CreateOrganizationForm ({onCreate}) {
             />
         </Modal>
         <Form onSubmit={handleSubmit}>
-            <Form.Group>
-                <Form.Label>
-                    {translate(({inputs}) => inputs.title.title)}
-                    <Required />
-                </Form.Label>
-                <Form.Control
-                    required
-                    type="text"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                />
-            </Form.Group>
+            <Form.Row>
+                <Col lg={4}>
+                    <Form.Group>
+                        <Form.Label>
+                            {translate(({inputs}) => inputs.title.title)}(en)
+                            <Required />
+                        </Form.Label>
+                        <Form.Control
+                            required
+                            type="text"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                        />
+                    </Form.Group>
+                </Col>
+                <Col lg={4}>
+                    <Form.Group>
+                        <Form.Label>
+                            {translate(({inputs}) => inputs.title.title)}(gr)
+                        </Form.Label>
+                        <Form.Control
+                            required
+                            type="text"
+                            value={titleGr}
+                            onChange={(e) => setTitleGr(e.target.value)}
+                        />
+                    </Form.Group>
+                </Col>
+                <Col lg={4}>
+                    <Form.Group>
+                        <Form.Label>
+                            {translate(({inputs}) => inputs.title.title)}(ru)
+                        </Form.Label>
+                        <Form.Control
+                            required
+                            type="text"
+                            value={titleRu}
+                            onChange={(e) => setTitleRu(e.target.value)}
+                        />
+                    </Form.Group>
+                </Col>
+            </Form.Row>
 
-            <Form.Group>
-                <Form.Label>
-                    {translate(({inputs}) => inputs.description.title)}
-                </Form.Label>
-                <Form.Control
-                    as="textarea"
-                    rows="3"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                />
-            </Form.Group>
+            <Form.Row>
+                <Col lg={4}>
+                    <Form.Group>
+                        <Form.Label>
+                            {translate(({inputs}) => inputs.subTitle.title)}(en)
+                        </Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={subTitle}
+                            onChange={(e) => setSubTitle(e.target.value)}
+                        />
+                    </Form.Group>
+                </Col>
+                <Col lg={4}>
+                    <Form.Group>
+                        <Form.Label>
+                            {translate(({inputs}) => inputs.subTitle.title)}(gr)
+                        </Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={subTitleGr}
+                            onChange={(e) => setSubTitleGr(e.target.value)}
+                        />
+                    </Form.Group>
+                </Col>
+                <Col lg={4}>
+                    <Form.Group>
+                        <Form.Label>
+                            {translate(({inputs}) => inputs.subTitle.title)}(ru)
+                        </Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={subTitleRu}
+                            onChange={(e) => setSubTitleRu(e.target.value)}
+                        />
+                    </Form.Group>
+                </Col>
+            </Form.Row>
+
+            <Form.Row>
+                <Col lg={4}>
+                    <Form.Group>
+                        <Form.Label>
+                            {translate(({inputs}) => inputs.description.title)}(en)
+                        </Form.Label>
+                        <Form.Control
+                            as="textarea"
+                            rows="3"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                         />
+                    </Form.Group>
+                </Col>
+                <Col lg={4}>
+                    <Form.Group>
+                        <Form.Label>
+                            {translate(({inputs}) => inputs.description.title)}(gr)
+                        </Form.Label>
+                        <Form.Control
+                            as="textarea"
+                            rows="3"
+                            value={descriptionGr}
+                            onChange={(e) => setDescriptionGr(e.target.value)}
+                         />
+                    </Form.Group>
+                </Col>
+                <Col lg={4}>
+                    <Form.Group>
+                        <Form.Label>
+                            {translate(({inputs}) => inputs.description.title)}
+                        </Form.Label>
+                        <Form.Control
+                            as="textarea"
+                            rows="3"
+                            value={descriptionRu}
+                            onChange={(e) => setDescriptionRu(e.target.value)}
+                         />
+                    </Form.Group>
+                </Col>
+            </Form.Row>
+         
 
             <Form.Group>
                 <Form.Label>
@@ -282,7 +483,7 @@ function CreateOrganizationForm ({onCreate}) {
                     {categories.length > 0 &&
                         categories.map((item, index) => (
                             <ListGroup.Item key={`categorie-item-${index}`}>
-                                {`${item.category} - ${item.subCategory}`}
+                                {`${item.category.title} - ${item.subCategory.title}`}
                             </ListGroup.Item>
                         ))
                     }
@@ -294,31 +495,13 @@ function CreateOrganizationForm ({onCreate}) {
                     </ListGroup.Item>
                 </ListGroup>
             </Form.Group>
-
-            
-            <Form.Group>
-                <Form.Label>{translate(({inputs}) => inputs.email.title)}</Form.Label>
-                <Form.Control
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-            </Form.Group>
-            <Form.Group>
-                <Form.Label>{translate(({inputs}) => inputs.website.title)}</Form.Label>
-                <Form.Control
-                    type="text"
-                    value={website}
-                    onChange={(e) => setWebsite(e.target.value)}
-                />
-            </Form.Group>
           
 
             <Form.Row>
                 <Col lg={6}>
                     <Form.Group>
                         <Form.Label>
-                            {translate(({inputs}) => inputs.street.title)}
+                            {translate(({inputs}) => inputs.street.title)}(en)
                             <Required />
                         </Form.Label>
                         <Form.Control
@@ -326,6 +509,28 @@ function CreateOrganizationForm ({onCreate}) {
                             name="street"
                             value={street}
                             onChange={(e) => setStreet(e.target.value)}
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>
+                            {translate(({inputs}) => inputs.street.title)}(gr)
+                        </Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="street"
+                            value={streetGr}
+                            onChange={(e) => setStreetGr(e.target.value)}
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>
+                            {translate(({inputs}) => inputs.street.title)}(ru)
+                        </Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="street"
+                            value={streetRu}
+                            onChange={(e) => setStreetRu(e.target.value)}
                         />
                     </Form.Group>
                 </Col>
@@ -380,28 +585,67 @@ function CreateOrganizationForm ({onCreate}) {
                 <Col sm={6}>
                     <Form.Group>
                         <Form.Label>
-                            {translate(({inputs}) => inputs.city.title)}
+                            {translate(({inputs}) => inputs.city.title)}(en)
                             <Required />
                         </Form.Label>
                         <Form.Control
                             type="text"
-                            name="city"
                             value={city}
                             onChange={(e) => setCity(e.target.value)}
                         />
                     </Form.Group>
+                    <Form.Group>
+                        <Form.Label>
+                            {translate(({inputs}) => inputs.city.title)}(gr)
+                        </Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={cityGr}
+                            onChange={(e) => setCityGr(e.target.value)}
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>
+                            {translate(({inputs}) => inputs.city.title)}(ru)
+                        </Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={cityRu}
+                            onChange={(e) => setCityRu(e.target.value)}
+                        />
+                    </Form.Group>
                 </Col>
+
                 <Col sm={6}>
                     <Form.Group>
                         <Form.Label>
-                            {translate(({inputs}) => inputs.district.title)}
+                            {translate(({inputs}) => inputs.district.title)}(en)
                             <Required />
                         </Form.Label>
                         <Form.Control
                             type="text"
-                            name="district"
                             value={district}
                             onChange={(e) => setDistrict(e.target.value)}
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>
+                            {translate(({inputs}) => inputs.district.title)}(gr)
+                        </Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={districtGr}
+                            onChange={(e) => setDistrictGr(e.target.value)}
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>
+                            {translate(({inputs}) => inputs.district.title)}(ru)
+                        </Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={districtRu}
+                            onChange={(e) => setDistrictRu(e.target.value)}
                         />
                     </Form.Group>
                 </Col>
@@ -424,13 +668,32 @@ function CreateOrganizationForm ({onCreate}) {
                 <Col lg={6}>
                     <Form.Group>
                         <Form.Label>
-                            {translate(({inputs}) => inputs.nearestStop.title)}
-                            <Required />
+                            {translate(({inputs}) => inputs.nearestStop.title)}(en)
                         </Form.Label>
                         <Form.Control
                             type="text"
                             value={nearestStopTitle}
                             onChange={(e) => setNearestStopTitle(e.target.value)}
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>
+                            {translate(({inputs}) => inputs.nearestStop.title)}(gr)
+                        </Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={nearestStopTitleGr}
+                            onChange={(e) => setNearestStopTitleGr(e.target.value)}
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>
+                            {translate(({inputs}) => inputs.nearestStop.title)}(ru)
+                        </Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={nearestStopTitleRu}
+                            onChange={(e) => setNearestStopTitleRu(e.target.value)}
                         />
                     </Form.Group>
                 </Col>
@@ -540,45 +803,182 @@ function CreateOrganizationForm ({onCreate}) {
                 </Form.Group>
             ))}
 
-
-            <Form.Group>
-                <Form.Label>
-                    {translate(({inputs}) => inputs.tags.title)}
-                    <Required />
-                </Form.Label>
-                <InputGroup className="mb-3">
-                    <Form.Control 
-                        type="text"
-                        value={newTag}
-                        onChange={(e) => setNewTag(e.target.value)}
-                    />
-                    <InputGroup.Append>
-                        <Button
-                            title={translate(({buttons}) => buttons.add)}
-                            outlined
-                            onClick={handleAddTag}
+            {emails.map((item, index) => (
+                <Form.Group key={`email-input-${index}`}>
+                    <Form.Label>
+                        {`${translate(({inputs}) => inputs.email.title)} ${index + 1}`}
+                    </Form.Label>
+                    <InputGroup className="mb-3">
+                        <FormControl
+                            type="text"
+                            value={emails[index]}
+                            onChange={(e) => handleGetEmails(index, e.target.value)}
                         />
-                    </InputGroup.Append>
-                </InputGroup>
-                <div className="w-100 d-flex flex-wrap">
-                    {tags.map((tag, index) => (
-                        <div
-                            key={`tag-item-${index}`}
-                            className="mr-3 bg-light d-flex align-items-center"
-                        >
-                            <h4>
-                                <Badge variant="secondary">{tag}</Badge>
-                            </h4>
-                            <h5
-                                className="px-2 cursor-pointer"
-                                onClick={() => handleRemoveTag(index)}
-                            >
-                                X
-                            </h5>
+                        <InputGroup.Append>
+                            <Button
+                                icon={IconType.FaTimes}
+                                disabled={index === 0}
+                                onClick={() => handleRemoveEmail(index)}
+                            />
+                            <Button
+                                icon={IconType.FaPlus}
+                                disabled={index !== (emails.length - 1)}
+                                onClick={handleAddEmail}
+                            />
+                        </InputGroup.Append>
+                    </InputGroup>
+                </Form.Group>
+            ))} 
+
+            {websites.map((item, index) => (
+                <Form.Group key={`website-input-${index}`}>
+                    <Form.Label>
+                        {`${translate(({inputs}) => inputs.website.title)} ${index + 1}`}
+                    </Form.Label>
+                    <InputGroup className="mb-3">
+                        <FormControl
+                            type="text"
+                            value={websites[index]}
+                            onChange={(e) => handleGetWebsites(index, e.target.value)}
+                        />
+                        <InputGroup.Append>
+                            <Button
+                                icon={IconType.FaTimes}
+                                disabled={index === 0}
+                                onClick={() => handleRemoveWebsite(index)}
+                            />
+                            <Button
+                                icon={IconType.FaPlus}
+                                disabled={index !== (websites.length - 1)}
+                                onClick={handleAddWebsite}
+                            />
+                        </InputGroup.Append>
+                    </InputGroup>
+                </Form.Group>
+            ))} 
+
+            <Form.Row>
+                <Col lg={4}>
+                    <Form.Group>
+                        <Form.Label>
+                            {translate(({inputs}) => inputs.tags.title)}(en)
+                        </Form.Label>
+                        <InputGroup className="mb-3">
+                            <Form.Control 
+                                type="text"
+                                value={newTag}
+                                onChange={(e) => setNewTag(e.target.value)}
+                            />
+                            <InputGroup.Append>
+                                <Button
+                                    title={translate(({buttons}) => buttons.add)}
+                                    outlined
+                                    onClick={handleAddTag}
+                                />
+                            </InputGroup.Append>
+                        </InputGroup>
+                        <div className="w-100 d-flex flex-wrap">
+                            {tags.map((tag, index) => (
+                                <div
+                                    key={`tag-item-${index}`}
+                                    className="mr-3 bg-light d-flex align-items-center"
+                                >
+                                    <h4>
+                                        <Badge variant="secondary">{tag}</Badge>
+                                    </h4>
+                                    <h5
+                                        className="px-2 cursor-pointer"
+                                        onClick={() => handleRemoveTag(index)}
+                                    >
+                                        X
+                                    </h5>
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                </div>
-            </Form.Group>
+                    </Form.Group>
+                </Col>
+                <Col lg={4}>
+                    <Form.Group>
+                        <Form.Label>
+                            {translate(({inputs}) => inputs.tags.title)}(gr)
+                        </Form.Label>
+                        <InputGroup className="mb-3">
+                            <Form.Control 
+                                type="text"
+                                value={newTagGr}
+                                onChange={(e) => setNewTagGr(e.target.value)}
+                            />
+                            <InputGroup.Append>
+                                <Button
+                                    title={translate(({buttons}) => buttons.add)}
+                                    outlined
+                                    onClick={handleAddTagGr}
+                                />
+                            </InputGroup.Append>
+                        </InputGroup>
+                        <div className="w-100 d-flex flex-wrap">
+                            {tagsGr.map((tag, index) => (
+                                <div
+                                    key={`tag-item-gr-${index}`}
+                                    className="mr-3 bg-light d-flex align-items-center"
+                                >
+                                    <h4>
+                                        <Badge variant="secondary">{tag}</Badge>
+                                    </h4>
+                                    <h5
+                                        className="px-2 cursor-pointer"
+                                        onClick={() => handleRemoveTagGr(index)}
+                                    >
+                                        X
+                                    </h5>
+                                </div>
+                            ))}
+                        </div>
+                    </Form.Group>
+                </Col>
+                <Col lg={4}>
+                    <Form.Group>
+                        <Form.Label>
+                            {translate(({inputs}) => inputs.tags.title)}(ru)
+                        </Form.Label>
+                        <InputGroup className="mb-3">
+                            <Form.Control 
+                                type="text"
+                                value={newTagRu}
+                                onChange={(e) => setNewTagRu(e.target.value)}
+                            />
+                            <InputGroup.Append>
+                                <Button
+                                    title={translate(({buttons}) => buttons.add)}
+                                    outlined
+                                    onClick={handleAddTagRu}
+                                />
+                            </InputGroup.Append>
+                        </InputGroup>
+                        <div className="w-100 d-flex flex-wrap">
+                            {tagsRu.map((tag, index) => (
+                                <div
+                                    key={`tag-item-ru-${index}`}
+                                    className="mr-3 bg-light d-flex align-items-center"
+                                >
+                                    <h4>
+                                        <Badge variant="secondary">{tag}</Badge>
+                                    </h4>
+                                    <h5
+                                        className="px-2 cursor-pointer"
+                                        onClick={() => handleRemoveTagRu(index)}
+                                    >
+                                        X
+                                    </h5>
+                                </div>
+                            ))}
+                        </div>
+                    </Form.Group>
+                </Col>
+            </Form.Row>
+
+
+           
 
 
 
