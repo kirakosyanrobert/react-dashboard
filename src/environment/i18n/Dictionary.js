@@ -40,6 +40,9 @@ export const Dictionary = {
         title: {
             title: 'inputs.title.title'
         },
+        subTitle: {
+            title: 'inputs.subTitle.title'
+        },
         description: {
             title: 'inputs.description.title'
         },
@@ -202,7 +205,6 @@ export const Dictionary = {
         decorationMaterials: 'subCategory.decorationMaterials',
         constructionMaterials: 'subCategory.constructionMaterials',
         tools: 'subCategory.tools',
-        equipment: 'subCategory.equipment',
 
         shoppingCenter: 'subCategory.shoppingCenter',
         kids: 'subCategory.kids',
@@ -223,7 +225,6 @@ export const Dictionary = {
         parkingMoto: 'subCategory.parkingMoto',
         parkingBike: 'subCategory.parkingBike',
 
-        law: 'subCategory.law',
         finance: 'subCategory.finance',
         construction: 'subCategory.construction',
         household: 'subCategory.household',

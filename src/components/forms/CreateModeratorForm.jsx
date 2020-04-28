@@ -28,7 +28,7 @@ function CreateModeratorForm ({onCreate, onClose, loading}) {
             username: formData.username,
             password: formData.password,
             name: formData.name,
-            phone_number: formData.phoneNumber
+            phone: formData.phoneNumber
           });
         } else {
           setError({message: 'Inputs can`t be empty!'});
@@ -78,17 +78,16 @@ function CreateModeratorForm ({onCreate, onClose, loading}) {
                 <div className="d-flex justify-content-end">
                   <Button
                       className="mr-2"
-                      title={translate(({buttons}) => buttons.close)}
-                      onClick={onClose}
-                  />
-                  <Button
                       title={translate(({buttons}) => buttons.create)}
                       variant={ButtonVariants.Primary}
                       type={ButtonActionTypes.Submit}
                       onClick={handleSubmit}
                       disabled={loading}
                   />
-                
+                  <Button
+                      title={translate(({buttons}) => buttons.close)}
+                      onClick={onClose}
+                  />
                 </div>
               
             </Form>

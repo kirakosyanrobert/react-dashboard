@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { ListGroup, Form } from 'react-bootstrap';
 
 import { Button, ButtonSizes, ButtonVariants } from '../../ui/Button';
-import { useTranslation } from '../../../hooks';
+import { useTranslation, useCategoriesList } from '../../../hooks';
 import { IconType } from '../../../consts';
 
 
@@ -18,6 +18,7 @@ function ChooseOrgCategories ({
     const [selectedCategory, setSelectedCategory] = useState('');
     const [selectedSubCategory, setSelectedSubCategory] = useState('');
     const [selectedItem, setSelectedItem] = useState(undefined);
+    const categoriesList = useCategoriesList();
 
     function handleGetCategoryItem (value) {
         const temp = categoriesList.filter(item => item.category.value === value);
@@ -27,8 +28,14 @@ function ChooseOrgCategories ({
 
     function handleAddCategory() {
         const newCategory = {
-            category: selectedCategory,
-            subCategory: selectedSubCategory
+            category: {
+                title: selectedItem.category.title,
+                value: selectedCategory
+            },
+            subCategory: {
+                title: selectedItem.subCategories.find(subItem => subItem.value === selectedSubCategory).title,
+                value: selectedSubCategory
+            }
         }
         addCategory(newCategory);
 
@@ -36,22 +43,7 @@ function ChooseOrgCategories ({
         setSelectedSubCategory('');
         setSelectedItem(undefined);
     }
-
-    const categoriesList = [
-        {
-            category: {
-                title: translate(({category}) => category.medicine),
-                value: 'medicine'
-            }, 
-            subCategories: [
-                {title: translate(({subCategory}) => subCategory.hospital), value: 'hospital'},
-                {title: translate(({subCategory}) => subCategory.pharmacy), value: 'pharmacy'},
-                {title: translate(({subCategory}) => subCategory.privateDoctor), value: 'private_doctor'},
-                {title: translate(({subCategory}) => subCategory.privateHospital), value: 'private_hospital'},
-                {title: translate(({subCategory}) => subCategory.laboratory), value: 'Laboratory'},
-            ]
-        }, 
-    ];
+    
 
 
     return (
@@ -60,7 +52,7 @@ function ChooseOrgCategories ({
                 {orgCategories.length > 0 &&
                     orgCategories.map((item, index) => (
                         <ListGroup.Item key={`categorie-edit-item-${index}`}>
-                            {`${item.category} - ${item.subCategory}`}
+                            {`${item.category.title} - ${item.subCategory.title}`}
                             <Button
                                 className="float-right"
                                 icon={IconType.FaRegTrashAlt}
