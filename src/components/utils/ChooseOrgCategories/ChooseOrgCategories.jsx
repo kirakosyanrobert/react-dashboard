@@ -8,29 +8,13 @@ import { IconType } from '../../../consts';
 
 const categoriesList = [
     {
-        category: {title: 'Medicine', value: 'medicine'},
+        category: {title: 'Medicine', value: 'medicine'}, 
         subCategories: [
             {title: 'Pharmacy', value: 'pharmacy'},
             {title: 'Hostpital', value: 'hostpital'},
             {title: 'Labaratory', value: 'labaratory'},
         ]
-    },
-    {
-        category: {title: 'Tourism', value: 'tourism'},
-        subCategories: [
-            {title: 'Excourse', value: 'excourse'},
-            {title: 'Car Rent', value: 'carRent'},
-            {title: 'MotorSycle Rent', value: 'motoRent'},
-        ]
-    },
-    {
-        category: {title: 'Car', value: 'car'},
-        subCategories: [
-            {title: 'Car service', value: 'carservice'},
-            {title: 'Car Parts', value: 'carParts'},
-            {title: 'Car Wash', value: 'carWash'},
-        ]
-    }
+    }, 
 ];
 
 

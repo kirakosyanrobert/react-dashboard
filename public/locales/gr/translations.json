@@ -18,7 +18,7 @@
         "loginAsAdmin": "Login as Admin ?",
         "loginAsUser": "Login as User ?"
     },
-    "inputs": {
+    "inputs": { 
         "username": {
             "title": "Username"
         },
@@ -128,5 +128,135 @@
         "friday": "FR",
         "saturday": "SA",
         "sunday": "SU"
+    },
+    "category": {
+        "eat": "Φαγητό η Τρώγω",
+        "food": "Προϊόντα",
+        "medicine": "Ιατρική",
+        "municipal": "Δήμος",
+        "sleep": "_Sleep",
+        "farm": "Αγρόκτημα",
+        "tourism": "Τουρισμός",
+        "construction": "Κατασκευή",
+        "stores": "Κατάστημα",
+        "auto": "Αυτοκίνητο",
+        "services": "Υπηρεσίες",
+        "fun": "Διασκέδαση",
+        "sport": "Αθλημα",
+        "education": "Εκπαίδευση",
+        "gas": "Βενζινάδικα",
+        "realty": "Ακίνητη περιουσία",
+        "publicTransport": "Δημόσιες συγκοινωνίες"
+    },
+    "subCategory": {
+        "cafe": "Καφετέρια",
+        "taverna": "Ταβέρνα",
+        "restaurant": "Εστιατόριο η Ρεστοράν",
+        "pub": "Μπιραρία η Παμπ",
+        "bar": "Μπαρ",
+        "delivery": "Διανομή η Ντελιβερι",
+
+        "kiosk": "Περίπτερο",
+        "minimarket": "Μινιμάρκετ",
+        "supermarket": "Σουπερμάρκετ",
+        "hypermarket": "Υπεραγορά η Υπερμάρκετ",
+        "wholesale": "Χονδρική",
+
+        "hospital": "Νοσοκομείο",
+        "pharmacy": "Φαρμακείο",
+        "privateDoctor": "Ιδιωτικός Γιατρός",
+        "privateHospital": "Ιδιωτική Κλινική",
+        "laboratory": "Εργαστήριο",
+
+        "fireDepartment": "Πυροσβεστική",
+        "police": "Αστυνομία",
+        "law": "Νομολογία",
+        "utilities": "στέγαση και κοινοτικές υπηρεσίες",
+        "postOffice": "Ταχυδρομείο",
+        "other": "Άλλα",
+
+        "villa": "Βίλα",
+        "hotel": "Ξενοδοχείο",
+        "apartments": "Διαμερίσματα",
+        "hostel": "Πανδοχείο",
+        "camping": "Κατασκήνωση",
+
+        "animal": "Κατοικίδια βοοειδή",
+        "plant": "Φυτά",
+        "equipment": "Εξοπλισμός",
+
+        "excursion": "Εκδρομή",
+        "rentACar": "Νοικιάσετε ένα αυτοκίνητο",
+        "rentAMoto": "Νοικιάστε ένα Moto",
+        "beachEquipped": "Εξοπλισμένη Παραλία",
+        "sights": "Αξιοθόατο / Έλξη",
+        "viewpoint": "Άποψη",
+        "religion": "Θρησκεία",
+        "museum": "Μουσείο",
+        "monument": "Μνημείο",
+        "fountain": "Κρήνη",
+        "wc": "Τουαλέτα",
+        "beach": "Παραλία",
+        "nature": "Φύση",
+
+        "decorationMaterials": "Υλικά διακόσμησης",
+        "constructionMaterials": "Κατασκευαστικα υλικά",
+        "tools": "Εργαλεία",
+
+        "shoppingCenter": "Εμπορικό κέντρο",
+        "kids": "_Kids",
+        "clothes": "Ρούχα",
+        "appliances": "Συσκευές",
+        "stationery": "Γραφική ύλη",
+        "houseware": "Οικιακά είδη",
+        "zoo": "Ζωο",
+        "forBusiness": "Για επιχείρηση",
+
+        "forCar": "Για αυτοκίνητο",
+        "carService": "Υπηρεσία αυτοκινήτων",
+        "carWash": "Πλύσιμο αυτοκινήτων",
+        "carInspection": "Επιθεώρηση αυτοκινήτου",
+        "parkingEuro": "Στάθμευση ευρώ",
+        "gas": "Βενζινάδικα",
+        "parking": "Στάθμευση",
+        "parkingMoto": "Στάθμευση Μότο",
+        "parkingBike": "Στάθμευση Ποδήλατο",
+
+        "finance": "Οικονομικά η Χρηματοδότηση",
+        "construction": "Κατασκευή",
+        "household": "Νοικοκυριό",
+        "beauty": "Ομορφιά",
+        "trucking": "Φορτηγά",
+        "realtor": "Κτηματομεσίτης",
+        "provider": "Πάροχος η Προμηθευτής",
+        "bank": "Τράπεζα",
+        "atm": "ATM",
+        "taxi": "Ταξί",
+
+        "aquapark": "Υδάτινο πάρκο",
+        "oceanarium": "_Oceanarium",
+        "nightClub": "Νυχτερινό κέντρο",
+        "computerClub": "Υπολογιστική λέσχη",
+
+        "gym": "Γυμναστήριο",
+        "playground": "Αθλητικός χώρος",
+        "stadium": "Στάδιο",
+        "stadiumEuro": "Στάδιο ευρώ",
+
+        "preschool": "Προσχολικός",
+        "scholl": "Σχολείο",
+        "college": "Κολλέγιο",
+        "university": "Πανεπιστήμιο",
+        "courses": "Κυκλος μαθηματων η Μαθηματων",
+        "municipalCourses": "Δημοτικά μαθήματα η Κυβερνητικά μαθήματα",
+
+        "sale": "Πώληση",
+        "rent": "Ενοίκιο",
+
+        "busStop": "Στάση λεωφορείου",
+        "busStation": "Σταθμός λεωφορείων",
+        "port": "Λιμάνι",
+        "airport": "Αεροδρομιο",
+        "railway": "Σιδηροδρομικός"
     }
 }
