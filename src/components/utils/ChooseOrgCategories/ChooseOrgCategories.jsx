@@ -6,16 +6,7 @@ import { useTranslation } from '../../../hooks';
 import { IconType } from '../../../consts';
 
 
-const categoriesList = [
-    {
-        category: {title: 'Medicine', value: 'medicine'}, 
-        subCategories: [
-            {title: 'Pharmacy', value: 'pharmacy'},
-            {title: 'Hostpital', value: 'hostpital'},
-            {title: 'Labaratory', value: 'labaratory'},
-        ]
-    }, 
-];
+
 
 
 function ChooseOrgCategories ({
@@ -45,6 +36,22 @@ function ChooseOrgCategories ({
         setSelectedSubCategory('');
         setSelectedItem(undefined);
     }
+
+    const categoriesList = [
+        {
+            category: {
+                title: translate(({category}) => category.medicine),
+                value: 'medicine'
+            }, 
+            subCategories: [
+                {title: translate(({subCategory}) => subCategory.hospital), value: 'hospital'},
+                {title: translate(({subCategory}) => subCategory.pharmacy), value: 'pharmacy'},
+                {title: translate(({subCategory}) => subCategory.privateDoctor), value: 'private_doctor'},
+                {title: translate(({subCategory}) => subCategory.privateHospital), value: 'private_hospital'},
+                {title: translate(({subCategory}) => subCategory.laboratory), value: 'Laboratory'},
+            ]
+        }, 
+    ];
 
 
     return (
