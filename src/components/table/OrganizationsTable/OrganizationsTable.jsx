@@ -3,6 +3,7 @@ import { Table } from 'react-bootstrap';
 
 import { Button, ButtonVariants } from '../../ui/Button';
 import { useTranslation } from '../../../hooks';
+import { IconType } from '../../../consts';
 
 function OrganizationsTable ({
     organizations,
@@ -24,9 +25,9 @@ function OrganizationsTable ({
             </thead>
             <tbody>
                 {organizations.map((organization, index) => (
-                    <tr key={organization.id}>
+                    <tr key={`organization-item-${index}`}>
                         <td>{index + 1}</td>
-                        <td>{organization.title}</td>
+                        <td>{organization.title.en}</td>
                         <td>
                             <Button
                                 title={translate(({buttons}) => buttons.details)}
@@ -37,8 +38,7 @@ function OrganizationsTable ({
                         </td>
                         <td>
                             <Button
-                                title={translate(({buttons}) => buttons.delete)}
-                                outlined
+                                icon={IconType.FaRegTrashAlt}
                                 variant={ButtonVariants.Danger}
                                 onClick={() => onDelete(organization.id)}
                             />

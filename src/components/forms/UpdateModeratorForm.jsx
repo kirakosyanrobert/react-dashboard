@@ -14,13 +14,12 @@ function UpdateModeratorForm ({moderator, onUpdate, onClose, loading}) {
         e.preventDefault();
         if(
             !!formData.username &&
-            // !!formData.password &&
             !!formData.name &&
             !!formData.phone
            ) {
           onUpdate({
+            ...moderator,
             username: formData.username,
-            // password: formData.password,
             name: formData.name,
             phone: formData.phone
           });
@@ -40,16 +39,6 @@ function UpdateModeratorForm ({moderator, onUpdate, onClose, loading}) {
                     onChange={(e) => setFormData({...formData, 'username': e.target.value})}
                   />
                 </Form.Group>
-                {/* <Form.Group>
-                  <Form.Label>{translate(({inputs}) => inputs.password.title)}</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="password"
-                    value={formData.password}
-                    onChange={(e) => setFormData({...formData, 'password': e.target.value})}
-                  />
-                </Form.Group> */}
-
                 <Form.Group>
                   <Form.Label>{translate(({inputs}) => inputs.name.title)}</Form.Label>
                   <Form.Control

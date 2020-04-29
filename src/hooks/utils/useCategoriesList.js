@@ -41,7 +41,7 @@ export function useCategoriesList() {
                 {title: translate(({subCategory}) => subCategory.pharmacy), value: 'pharmacy'},
                 {title: translate(({subCategory}) => subCategory.privateDoctor), value: 'private_doctor'},
                 {title: translate(({subCategory}) => subCategory.privateHospital), value: 'private_hospital'},
-                {title: translate(({subCategory}) => subCategory.laboratory), value: 'Laboratory'},
+                {title: translate(({subCategory}) => subCategory.laboratory), value: 'laboratory'},
             ]
         }, 
         {

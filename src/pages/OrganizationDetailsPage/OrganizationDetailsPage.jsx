@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { useNavigation, useEffectOnce, useTranslation } from '../../hooks';
+import { useNavigation, useEffectOnce } from '../../hooks';
 import { Button } from '../../components/ui/Button';
-import { StorageKey } from '../../consts';
-import OrganizationDetailsForm from '../../components/forms/OrganizationDetailsForm';
+import { StorageKey, IconType } from '../../consts';
+import OrganizationDetailsForm from '../../components/forms/OrganizationDetailsForm/OrganizationDetailsForm';
 
 function OrganizationDetailsPage() {
     const [organization, setOrganization] = useState({});
-    const [allowEdit, setAllowEdit] = useState(false);
     const { routes, navigate } = useNavigation();
-    const translate = useTranslation();
     const { id: orgId } = useParams(); 
 
     useEffectOnce(() => {
@@ -36,29 +34,20 @@ function OrganizationDetailsPage() {
             })
         }
         localStorage.setItem(StorageKey.Organizations, JSON.stringify(organizationsData))
-        setAllowEdit(false);
     }
 
     return (
         <div className="px-4">
             <div className="d-flex py-4">
                 <Button
-                    className="mr-4"
-                    title="<"
-                    outlined
+                    icon={IconType.FaChevronLeft}
                     onClick={() => navigate(routes.organizations)}
-                />
-                 <Button
-                    title={allowEdit ? translate(({buttons}) => buttons.cancel) : translate(({buttons}) => buttons.edit)}
-                    outlined
-                    onClick={() => setAllowEdit(!allowEdit)}
                 />
             </div>
                 {organization.id && 
                     <OrganizationDetailsForm
                         organization={organization}
                         onUpdate={handleUpdateOrganization}
-                        editable={allowEdit}
                     />
                 }
         </div>
