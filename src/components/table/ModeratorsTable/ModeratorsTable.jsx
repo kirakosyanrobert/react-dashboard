@@ -10,7 +10,6 @@ function ModeratorsTable ({
     onEdit,
     onDelete,
 }) {
-
     const translate = useTranslation();
 
     return (
@@ -32,7 +31,7 @@ function ModeratorsTable ({
                         <td>{index + 1}</td>
                         <td>{moderator.username}</td>
                         <td>{moderator.name}</td>
-                        <td>{moderator.phone_number}</td>
+                        <td>{moderator.phone}</td>
                         <td>
                             <Button
                                 title={translate(({buttons}) => buttons.edit)}

@@ -43,6 +43,8 @@ function ModeratorsPage() {
        try {
             const data = await createUser('/users', 'POST',  JSON.stringify(newModerator));
             setNotification({message: 'User Created successfully!'});
+            console.log('data', data)
+            console.log('newModerator', newModerator)
             setModerators([data, ...moderators]);
             setShowCreateModal(false);
        } catch (err) {
@@ -62,7 +64,7 @@ function ModeratorsPage() {
 
             const newData = [...moderators].map(moderator => moderator.id !== updatedModerator.id ? moderator : updatedModerator)
             setModerators(newData);
-            setShowEditModal(false);
+            console.log(newData)
         } catch (err) {
             setError({message: err.message});
         }

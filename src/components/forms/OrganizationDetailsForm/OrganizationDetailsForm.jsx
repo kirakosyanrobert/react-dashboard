@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { Form, InputGroup, FormControl, Badge, Col, ListGroup } from 'react-bootstrap';
 
-import './CreateOrganizationForm.scss';
+import './OrganizationDetailsForm.scss';
+
 import { Button, ButtonVariants, ButtonActionTypes } from '../../ui/Button';
 import Modal from '../../ui/Modal/Modal';
-import { useTranslation, useAlerts } from '../../../hooks';
+import { useTranslation, useAlerts, useCategoriesList } from '../../../hooks';
 import { MapView } from '../../maps/MapView/MapView';
-// import { MapCard } from '../../maps/MapCard/MapCard';
 import ChooseOrgCategories from '../../utils/ChooseOrgCategories/ChooseOrgCategories';
 import { IconType } from '../../../consts';
-
 
 const hours = [
     '00:00',
@@ -48,66 +47,86 @@ const days = [
     'sunday'
 ]
 
-//TODO: create smaller components for this form
-function CreateOrganizationForm ({onCreate}) {
+function OrganizationDetailsForm ({organization, onUpdate}) {
     const translate = useTranslation();
     const { setError } = useAlerts();
+    const categoriesList = useCategoriesList();
     
-    const [title, setTitle] = useState('');
-    const [titleGr, setTitleGr] = useState('');
-    const [titleRu, setTitleRu] = useState('');
+    const [title, setTitle] = useState(organization.title.en);
+    const [titleGr, setTitleGr] = useState(organization.title.gr);
+    const [titleRu, setTitleRu] = useState(organization.title.ru);
 
-    const [subTitle, setSubTitle] = useState('');
-    const [subTitleGr, setSubTitleGr] = useState('');
-    const [subTitleRu, setSubTitleRu] = useState('');
+    const [subTitle, setSubTitle] = useState(organization.subTitle.en);
+    const [subTitleGr, setSubTitleGr] = useState(organization.subTitle.gr);
+    const [subTitleRu, setSubTitleRu] = useState(organization.subTitle.ru);
 
-    const [description, setDescription] = useState('');
-    const [descriptionGr, setDescriptionGr] = useState('');
-    const [descriptionRu, setDescriptionRu] = useState('');
+    const [description, setDescription] = useState(organization.description.en);
+    const [descriptionGr, setDescriptionGr] = useState(organization.description.gr);
+    const [descriptionRu, setDescriptionRu] = useState(organization.description.ru);
+
+    // let categoriesWithTitle = [];
+    // categoriesList.forEach(listItem => {
+    //     organization.categories.forEach(orgCatItem => {
+    //         if(listItem.category.value === orgCatItem.category) {
+    //             let current = {
+    //                 category: {
+    //                     title: listItem.category.title,
+    //                     value: orgCatItem.category
+    //                 },
+    //                 subTitle: {
+    //                     title: listItem.subCategories.find(subItem => subItem.value === orgCatItem.subCategory).title,
+    //                     value: orgCatItem.subCategory
+    //                 }
+    //             }
+    //             categoriesWithTitle.push(current)
+    //         }
+    //     })
+    // });
+
+    // console.log(categoriesWithTitle)
 
     const [categories, setCategories] = useState([]);
     const [openCategoriesModal, setOpenCategoriesModal] = useState(false);
 
-    const [street, setStreet] = useState('');
-    const [streetGr, setStreetGr] = useState('');
-    const [streetRu, setStreetRu] = useState('');
+    const [street, setStreet] = useState(organization.address.street.en);
+    const [streetGr, setStreetGr] = useState(organization.address.street.gr);
+    const [streetRu, setStreetRu] = useState(organization.address.street.ru);
 
-    const [city, setCity] = useState('');
-    const [cityGr, setCityGr] = useState('');
-    const [cityRu, setCityRu] = useState('');
+    const [city, setCity] = useState(organization.address.city.en);
+    const [cityGr, setCityGr] = useState(organization.address.city.gr);
+    const [cityRu, setCityRu] = useState(organization.address.city.ru);
 
-    const [district, setDistrict] = useState('');
-    const [districtGr, setDistrictGr] = useState('');
-    const [districtRu, setDistrictRu] = useState('');
+    const [district, setDistrict] = useState(organization.address.district.en);
+    const [districtGr, setDistrictGr] = useState(organization.address.district.gr);
+    const [districtRu, setDistrictRu] = useState(organization.address.district.ru);
 
 
-    const [coordinates, setCoordinates] = useState({lat: '', lon: ''});
+    const [coordinates, setCoordinates] = useState(organization.address.coordinates);
     const [openMapView, setOpenMapView] = useState(false);
-    const [floor, setFloor] = useState('');
+    const [floor, setFloor] = useState(organization.address.floor);
 
 
-    const [nearestStopTitle, setNearestStopTitle] = useState('');
-    const [nearestStopTitleGr, setNearestStopTitleGr] = useState('');
-    const [nearestStopTitleRu, setNearestStopTitleRu] = useState('');
+    const [nearestStopTitle, setNearestStopTitle] = useState(organization.nearestStop.title.en);
+    const [nearestStopTitleGr, setNearestStopTitleGr] = useState(organization.nearestStop.title.gr);
+    const [nearestStopTitleRu, setNearestStopTitleRu] = useState(organization.nearestStop.title.ru);
 
-    const [nearestStopCoordinates, setNearestStopCoordinates] = useState({lat: '', lon: ''});
+    const [nearestStopCoordinates, setNearestStopCoordinates] = useState(organization.nearestStop.coordinates);
     const [openNearestStopMap, setOpenNearestStopMap] = useState(false);
 
-
-    const [postCode, setPostCode] = useState('');
+    const [postCode, setPostCode] = useState(organization.address.zipCode);
     const [numberOfFloors, setNumberOfFloors] = useState('');
     
     const [newTag, setNewTag] = useState('#');
-    const [tags, setTags] = useState([]);
+    const [tags, setTags] = useState(organization.searchWords.en);
 
     const [newTagGr, setNewTagGr] = useState('#');
-    const [tagsGr, setTagsGr] = useState([]);
+    const [tagsGr, setTagsGr] = useState(organization.searchWords.gr);
 
     const [newTagRu, setNewTagRu] = useState('#');
-    const [tagsRu, setTagsRu] = useState([]);
+    const [tagsRu, setTagsRu] = useState(organization.searchWords.ru);
 
 
-    const [workTimeType, setWorkTimeType] = useState('NONE');
+    const [workTimeType, setWorkTimeType] = useState(organization.workTime.type);
     const [workingHours, setWorkingHours] = useState([
         ["00:00", "00:00", "00:00", "00:00"],
         ["00:00", "00:00", "00:00", "00:00"],
@@ -120,11 +139,11 @@ function CreateOrganizationForm ({onCreate}) {
     const [workingDays, setWorkingDays] = useState([true, true, true, true, true, true, true]);
 
 
-    const [phoneNumbers, setPhoneNumbers] = useState(['']);
-    const [emails, setEmails] = useState(['']);
-    const [websites, setWebsites] = useState(['']);
+    const [phoneNumbers, setPhoneNumbers] = useState(organization.phoneNumbers);
+    const [emails, setEmails] = useState(organization.emails);
+    const [websites, setWebsites] = useState(organization.websites);
 
-    const [note, setNote] = useState('');
+    const [note, setNote] = useState(organization.note);
 
 
     function handleSubmit (e) {
@@ -145,6 +164,7 @@ function CreateOrganizationForm ({onCreate}) {
             numberOfFloors
         ) {
             const org = {
+                id: organization.id,
                 title: {
                     en: title,
                     ru: titleRu,
@@ -213,7 +233,7 @@ function CreateOrganizationForm ({onCreate}) {
                 emails,
                 note,
             };
-            onCreate(org);
+            onUpdate(org);
         } else {
             setError({message: "Fill in Inputs"});
         }
@@ -810,10 +830,6 @@ function CreateOrganizationForm ({onCreate}) {
                 </Col>
             </Form.Row>
            
-         
-
-
-
             {phoneNumbers.map((item, index) => (
                 <Form.Group key={`phone-number-input-${index}`}>
                     <Form.Label>
@@ -1017,10 +1033,6 @@ function CreateOrganizationForm ({onCreate}) {
             </Form.Row>
 
 
-           
-
-
-
             <Form.Group>
                 <Form.Label>
                     {translate(({inputs}) => inputs.workTime.title)}
@@ -1137,13 +1149,13 @@ function CreateOrganizationForm ({onCreate}) {
 
 
             <Button
-                title={translate(({buttons}) => buttons.create)}
+                title={translate(({buttons}) => buttons.save)}
                 variant={ButtonVariants.Primary}
                 type={ButtonActionTypes.Submit}
                 onClick={handleSubmit}
             />
         </Form>
-        </>
+    </>
     )
 }
-export default CreateOrganizationForm;
+export default OrganizationDetailsForm;

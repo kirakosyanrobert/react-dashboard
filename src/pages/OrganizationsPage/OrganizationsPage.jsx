@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Button, ButtonVariants } from '../../components/ui/Button';
 import { useNavigation, useEffectOnce, useTranslation } from '../../hooks';
@@ -12,11 +12,11 @@ function OrganizationsPage () {
     const translate = useTranslation();
 
     useEffectOnce(() => {
-        const orgData = localStorage.getItem(StorageKey.Organizations);
+        const orgData = JSON.parse(localStorage.getItem(StorageKey.Organizations));
         if(!orgData) {
             setOrganizations([]);
         } else {
-            setOrganizations(JSON.parse(orgData));
+            setOrganizations(orgData);
         }
     });
 
@@ -27,17 +27,13 @@ function OrganizationsPage () {
 
 
     function handleDeleteOrganization(organizationId) {
+        const confirmDelete = window.confirm("are you sure ?");
         //Request to delete organization
         // if success
-        const confirmDelete = window.confirm("are you sure ?");
         if(confirmDelete) {
             setOrganizations(organizations.filter(organization => organization.id !== organizationId));
         }
     }
-
-    useEffect(() => {
-        localStorage.setItem(StorageKey.Organizations, JSON.stringify(organizations));
-    }, [organizations])
 
 
     return (
