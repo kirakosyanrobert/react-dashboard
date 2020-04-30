@@ -1,29 +1,25 @@
 import React from 'react';
 import { v4 as uuid } from 'uuid'
 import { Button, ButtonSizes } from '../../components/ui/Button';
-import { useNavigation } from '../../hooks';
+import {useAlerts, useNavigation, useRequest} from '../../hooks';
 import CreateOrganizationForm from '../../components/forms/CreateOrganizationForm/CreateOrganizationForm';
 import { IconType, StorageKey } from '../../consts';
 
 
 function CreateOrganizationPage () {
     const { routes, navigate } = useNavigation();
+    const { setError, setNotification } = useAlerts();
+    const { loading: createOrganisationLoading, request: createOrganisation } = useRequest();
 
-    function handleCreate(newOrganization) {
-        console.log(newOrganization);
-        newOrganization.id = uuid();
-        const orgs = JSON.parse(localStorage.getItem(StorageKey.Organizations));
-        if(orgs) {
-            let data = [newOrganization, ...orgs];
-            localStorage.setItem(StorageKey.Organizations, JSON.stringify(data));
-        } else {
-            let data = [newOrganization];
-            localStorage.setItem(StorageKey.Organizations, JSON.stringify(data));
+    async function handleCreate (newOrganization)
+    {
+        try {
+            const data = await createOrganisation('/admin/geo/poi', 'POST',  JSON.stringify({poi : newOrganization}));
+            setNotification({message: 'Organisation Created successfully!'});
+            navigate(routes.organizations);
+        } catch (err) {
+            setError({message: err.message});
         }
-        //Request To Create
-        //Success
-        // I dont check orgData exists or not;
-        navigate(routes.organizations);
     }
 
     return (

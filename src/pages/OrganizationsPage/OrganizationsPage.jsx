@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Button, ButtonVariants } from '../../components/ui/Button';
-import { useNavigation, useEffectOnce, useTranslation } from '../../hooks';
+import {useNavigation, useEffectOnce, useTranslation, useRequest, useAlerts} from '../../hooks';
 import { StorageKey } from '../../consts';
 import OrganizationsTable from '../../components/table/OrganizationsTable/OrganizationsTable';
 
@@ -10,31 +10,40 @@ function OrganizationsPage () {
     const [organizations, setOrganizations] = useState([]);
     const { routes, navigate } = useNavigation();
     const translate = useTranslation();
+    const { setError, setNotification } = useAlerts();
+    const { loading: getOrganisationsLoading, request: getOrganisations } = useRequest();
+    const { loading: deleteOrganisationLoading, request: deleteOrganisation } = useRequest();
 
     useEffectOnce(() => {
-        const orgData = JSON.parse(localStorage.getItem(StorageKey.Organizations));
-        if(!orgData) {
-            setOrganizations([]);
-        } else {
-            setOrganizations(orgData);
-        }
+        handleGetOrganisations();
     });
 
+    async function handleGetOrganisations() {
+        try {
+            const data = await getOrganisations('/admin/geo/poi?var1=1');
+            setOrganizations(data);
+        } catch (err) {
+            setError({message: err.message});
+        }
+    }
 
     function handleNavigateOrganizationDetailsPage(orgId) {
         navigate(routes.organizationDetails(orgId))
     }
 
 
-    function handleDeleteOrganization(organizationId) {
+    async function handleDeleteOrganization(organizationId) {
         const confirmDelete = window.confirm("are you sure ?");
-        //Request to delete organization
-        // if success
         if(confirmDelete) {
-            setOrganizations(organizations.filter(organization => organization.id !== organizationId));
+            try {
+                await deleteOrganisation(`/admin/geo/poi/${organizationId}`, 'DELETE');
+
+                setOrganizations(organizations.filter(organisation => organisation.properties.id !== organizationId));
+            } catch (err) {
+                setError({message: err.message});
+            }
         }
     }
-
 
     return (
         <div className="px-4">

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { useNavigation, useEffectOnce } from '../../hooks';
+import {useNavigation, useEffectOnce, useRequest, useAlerts} from '../../hooks';
 import { Button } from '../../components/ui/Button';
 import { StorageKey, IconType } from '../../consts';
 import OrganizationDetailsForm from '../../components/forms/OrganizationDetailsForm/OrganizationDetailsForm';
@@ -9,31 +9,30 @@ import OrganizationDetailsForm from '../../components/forms/OrganizationDetailsF
 function OrganizationDetailsPage() {
     const [organization, setOrganization] = useState({});
     const { routes, navigate } = useNavigation();
-    const { id: orgId } = useParams(); 
+    const { request: getOrganisation } = useRequest();
+    const { id: orgId } = useParams();
+    const { setError, setNotification } = useAlerts();
+    const { loading: updateOrganisationLoading, request: updateOrganisation } = useRequest();
 
     useEffectOnce(() => {
-        const organizationsData = JSON.parse(localStorage.getItem(StorageKey.Organizations));
-        // Imitate get Org request.
-        if(organizationsData) {
-            organizationsData.forEach((org) => {
-                if(org.id === orgId) {
-                    setOrganization(org)
-                }
-            })
-        }
+        handleGetOrganisation();
     });
 
-    function handleUpdateOrganization (updatedOrganization) {
-        // Imitate update Org request.
-        const organizationsData = JSON.parse(localStorage.getItem(StorageKey.Organizations));
-        if(organizationsData) {
-            organizationsData.forEach((org, index) => {
-                if(org.id === updatedOrganization.id) {
-                    organizationsData.splice(index, 1, updatedOrganization)
-                }
-            })
+    async function handleGetOrganisation ()
+    {
+        const organizationsData = await getOrganisation(`/admin/geo/poi/${orgId}`);
+        setOrganization(organizationsData);
+    }
+
+    async function handleUpdateOrganization (updatedOrganization)
+    {
+        try {
+            const data = await updateOrganisation(`/admin/geo/poi/${orgId}`, 'PUT',  JSON.stringify({poi : updatedOrganization}));
+            setNotification({message: 'Organisation Updated successfully!'});
+            navigate(routes.organizations);
+        } catch (err) {
+            setError({message: err.message});
         }
-        localStorage.setItem(StorageKey.Organizations, JSON.stringify(organizationsData))
     }
 
     return (
@@ -44,7 +43,7 @@ function OrganizationDetailsPage() {
                     onClick={() => navigate(routes.organizations)}
                 />
             </div>
-                {organization.id && 
+                {organization.properties && organization.properties.id &&
                     <OrganizationDetailsForm
                         organization={organization}
                         onUpdate={handleUpdateOrganization}

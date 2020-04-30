@@ -4,7 +4,7 @@ import { Form, InputGroup, FormControl, Badge, Col, ListGroup } from 'react-boot
 import './CreateOrganizationForm.scss';
 import { Button, ButtonVariants, ButtonActionTypes } from '../../ui/Button';
 import Modal from '../../ui/Modal/Modal';
-import { useTranslation, useAlerts } from '../../../hooks';
+import {useTranslation, useAlerts, useEffectOnce} from '../../../hooks';
 import { MapView } from '../../maps/MapView/MapView';
 // import { MapCard } from '../../maps/MapCard/MapCard';
 import ChooseOrgCategories from '../../utils/ChooseOrgCategories/ChooseOrgCategories';
@@ -81,29 +81,27 @@ function CreateOrganizationForm ({onCreate}) {
     const [districtRu, setDistrictRu] = useState('');
 
 
-    const [coordinates, setCoordinates] = useState({lat: '', lon: ''});
+    const [coordinates, setCoordinates] = useState([25.15337, 35.34000]);
     const [openMapView, setOpenMapView] = useState(false);
     const [floor, setFloor] = useState('');
-
 
     const [nearestStopTitle, setNearestStopTitle] = useState('');
     const [nearestStopTitleGr, setNearestStopTitleGr] = useState('');
     const [nearestStopTitleRu, setNearestStopTitleRu] = useState('');
 
-    const [nearestStopCoordinates, setNearestStopCoordinates] = useState({lat: '', lon: ''});
+    const [nearestStopCoordinates, setNearestStopCoordinates] = useState(['', '']);
     const [openNearestStopMap, setOpenNearestStopMap] = useState(false);
 
 
     const [postCode, setPostCode] = useState('');
-    const [numberOfFloors, setNumberOfFloors] = useState('');
-    
-    const [newTag, setNewTag] = useState('#');
+
+    const [newTag, setNewTag] = useState('');
     const [tags, setTags] = useState([]);
 
-    const [newTagGr, setNewTagGr] = useState('#');
+    const [newTagGr, setNewTagGr] = useState('');
     const [tagsGr, setTagsGr] = useState([]);
 
-    const [newTagRu, setNewTagRu] = useState('#');
+    const [newTagRu, setNewTagRu] = useState('');
     const [tagsRu, setTagsRu] = useState([]);
 
 
@@ -126,6 +124,64 @@ function CreateOrganizationForm ({onCreate}) {
 
     const [note, setNote] = useState('');
 
+    /*useEffectOnce(() =>
+    {
+        setTitleRu('Title ru');
+        setTitle('Title en');
+        setTitleGr('Title gr');
+        setSubTitleRu('Subtitle ru');
+        setSubTitle('Subtitle en');
+        setSubTitleGr('Subtitle gr');
+        setDescriptionRu('Desc ru');
+        setDescription('Desc en');
+        setDescriptionGr('Desc gr');
+
+        setDescriptionRu('Desc ru');
+        setDescription('Desc en');
+        setDescriptionGr('Desc gr');
+
+        setCategories([
+            {category : {value : 'medicine', title : "Медицина"}, subCategory : {title : "Аптека", value : 'pharmacy'}},
+            {category : {value : 'medicine', title : "Медицина"}, subCategory : {title : "Госпиталь", value : 'hospital'}}
+            ]);
+
+        setStreetRu('Street ru');
+        setStreet('Street en');
+        setStreetGr('Street gr');
+
+        setCityRu('City ru');
+        setCity('City en');
+        setCityGr('City gr');
+
+        setDistrictRu('District ru');
+        setDistrict('District en');
+        setDistrictGr('District gr');
+
+        setDistrictRu('District ru');
+        setDistrict('District en');
+        setDistrictGr('District gr');
+
+        setFloor('5');
+
+        setCoordinates([25.15337, 35.34000]);
+
+        setNearestStopCoordinates([25.15337, 35.34000]);
+
+        setNearestStopTitleRu('Nearest stop ru');
+        setNearestStopTitle('Nearest stop en');
+        setNearestStopTitleGr('Nearest stop gr');
+
+        setPostCode(20000);
+
+        setEmails(['email1', 'email2']);
+        setWebsites(['website1', 'webiste2']);
+
+        setTagsRu(['ru', 'ru']);
+        setTags(['en', 'en']);
+        setTagsGr(['gr', 'gr']);
+
+        setWorkTimeType('SCHEDULE');
+    })*/;
 
     function handleSubmit (e) {
         e.preventDefault();
@@ -134,84 +190,84 @@ function CreateOrganizationForm ({onCreate}) {
             (title || titleGr || titleGr) &&
             categories.length > 0 && 
 
-            coordinates.lat && 
-            coordinates.lon &&
+            coordinates[0] &&
+            coordinates[1] &&
             (street || streetRu || streetGr) &&
             (city || cityRu || cityGr) && 
-            (district || districtRu || districtGr) &&
+            (district || districtRu || districtGr)/* &&
 
             nearestStopCoordinates.lat &&
-            nearestStopCoordinates.lon &&
-            numberOfFloors
+            nearestStopCoordinates.lon*/
         ) {
             const org = {
-                title: {
-                    en: title,
-                    ru: titleRu,
-                    gr: titleGr
-                },
-                subTitle : {
-                    en : subTitle,
-                    ru : subTitleRu,
-                    gr : subTitleGr
-                },
-                description: {
-                    en : description,
-                    ru : descriptionRu,
-                    gr : descriptionGr
-                },
 
-                categories: categories.map(catItem => (
-                    {   
-                        category: catItem.category.value,
-                        subCategory: catItem.subCategory.value
-                    }
-                )),
-                searchWords: {
-                    en : tags,
-                    ru : tagsRu,
-                    gr : tagsGr
+                type : "Feature",
+                geometry : {
+                  type : "Point",
+                  coordinates : coordinates,
                 },
-
-                address: {
-                    coordinates: coordinates,
-                    street: {
-                        en : street,
-                        ru : streetRu,
-                        gr : streetGr
-                    },
-                    zipCode: postCode,
-                    city: {
-                        en : city,
-                        ru : cityRu,
-                        gr : cityGr
-                    },
-                    district: {
-                        en : district,
-                        ru : districtRu,
-                        gr : districtGr
-                    },
-                    floor
-                },
-
-                nearestStop: {
-                    coordinates: nearestStopCoordinates,
+                properties : {
                     title: {
-                        en : nearestStopTitle,
-                        ru : nearestStopTitleRu,
-                        gr : nearestStopTitleGr
-                    }
-                },
+                        en: title,
+                        ru: titleRu,
+                        gr: titleGr
+                    },
+                    subTitle : {
+                        en : subTitle,
+                        ru : subTitleRu,
+                        gr : subTitleGr
+                    },
+                    description: {
+                        en : description,
+                        ru : descriptionRu,
+                        gr : descriptionGr
+                    },
 
-                workTime: {
-                    type: workTimeType,
-                    ...(workTimeType === 'SCHEDULE' && { schedule: workingHours })
-                },
+                    categories: categories.map(catItem => `${catItem.category.value}-${catItem.subCategory.value}`),
+                    searchWords: {
+                        en : tags,
+                        ru : tagsRu,
+                        gr : tagsGr
+                    },
+                    address: {
+                        street: {
+                            en : street,
+                            ru : streetRu,
+                            gr : streetGr
+                        },
+                        zipCode: postCode,
+                        city: {
+                            en : city,
+                            ru : cityRu,
+                            gr : cityGr
+                        },
+                        district: {
+                            en : district,
+                            ru : districtRu,
+                            gr : districtGr
+                        },
+                        floor
+                    },
 
-                phoneNumbers,
-                websites,
-                emails,
-                note,
+                    nearestStop: {
+                        coordinates: nearestStopCoordinates,
+                        title: {
+                            en : nearestStopTitle,
+                            ru : nearestStopTitleRu,
+                            gr : nearestStopTitleGr
+                        }
+                    },
+
+                    workTime: {
+                        type: workTimeType,
+                        ...(workTimeType === 'SCHEDULE' && { schedule: workingHours })
+                    },
+
+                    phoneNumbers : phoneNumbers.filter(item => item !== ""),
+                    websites : websites.filter(item => item !== ""),
+                    emails : emails.filter(item => item !== ""),
+                    note
+                }
             };
             onCreate(org);
         } else {
@@ -282,14 +338,8 @@ function CreateOrganizationForm ({onCreate}) {
     //Tags Actions
     function handleAddTag() {
         if(newTag.length > 1) {
-            if(newTag[0] !== '#') {
-                const modifiedNewTag = '#' + newTag;
-                setTags([modifiedNewTag, ...tags])
-                setNewTag('#');
-                return;
-            }
             setTags([newTag, ...tags])
-            setNewTag('#');
+            setNewTag('');
         }
     }
     function handleRemoveTag(tagIndex) {
@@ -298,14 +348,8 @@ function CreateOrganizationForm ({onCreate}) {
 
     function handleAddTagGr() {
         if(newTagGr.length > 1) {
-            if(newTagGr[0] !== '#') {
-                const modifiedNewTagGr = '#' + newTagGr;
-                setTagsGr([modifiedNewTagGr, ...tagsGr])
-                setNewTagGr('#');
-                return;
-            }
             setTagsGr([newTagGr, ...tagsGr])
-            setNewTagGr('#');
+            setNewTagGr('');
         }
     }
     function handleRemoveTagGr(tagIndex) {
@@ -314,14 +358,8 @@ function CreateOrganizationForm ({onCreate}) {
 
     function handleAddTagRu() {
         if(newTagRu.length > 1) {
-            if(newTagRu[0] !== '#') {
-                const modifiedNewTagRu = '#' + newTagRu;
-                setTagsRu([modifiedNewTagRu, ...tagsRu])
-                setNewTagRu('#');
-                return;
-            }
             setTagsRu([newTagRu, ...tagsRu])
-            setNewTagRu('#');
+            setNewTagRu('');
         }
     }
     function handleRemoveTagRu(tagIndex) {
@@ -354,18 +392,12 @@ function CreateOrganizationForm ({onCreate}) {
 
 
     function handleGetCoords (coords) {
-        setCoordinates({
-            lon: coords[0],
-            lat: coords[1]
-        });
+        setCoordinates(coords);
         setTimeout(() => setOpenMapView(false), 0);
     }
 
     function handleGetNearestStopCoords (coords) {
-        setNearestStopCoordinates({
-            lon: coords[0],
-            lat: coords[1]
-        });
+        setNearestStopCoordinates(coords);
         setTimeout(() => setOpenNearestStopMap(false), 0);
     }
 
@@ -578,24 +610,24 @@ function CreateOrganizationForm ({onCreate}) {
                     <Form.Row className="flex-column flex-sm-row">
                         <Form.Group as={Col}>
                             <Form.Label>
-                                {translate(({inputs}) => inputs.latitude.title)}
-                                <Required />
-                            </Form.Label>
-                            <Form.Control
-                                type="number"
-                                value={coordinates.lat}
-                                onChange={(e) => setCoordinates({...coordinates, lat: e.target.value})}
-                            />
-                        </Form.Group>
-                        <Form.Group as={Col}>
-                            <Form.Label>
                                 {translate(({inputs}) => inputs.longitude.title)}
                                 <Required />
                             </Form.Label>
                             <Form.Control
                                 type="number"
-                                value={coordinates.lon}
-                                onChange={(e) => setCoordinates({...coordinates, lon: e.target.value})}
+                                value={coordinates[0]}
+                                onChange={(e) => setCoordinates([e.target.value, coordinates[1]])}
+                            />
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Label>
+                                {translate(({inputs}) => inputs.latitude.title)}
+                                <Required />
+                            </Form.Label>
+                            <Form.Control
+                                type="number"
+                                value={coordinates[1]}
+                                onChange={(e) => setCoordinates([coordinates[0], e.target.value])}
                             />
                         </Form.Group>
                         {/* <MapCard lon={coordinates.lon} lat={coordinates.lat} /> */}
@@ -741,24 +773,24 @@ function CreateOrganizationForm ({onCreate}) {
                     <Form.Row className="flex-column flex-sm-row">
                         <Form.Group as={Col}>
                             <Form.Label>
-                                {translate(({inputs}) => inputs.latitude.title)}
-                                <Required />
-                            </Form.Label>
-                            <Form.Control
-                                type="number"
-                                value={nearestStopCoordinates.lat}
-                                onChange={(e) => setNearestStopCoordinates({...nearestStopCoordinates, lat: e.target.value})}
-                            />
-                        </Form.Group>
-                        <Form.Group as={Col}>
-                            <Form.Label>
                                 {translate(({inputs}) => inputs.longitude.title)}
                                 <Required />
                             </Form.Label>
                             <Form.Control
                                 type="number"
-                                value={nearestStopCoordinates.lon}
-                                onChange={(e) => setNearestStopCoordinates({...nearestStopCoordinates, lon: e.target.value})}
+                                value={nearestStopCoordinates[0]}
+                                onChange={(e) => setNearestStopCoordinates([e.target.value, nearestStopCoordinates[1]])}
+                            />
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Label>
+                                {translate(({inputs}) => inputs.latitude.title)}
+                                <Required />
+                            </Form.Label>
+                            <Form.Control
+                                type="number"
+                                value={nearestStopCoordinates[1]}
+                                onChange={(e) => setNearestStopCoordinates([nearestStopCoordinates[0], e.target.value])}
                             />
                         </Form.Group>
                         <div className="d-flex align-items-end mb-3">
@@ -793,18 +825,6 @@ function CreateOrganizationForm ({onCreate}) {
                             name="postCode"
                             value={postCode}
                             onChange={(e) => setPostCode(e.target.value)}
-                        />
-                    </Form.Group>
-                </Col>
-                <Col sm={6}>
-                    <Form.Group>
-                        <Form.Label>
-                            {translate(({inputs}) => inputs.numberOfFloors.title)}
-                        </Form.Label>
-                        <Form.Control
-                            type="number"
-                            value={numberOfFloors}
-                            onChange={(e) => setNumberOfFloors(e.target.value)}
                         />
                     </Form.Group>
                 </Col>
