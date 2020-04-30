@@ -27,7 +27,7 @@ function Sidebar() {
     ];
 
     if(activeUser) {
-      Links = activeUser.role ? ModeratorLinks : AdminLinks;
+      Links = activeUser.role === '2' ? ModeratorLinks : AdminLinks;
     }
 
     return (

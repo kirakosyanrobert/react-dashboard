@@ -19,7 +19,7 @@
         "loginAsUser": "Login as User ?"
     },
     "inputs": {
-        "username": {
+        "username": { 
             "title": "Username"
         },
         "name": {
@@ -39,6 +39,9 @@
         },
         "title": {
             "title": "Title"
+        },
+        "subTitle": {
+            "title": "Subtitle"
         },
         "description": {
             "title": "Description"
@@ -128,5 +131,135 @@
         "friday": "FR",
         "saturday": "SA",
         "sunday": "SU"
+    },
+    "category": {
+        "eat": "Eat",
+        "food": "Food",
+        "medicine": "Medicine",
+        "municipal": "Municipal",
+        "sleep": "Sleep",
+        "farm": "Farm",
+        "tourism": "Tourism",
+        "construction": "Construction",
+        "stores": "Stores",
+        "auto": "Auto",
+        "services": "Services",
+        "fun": "Fun",
+        "sport": "Sport",
+        "education": "Education",
+        "gas": "GAS",
+        "realty": "Realty",
+        "publicTransport": "Public transport"
+    },
+    "subCategory": {
+        "cafe": "Cafe",
+        "taverna": "Taverna",
+        "restaurant": "Restaurant",
+        "pub": "Pub",
+        "bar": "Bar",
+        "delivery": "Delivery",
+
+        "kiosk": "Kiosk",
+        "minimarket": "Minimarket",
+        "supermarket": "Supermarket",
+        "hypermarket": "Hypermarket",
+        "wholesale": "Wholesale",
+
+        "hospital": "Hospital",
+        "pharmacy": "Pharmacy",
+        "privateDoctor": "Private doctor",
+        "privateHospital": "Private hospital",
+        "laboratory": "Laboratory",
+
+        "fireDepartment": "Fire department",
+        "police": "Police",
+        "law": "Law",
+        "utilities": "Utilities",
+        "postOffice": "Post office",
+        "other": "Other",
+
+        "villa": "Villa",
+        "hotel": "Hotel",
+        "apartments": "Apartments",
+        "hostel": "Hostel",
+        "camping": "Camping",
+
+        "animal": "Animal",
+        "plant": "Plant",
+        "equipment": "Equipment",
+
+        "excursion": "Excursion",
+        "rentACar": "Rent a car",
+        "rentAMoto": "Rent a moto",
+        "beachEquipped": "Beach equipped",
+        "sights": "Sights",
+        "viewpoint": "Viewpoint",
+        "religion": "Religion",
+        "museum": "Museum",
+        "monument": "Monument",
+        "fountain": "Fountain",
+        "wc": "WC",
+        "beach": "Beach",
+        "nature": "Nature",
+
+        "decorationMaterials": "Decoration materials",
+        "constructionMaterials": "Construction materials",
+        "tools": "Tools",
+
+        "shoppingCenter": "Shopping center",
+        "kids": "Kids",
+        "clothes": "Clothes",
+        "appliances": "Appliances",
+        "stationery": "Stationery",
+        "houseware": "Houseware",
+        "zoo": "Zoo",
+        "forBusiness": "For business",
+
+        "forCar": "For car",
+        "carService": "Car service",
+        "carWash": "Car wash",
+        "carInspection": "Car inspection",
+        "parkingEuro": "Parking euro",
+        "gas": "GAS",
+        "parking": "Parking",
+        "parkingMoto": "Parking Moto",
+        "parkingBike": "Parking Bike",
+
+        "finance": "Finance",
+        "construction": "Construction",
+        "household": "Household",
+        "beauty": "Beauty",
+        "trucking": "Trucking",
+        "realtor": "Realtor",
+        "provider": "Provider",
+        "bank": "Bank",
+        "atm": "ATM",
+        "taxi": "Taxi",
+
+        "aquapark": "Aquapark",
+        "oceanarium": "Oceanarium",
+        "nightClub": "Night club",
+        "computerClub": "Computer club",
+
+        "gym": "Gym",
+        "playground": "Playground",
+        "stadium": "Stadium",
+        "stadiumEuro": "Stadium euro",
+
+        "preschool": "Preschool",
+        "scholl": "Scholl",
+        "college": "College",
+        "university": "University",
+        "courses": "Courses",
+        "municipalCourses": "Municipal courses",
+
+        "sale": "Sale",
+        "rent": "Rent",
+
+        "busStop": "Bus stop",
+        "busStation": "Bus station",
+        "port": "Port",
+        "airport": "Airport",
+        "railway": "Railway"
     }
 }

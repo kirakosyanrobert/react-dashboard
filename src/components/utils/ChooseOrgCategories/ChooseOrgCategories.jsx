@@ -2,35 +2,11 @@ import React, { useState } from 'react'
 import { ListGroup, Form } from 'react-bootstrap';
 
 import { Button, ButtonSizes, ButtonVariants } from '../../ui/Button';
-import { useTranslation } from '../../../hooks';
+import { useTranslation, useCategoriesList } from '../../../hooks';
+import { IconType } from '../../../consts';
 
 
-const categoriesList = [
-    {
-        category: {title: 'Medicine', value: 'medicine'},
-        subCategories: [
-            {title: 'Pharmacy', value: 'pharmacy'},
-            {title: 'Hostpital', value: 'hostpital'},
-            {title: 'Labaratory', value: 'labaratory'},
-        ]
-    },
-    {
-        category: {title: 'Tourism', value: 'tourism'},
-        subCategories: [
-            {title: 'Excourse', value: 'excourse'},
-            {title: 'Car Rent', value: 'carRent'},
-            {title: 'MotorSycle Rent', value: 'motoRent'},
-        ]
-    },
-    {
-        category: {title: 'Car', value: 'car'},
-        subCategories: [
-            {title: 'Car service', value: 'carservice'},
-            {title: 'Car Parts', value: 'carParts'},
-            {title: 'Car Wash', value: 'carWash'},
-        ]
-    }
-];
+
 
 
 function ChooseOrgCategories ({
@@ -42,6 +18,7 @@ function ChooseOrgCategories ({
     const [selectedCategory, setSelectedCategory] = useState('');
     const [selectedSubCategory, setSelectedSubCategory] = useState('');
     const [selectedItem, setSelectedItem] = useState(undefined);
+    const categoriesList = useCategoriesList();
 
     function handleGetCategoryItem (value) {
         const temp = categoriesList.filter(item => item.category.value === value);
@@ -51,8 +28,14 @@ function ChooseOrgCategories ({
 
     function handleAddCategory() {
         const newCategory = {
-            category: selectedCategory,
-            subCategory: selectedSubCategory
+            category: {
+                title: selectedItem.category.title,
+                value: selectedCategory
+            },
+            subCategory: {
+                title: selectedItem.subCategories.find(subItem => subItem.value === selectedSubCategory).title,
+                value: selectedSubCategory
+            }
         }
         addCategory(newCategory);
 
@@ -60,6 +43,7 @@ function ChooseOrgCategories ({
         setSelectedSubCategory('');
         setSelectedItem(undefined);
     }
+    
 
 
     return (
@@ -68,10 +52,10 @@ function ChooseOrgCategories ({
                 {orgCategories.length > 0 &&
                     orgCategories.map((item, index) => (
                         <ListGroup.Item key={`categorie-edit-item-${index}`}>
-                            {`${item.category} - ${item.subCategory}`}
+                            {`${item.category.title} - ${item.subCategory.title}`}
                             <Button
                                 className="float-right"
-                                title="X"
+                                icon={IconType.FaRegTrashAlt}
                                 size={ButtonSizes.Small}
                                 variant={ButtonVariants.Danger}
                                 onClick={() => deleteCategory(index)}

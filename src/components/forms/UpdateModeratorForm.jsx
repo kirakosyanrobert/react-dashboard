@@ -6,7 +6,7 @@ import { useTranslation, useAlerts } from '../../hooks';
 
 
 function UpdateModeratorForm ({moderator, onUpdate, onClose, loading}) {
-    const [formData, setFormData] = useState({...moderator, password: ''});
+    const [formData, setFormData] = useState({...moderator});
     const translate = useTranslation();
     const { setError } = useAlerts();
    
@@ -14,15 +14,15 @@ function UpdateModeratorForm ({moderator, onUpdate, onClose, loading}) {
         e.preventDefault();
         if(
             !!formData.username &&
-            !!formData.password &&
+            // !!formData.password &&
             !!formData.name &&
-            !!formData.phone_number
+            !!formData.phone
            ) {
           onUpdate({
             username: formData.username,
-            password: formData.password,
+            // password: formData.password,
             name: formData.name,
-            phone_number: formData.phone_number
+            phone: formData.phone
           });
         } else {
           setError({message: 'Inputs can`t be empty!'});
@@ -40,7 +40,7 @@ function UpdateModeratorForm ({moderator, onUpdate, onClose, loading}) {
                     onChange={(e) => setFormData({...formData, 'username': e.target.value})}
                   />
                 </Form.Group>
-                <Form.Group>
+                {/* <Form.Group>
                   <Form.Label>{translate(({inputs}) => inputs.password.title)}</Form.Label>
                   <Form.Control
                     type="text"
@@ -48,7 +48,7 @@ function UpdateModeratorForm ({moderator, onUpdate, onClose, loading}) {
                     value={formData.password}
                     onChange={(e) => setFormData({...formData, 'password': e.target.value})}
                   />
-                </Form.Group>
+                </Form.Group> */}
 
                 <Form.Group>
                   <Form.Label>{translate(({inputs}) => inputs.name.title)}</Form.Label>
@@ -63,23 +63,25 @@ function UpdateModeratorForm ({moderator, onUpdate, onClose, loading}) {
                     <Form.Label>{translate(({inputs}) => inputs.phoneNumber.title)}</Form.Label>
                     <Form.Control
                         type="text"
-                        value={formData.phone_number}
-                        onChange={(e) => setFormData({...formData, 'phone_number': e.target.value})}
+                        value={formData.phone}
+                        onChange={(e) => setFormData({...formData, 'phone': e.target.value})}
                     />
                 </Form.Group>
-               
-                <Button
-                    className="mr-2"
-                    title={translate(({buttons}) => buttons.save)}
-                    variant={ButtonVariants.Primary}
-                    type={ButtonActionTypes.Submit}
-                    onClick={handleSubmit}
-                    disabled={loading}
-                />
-                 <Button
-                    title={translate(({buttons}) => buttons.close)}
-                    onClick={onClose}
-                />
+
+                <div className="d-flex justify-content-end">
+                  <Button
+                      className="mr-2"
+                      title={translate(({buttons}) => buttons.save)}
+                      variant={ButtonVariants.Primary}
+                      type={ButtonActionTypes.Submit}
+                      onClick={handleSubmit}
+                      disabled={loading}
+                  />
+                  <Button
+                      title={translate(({buttons}) => buttons.close)}
+                      onClick={onClose}
+                  />
+                </div>
             </Form>
     )
 }

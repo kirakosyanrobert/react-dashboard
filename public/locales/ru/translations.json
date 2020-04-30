@@ -40,6 +40,9 @@
         "title": {
             "title": "Название"
         },
+        "subTitle": {
+            "title": "Подназвание"
+        },
         "description": {
             "title": "Описание"
         },
@@ -128,5 +131,135 @@
         "friday": "ПТ",
         "saturday": "СБ",
         "sunday": "ВС"
+    },
+    "category": {
+        "eat": "Поесть",
+        "food": "Продукты",
+        "medicine": "Медицина",
+        "municipal": "Муниципальные",
+        "sleep": "Поспать",
+        "farm": "Ферма",
+        "tourism": "Туризм",
+        "construction": "Ремонт Стройка",
+        "stores": "Товары",
+        "auto": "Авто",
+        "services": "Услуги",
+        "fun": "Развлечения",
+        "sport": "Спорт",
+        "education": "Образование",
+        "gas": "АЗС",
+        "realty": "Недвижимость",
+        "publicTransport": "Транспорт"
+    },
+    "subCategory": {
+        "cafe": "Кафе",
+        "taverna": "Таверна",
+        "restaurant": "Ресторан",
+        "pub": "Паб",
+        "bar": "Бар",
+        "delivery": "Доставка",
+
+        "kiosk": "Киоск",
+        "minimarket": "Минимаркет",
+        "supermarket": "Супермаркет",
+        "hypermarket": "Гипермаркет",
+        "wholesale": "ОПТ",
+
+        "hospital": "Больница",
+        "pharmacy": "Аптека",
+        "privateDoctor": "Частный доктор",
+        "privateHospital": "Частная клиника",
+        "laboratory": "Лаборатория",
+
+        "fireDepartment": "Пожарная",
+        "police": "Полиция",
+        "law": "Право",
+        "utilities": "Коммунальные",
+        "postOffice": "Почта",
+        "other": "Другие",
+
+        "villa": "Вилла",
+        "hotel": "Отель",
+        "apartments": "Апартаменты",
+        "hostel": "Хостел",
+        "camping": "Кемпинг",
+
+        "animal": "Животные",
+        "plant": "Растения",
+        "equipment": "Оборудование",
+
+        "excursion": "Экскурсии",
+        "rentACar": "Аренда Авто",
+        "rentAMoto": "Аренда Мото",
+        "beachEquipped": "Пляж оборудованный",
+        "sights": "Достопримечательности",
+        "viewpoint": "Видовая площадка",
+        "religion": "Религия",
+        "museum": "Музей",
+        "monument": "Памятник",
+        "fountain": "Фонтан",
+        "wc": "Туалет",
+        "beach": "Пляж",
+        "nature": "Природа",
+
+        "decorationMaterials": "Отделочные материалы",
+        "constructionMaterials": "Строительные материалы",
+        "tools": "Инструменты",
+
+        "shoppingCenter": "Торговый центр",
+        "kids": "Детские",
+        "clothes": "Одежда Обувь",
+        "appliances": "Техника",
+        "stationery": "Канцелярские",
+        "houseware": "Хозяйственные",
+        "zoo": "Зоо",
+        "forBusiness": "Для бизнеса",
+
+        "forCar": "Автотовары",
+        "carService": "Автосервис",
+        "carWash": "Автомойка",
+        "carInspection": "Техосмотр",
+        "parkingEuro": "Парковка платная",
+        "gas": "АЗС",
+        "parking": "Парковка бесплатная",
+        "parkingMoto": "Мотопарковка",
+        "parkingBike": "Велопарковка",
+
+        "finance": "Финансы",
+        "construction": "Строительство",
+        "household": "Бытовые",
+        "beauty": "Красота",
+        "trucking": "Грузоперевозки",
+        "realtor": "Риелтор",
+        "provider": "Провайдер",
+        "bank": "Банк",
+        "atm": "Банкомат",
+        "taxi": "Такси",
+
+        "aquapark": "Аквапарк",
+        "oceanarium": "Океанариум",
+        "nightClub": "Ночной клуб",
+        "computerClub": "Компьютерный клуб",
+
+        "gym": "Клуб Зал",
+        "playground": "Спорт площадка",
+        "stadium": "Стадион (объект)",
+        "stadiumEuro": "Стадион частный (обслуж.)",
+
+        "preschool": "Дошкольное",
+        "scholl": "Школа",
+        "college": "Колледж",
+        "university": "Университет",
+        "courses": "Курсы",
+        "municipalCourses": "Курсы муниципальные",
+
+        "sale": "Продажа",
+        "rent": "Аренда",
+
+        "busStop": "Остановка",
+        "busStation": "Автовокзал",
+        "port": "Порт",
+        "airport": "Аэропорт",
+        "railway": "ЖД"
     }
 }

@@ -1,6 +1,7 @@
 import {useState, useCallback} from 'react';
 import { StorageKey } from '../../consts';
 
+// const API_URL = 'https://api.gmap.gr';
 const API_URL = 'https://api-dev.gmap.gr';
 
 export function useRequest() {
@@ -27,9 +28,14 @@ export function useRequest() {
 
             const data = await response.json();
 
+            // if(!response.ok) {
+            //     throw new Error(data.message || 'Errors on server')
+            // }
+            
             if(!data.success) {
                 throw new Error(data.message || 'Errors on server')
             }
+
 
             setLoading(false);
             return data.data;
