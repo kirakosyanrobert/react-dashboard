@@ -55,7 +55,7 @@ export function Button({
             onClick={onClick}
             className={`base-button ${className}`}
             >
-                <Icon name={icon} size={20} color="fff" />
+                <Icon name={icon} size={18} color="fff" />
             </BaseButton>
         )
     }
@@ -70,7 +70,7 @@ export function Button({
             onClick={onClick}
             className={`base-button ${className}`}
         >
-            {!!leftIcon && <Icon name={leftIcon} size={20} color="fff" />}
+            {!!leftIcon && <Icon name={leftIcon} size={18} color="fff" />}
 
             <p className={`mb-0 ${loading ? 'button-title-hide' : 'button-title-show'} ${!!leftIcon ? 'withLeftIcon' : ''} ${!!rightIcon ? 'withRightIcon' : ''}`}>
                 {title}
@@ -81,7 +81,7 @@ export function Button({
                 </div>
             }
 
-            {!!rightIcon && <Icon name={rightIcon} size={20} color="fff" />}
+            {!!rightIcon && <Icon name={rightIcon} size={18} color="fff" />}
         </BaseButton>
     )
 }

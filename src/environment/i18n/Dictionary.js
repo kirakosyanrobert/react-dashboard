@@ -121,7 +121,9 @@ export const Dictionary = {
         edit: 'table.edit',
         details: 'table.details',
         delete: 'table.delete',
-        title: 'table.title'
+        title: 'table.title',
+        login: 'table.login',
+        fullName: 'table.fullName'
     },
     days: {
         monday: 'days.monday',

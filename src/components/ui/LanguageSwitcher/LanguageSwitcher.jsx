@@ -29,7 +29,7 @@ export function LanguageSwitcher () {
               >
                 <option value={LanguageCode.EN}>EN</option>
                 <option value={LanguageCode.RU}>RU</option>
-                <option value={LanguageCode.GR}>GR</option>
+                <option value={LanguageCode.GR}>EL</option>
               </Form.Control>
             </Form.Group>
         </div>
