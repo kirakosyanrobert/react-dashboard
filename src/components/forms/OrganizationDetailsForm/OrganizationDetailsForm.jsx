@@ -395,7 +395,7 @@ function OrganizationDetailsForm ({organization, onUpdate}) {
                 <Col lg={4}>
                     <Form.Group>
                         <Form.Label>
-                            {translate(({inputs}) => inputs.title.title)}(en)
+                            {translate(({inputs}) => inputs.title.title)}(EN)
                             <Required />
                         </Form.Label>
                         <Form.Control
@@ -409,7 +409,7 @@ function OrganizationDetailsForm ({organization, onUpdate}) {
                 <Col lg={4}>
                     <Form.Group>
                         <Form.Label>
-                            {translate(({inputs}) => inputs.title.title)}(gr)
+                            {translate(({inputs}) => inputs.title.title)}(EL)
                         </Form.Label>
                         <Form.Control
                             required
@@ -422,7 +422,7 @@ function OrganizationDetailsForm ({organization, onUpdate}) {
                 <Col lg={4}>
                     <Form.Group>
                         <Form.Label>
-                            {translate(({inputs}) => inputs.title.title)}(ru)
+                            {translate(({inputs}) => inputs.title.title)}(RU)
                         </Form.Label>
                         <Form.Control
                             required
@@ -438,7 +438,7 @@ function OrganizationDetailsForm ({organization, onUpdate}) {
                 <Col lg={4}>
                     <Form.Group>
                         <Form.Label>
-                            {translate(({inputs}) => inputs.subTitle.title)}(en)
+                            {translate(({inputs}) => inputs.subTitle.title)}(EN)
                         </Form.Label>
                         <Form.Control
                             type="text"
@@ -450,7 +450,7 @@ function OrganizationDetailsForm ({organization, onUpdate}) {
                 <Col lg={4}>
                     <Form.Group>
                         <Form.Label>
-                            {translate(({inputs}) => inputs.subTitle.title)}(gr)
+                            {translate(({inputs}) => inputs.subTitle.title)}(EL)
                         </Form.Label>
                         <Form.Control
                             type="text"
@@ -462,7 +462,7 @@ function OrganizationDetailsForm ({organization, onUpdate}) {
                 <Col lg={4}>
                     <Form.Group>
                         <Form.Label>
-                            {translate(({inputs}) => inputs.subTitle.title)}(ru)
+                            {translate(({inputs}) => inputs.subTitle.title)}(RU)
                         </Form.Label>
                         <Form.Control
                             type="text"
@@ -477,7 +477,7 @@ function OrganizationDetailsForm ({organization, onUpdate}) {
                 <Col lg={4}>
                     <Form.Group>
                         <Form.Label>
-                            {translate(({inputs}) => inputs.description.title)}(en)
+                            {translate(({inputs}) => inputs.description.title)}(EN)
                         </Form.Label>
                         <Form.Control
                             as="textarea"
@@ -490,7 +490,7 @@ function OrganizationDetailsForm ({organization, onUpdate}) {
                 <Col lg={4}>
                     <Form.Group>
                         <Form.Label>
-                            {translate(({inputs}) => inputs.description.title)}(gr)
+                            {translate(({inputs}) => inputs.description.title)}(EL)
                         </Form.Label>
                         <Form.Control
                             as="textarea"
@@ -542,7 +542,7 @@ function OrganizationDetailsForm ({organization, onUpdate}) {
                 <Col lg={6}>
                     <Form.Group>
                         <Form.Label>
-                            {translate(({inputs}) => inputs.street.title)}(en)
+                            {translate(({inputs}) => inputs.street.title)}(EN)
                             <Required />
                         </Form.Label>
                         <Form.Control
@@ -554,7 +554,7 @@ function OrganizationDetailsForm ({organization, onUpdate}) {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>
-                            {translate(({inputs}) => inputs.street.title)}(gr)
+                            {translate(({inputs}) => inputs.street.title)}(EL)
                         </Form.Label>
                         <Form.Control
                             type="text"
@@ -565,7 +565,7 @@ function OrganizationDetailsForm ({organization, onUpdate}) {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>
-                            {translate(({inputs}) => inputs.street.title)}(ru)
+                            {translate(({inputs}) => inputs.street.title)}(RU)
                         </Form.Label>
                         <Form.Control
                             type="text"
@@ -626,7 +626,7 @@ function OrganizationDetailsForm ({organization, onUpdate}) {
                 <Col sm={6}>
                     <Form.Group>
                         <Form.Label>
-                            {translate(({inputs}) => inputs.city.title)}(en)
+                            {translate(({inputs}) => inputs.city.title)}(EN)
                             <Required />
                         </Form.Label>
                         <Form.Control
@@ -637,7 +637,7 @@ function OrganizationDetailsForm ({organization, onUpdate}) {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>
-                            {translate(({inputs}) => inputs.city.title)}(gr)
+                            {translate(({inputs}) => inputs.city.title)}(EL)
                         </Form.Label>
                         <Form.Control
                             type="text"
@@ -647,7 +647,7 @@ function OrganizationDetailsForm ({organization, onUpdate}) {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>
-                            {translate(({inputs}) => inputs.city.title)}(ru)
+                            {translate(({inputs}) => inputs.city.title)}(RU)
                         </Form.Label>
                         <Form.Control
                             type="text"
@@ -660,7 +660,7 @@ function OrganizationDetailsForm ({organization, onUpdate}) {
                 <Col sm={6}>
                     <Form.Group>
                         <Form.Label>
-                            {translate(({inputs}) => inputs.district.title)}(en)
+                            {translate(({inputs}) => inputs.district.title)}(EN)
                             <Required />
                         </Form.Label>
                         <Form.Control
@@ -671,7 +671,7 @@ function OrganizationDetailsForm ({organization, onUpdate}) {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>
-                            {translate(({inputs}) => inputs.district.title)}(gr)
+                            {translate(({inputs}) => inputs.district.title)}(EL)
                         </Form.Label>
                         <Form.Control
                             type="text"
@@ -681,7 +681,7 @@ function OrganizationDetailsForm ({organization, onUpdate}) {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>
-                            {translate(({inputs}) => inputs.district.title)}(ru)
+                            {translate(({inputs}) => inputs.district.title)}(RU)
                         </Form.Label>
                         <Form.Control
                             type="text"
@@ -709,7 +709,7 @@ function OrganizationDetailsForm ({organization, onUpdate}) {
                 <Col lg={6}>
                     <Form.Group>
                         <Form.Label>
-                            {translate(({inputs}) => inputs.nearestStop.title)}(en)
+                            {translate(({inputs}) => inputs.nearestStop.title)}(EN)
                         </Form.Label>
                         <Form.Control
                             type="text"
@@ -719,7 +719,7 @@ function OrganizationDetailsForm ({organization, onUpdate}) {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>
-                            {translate(({inputs}) => inputs.nearestStop.title)}(gr)
+                            {translate(({inputs}) => inputs.nearestStop.title)}(EL)
                         </Form.Label>
                         <Form.Control
                             type="text"
@@ -729,7 +729,7 @@ function OrganizationDetailsForm ({organization, onUpdate}) {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>
-                            {translate(({inputs}) => inputs.nearestStop.title)}(ru)
+                            {translate(({inputs}) => inputs.nearestStop.title)}(RU)
                         </Form.Label>
                         <Form.Control
                             type="text"
@@ -898,7 +898,7 @@ function OrganizationDetailsForm ({organization, onUpdate}) {
                 <Col lg={4}>
                     <Form.Group>
                         <Form.Label>
-                            {translate(({inputs}) => inputs.tags.title)}(en)
+                            {translate(({inputs}) => inputs.tags.title)}(EN)
                         </Form.Label>
                         <InputGroup className="mb-3">
                             <Form.Control 
@@ -937,7 +937,7 @@ function OrganizationDetailsForm ({organization, onUpdate}) {
                 <Col lg={4}>
                     <Form.Group>
                         <Form.Label>
-                            {translate(({inputs}) => inputs.tags.title)}(gr)
+                            {translate(({inputs}) => inputs.tags.title)}(EL)
                         </Form.Label>
                         <InputGroup className="mb-3">
                             <Form.Control 
@@ -976,7 +976,7 @@ function OrganizationDetailsForm ({organization, onUpdate}) {
                 <Col lg={4}>
                     <Form.Group>
                         <Form.Label>
-                            {translate(({inputs}) => inputs.tags.title)}(ru)
+                            {translate(({inputs}) => inputs.tags.title)}(RU)
                         </Form.Label>
                         <InputGroup className="mb-3">
                             <Form.Control 

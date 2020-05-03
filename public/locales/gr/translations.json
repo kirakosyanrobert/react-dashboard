@@ -121,7 +121,9 @@
         "edit": "Edit",
         "details": "Details",
         "delete": "Delete",
-        "title": "Title"
+        "title": "Title",
+        "login": "Login",
+        "fullName": "Full name"
     },
     "days": {
         "monday": "MO",

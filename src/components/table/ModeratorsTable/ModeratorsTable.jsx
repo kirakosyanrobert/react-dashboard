@@ -3,6 +3,7 @@ import { Table } from 'react-bootstrap';
 
 import { Button, ButtonVariants } from '../../ui/Button';
 import { useTranslation } from '../../../hooks';
+import { IconType } from '../../../consts';
 
 
 function ModeratorsTable ({
@@ -17,12 +18,14 @@ function ModeratorsTable ({
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>{translate(({table}) => table.username)}</th>
-                    <th>{translate(({table}) => table.name)}</th>
+                    <th>{translate(({table}) => table.login)}</th> 
+                    <th>{translate(({table}) => table.password)}</th> 
+                    <th>{translate(({table}) => table.fullName)}</th>
                     <th>{translate(({table}) => table.phoneNumber)}</th>
 
-                    <th>{translate(({table}) => table.edit)}</th>
-                    <th>{translate(({table}) => table.delete)}</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -30,20 +33,27 @@ function ModeratorsTable ({
                     <tr key={`table-item-${moderator.id}`}>
                         <td>{index + 1}</td>
                         <td>{moderator.username}</td>
+                        <td>*****</td>
                         <td>{moderator.name}</td>
                         <td>{moderator.phone}</td>
+
                         <td>
                             <Button
-                                title={translate(({buttons}) => buttons.edit)}
-                                outlined
+                                icon={IconType.FaList}
+                                variant={ButtonVariants.Success}
+                                onClick={() => {}}
+                            />
+                        </td>
+                        <td>
+                            <Button
+                                icon={IconType.FaRegEdit}
                                 variant={ButtonVariants.Primary}
                                 onClick={() => onEdit(moderator)}
                             />
                         </td>
                         <td>
                             <Button
-                                title={translate(({buttons}) => buttons.delete)}
-                                outlined
+                                icon={IconType.FaRegTrashAlt}
                                 variant={ButtonVariants.Danger}
                                 onClick={() => onDelete(moderator.id)}
                             />

@@ -14,5 +14,8 @@ export const IconType = {
     FaPlus: 'FaPlus',
     FaTimes: 'FaTimes',
     FaChevronLeft: 'FaChevronLeft',
-    FaRegTrashAlt: 'FaRegTrashAlt'
+    FaRegTrashAlt: 'FaRegTrashAlt',
+    FaEdit: 'FaEdit',
+    FaRegEdit: 'FaRegEdit',
+    FaList: 'FaList'
 }
