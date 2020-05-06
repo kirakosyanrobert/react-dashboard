@@ -25,7 +25,6 @@ function ModeratorsTable ({
 
                     <th></th>
                     <th></th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -41,16 +40,16 @@ function ModeratorsTable ({
                             <Button
                                 icon={IconType.FaList}
                                 variant={ButtonVariants.Success}
-                                onClick={() => {}}
+                                onClick={() => onEdit(moderator)}
                             />
                         </td>
-                        <td>
+                        {/* <td>
                             <Button
                                 icon={IconType.FaRegEdit}
                                 variant={ButtonVariants.Primary}
                                 onClick={() => onEdit(moderator)}
                             />
-                        </td>
+                        </td> */}
                         <td>
                             <Button
                                 icon={IconType.FaRegTrashAlt}

@@ -30,6 +30,7 @@ function Sidebar() {
       Links = activeUser.role === '2' ? ModeratorLinks : AdminLinks;
     }
 
+
     return (
           <div className="bg-light border-right" id="sidebar-wrapper">
             <div className="d-flex justify-content-between sidebar-heading">

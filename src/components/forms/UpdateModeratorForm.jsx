@@ -3,10 +3,12 @@ import { Form } from 'react-bootstrap';
 
 import { Button, ButtonVariants, ButtonActionTypes } from '../ui/Button';
 import { useTranslation, useAlerts } from '../../hooks';
+import { IconType } from '../../consts';
 
 
 function UpdateModeratorForm ({moderator, onUpdate, onClose, loading}) {
     const [formData, setFormData] = useState({...moderator});
+    const [allowEdit, setAllowEdit] = useState(false);
     const translate = useTranslation();
     const { setError } = useAlerts();
    
@@ -23,6 +25,7 @@ function UpdateModeratorForm ({moderator, onUpdate, onClose, loading}) {
             name: formData.name,
             phone: formData.phone
           });
+          setAllowEdit(false)
         } else {
           setError({message: 'Inputs can`t be empty!'});
         }
@@ -30,11 +33,20 @@ function UpdateModeratorForm ({moderator, onUpdate, onClose, loading}) {
 
     return (
             <Form onSubmit={handleSubmit}>
+              <div className="d-flex justify-content-end">
+                 <Button
+                      icon={IconType.FaRegEdit}
+                      variant={ButtonVariants.Primary}
+                      type={ButtonActionTypes.Button}
+                      onClick={() => setAllowEdit(true)}
+                      disabled={allowEdit}
+                  />
+              </div>
                 <Form.Group>
                   <Form.Label>{translate(({inputs}) => inputs.username.title)}</Form.Label>
                   <Form.Control
                     type="text"
-                    name="username"
+                    disabled={!allowEdit}
                     value={formData.username}
                     onChange={(e) => setFormData({...formData, 'username': e.target.value})}
                   />
@@ -43,6 +55,7 @@ function UpdateModeratorForm ({moderator, onUpdate, onClose, loading}) {
                   <Form.Label>{translate(({inputs}) => inputs.name.title)}</Form.Label>
                   <Form.Control
                     type="text"
+                    disabled={!allowEdit}
                     value={formData.name}
                     onChange={(e) => setFormData({...formData, 'name': e.target.value})}
                   />
@@ -52,6 +65,7 @@ function UpdateModeratorForm ({moderator, onUpdate, onClose, loading}) {
                     <Form.Label>{translate(({inputs}) => inputs.phoneNumber.title)}</Form.Label>
                     <Form.Control
                         type="text"
+                        disabled={!allowEdit}
                         value={formData.phone}
                         onChange={(e) => setFormData({...formData, 'phone': e.target.value})}
                     />
@@ -64,7 +78,8 @@ function UpdateModeratorForm ({moderator, onUpdate, onClose, loading}) {
                       variant={ButtonVariants.Primary}
                       type={ButtonActionTypes.Submit}
                       onClick={handleSubmit}
-                      disabled={loading}
+                      loading={loading}
+                      disabled={!allowEdit}
                   />
                   <Button
                       title={translate(({buttons}) => buttons.close)}
