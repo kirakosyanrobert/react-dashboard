@@ -1,18 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { Button, ButtonVariants } from '../../components/ui/Button';
 import {useNavigation, useEffectOnce, useTranslation, useRequest, useAlerts} from '../../hooks';
 import OrganizationsTable from '../../components/table/OrganizationsTable/OrganizationsTable';
 import { IconType } from '../../consts';
-import { Form } from 'react-bootstrap';
-import { Pagination } from '../../components/ui/Pagination';
 
 
 function OrganizationsPage () {
     const [organizations, setOrganizations] = useState([]);
-    const [tempOrganizations, setTempOrganizations] = useState([]);
-    const [itemsPerPage, setItemsPerPage] = useState(10);
-    const [page, setPage] = useState(1);
 
     const { routes, navigate } = useNavigation();
     const translate = useTranslation();
@@ -29,7 +24,6 @@ function OrganizationsPage () {
         try {
             const data = await getOrganisations('/admin/geo/poi?var1=1');
             setOrganizations(data);
-            setTempOrganizations(data.slice(0, itemsPerPage));
         } catch (err) {
             setError({message: err.message});
         }
@@ -45,8 +39,7 @@ function OrganizationsPage () {
         if(confirmDelete) {
             try {
                 await deleteOrganisation(`/admin/geo/poi/${organizationId}`, 'DELETE');
-
-                setTempOrganizations(tempOrganizations.filter(organisation => organisation.properties.id !== organizationId));
+                setOrganizations(organizations.filter(organisation => organisation.properties.id !== organizationId));
             } catch (err) {
                 setError({message: err.message});
             }
@@ -54,64 +47,21 @@ function OrganizationsPage () {
     }
 
 
-    useEffect(() => {
-        setTempOrganizations(organizations.slice(0, itemsPerPage));
-        setPage(1);
-    }, [itemsPerPage]);
-
-    function handlePagePrev (showPage) {
-        setPage(showPage)
-        setTempOrganizations(organizations.slice((showPage - 1) * itemsPerPage, showPage * itemsPerPage))
-    }
-
-    function handlePageNext (showPage) {
-        setPage(showPage)
-        setTempOrganizations(organizations.slice((showPage - 1) * itemsPerPage, showPage * itemsPerPage))
-    }
-
-
-
-
     return (
         <div className="px-4">
             <div className="d-flex py-4">
-                <div>
-                    <Button
-                        title={translate(({buttons}) => buttons.createOrganization)}
-                        rightIcon={IconType.FaPlus}
-                        variant={ButtonVariants.Primary}
-                        onClick={() => navigate(routes.createOrganization)}
-                    />
-                </div>
-               <div>
-                    <Form.Group>
-                        <Form.Control
-                            as="select"
-                            value={itemsPerPage}
-                            onChange={(e) => setItemsPerPage(Number(e.target.value))}
-                        >
-                            <option value={10}>10</option>
-                            <option value={20}>20</option>
-                            <option value={30}>30</option>
-                        </Form.Control>
-                    </Form.Group>
-               </div>
-               <div>
-                   <Pagination
-                        total={organizations.length}
-                        currentPage={page}
-                        perPage={itemsPerPage}
-                        onPrev={handlePagePrev}
-                        onNext={handlePageNext}
-                   />
-               </div>
-             
+                <Button
+                    title={translate(({buttons}) => buttons.createOrganization)}
+                    rightIcon={IconType.FaPlus}
+                    variant={ButtonVariants.Primary}
+                    onClick={() => navigate(routes.createOrganization)}
+                />
             </div>
 
             {organizations.length > 0
             ?
                 <OrganizationsTable
-                    organizations={tempOrganizations}
+                    organizations={organizations}
                     onDetails={handleNavigateOrganizationDetailsPage}
                     onDelete={handleDeleteOrganization}
                 />

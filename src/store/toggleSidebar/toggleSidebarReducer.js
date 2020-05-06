@@ -1,7 +1,7 @@
 import { TOGGLE_SIDEBAR } from '../actionTypes';
 
 const initalState = {
-   open: false
+   open: true
 }
 
 export default (state = initalState, action) => {

@@ -134,7 +134,7 @@ function ModeratorsPage() {
                      onDelete={handleDeleteModerator}
                 />
             :
-                <Loader />
+                <Loader /> 
             }
            
         </div>

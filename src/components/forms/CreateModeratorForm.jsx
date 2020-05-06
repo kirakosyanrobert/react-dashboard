@@ -82,14 +82,13 @@ function CreateModeratorForm ({onCreate, onClose, loading}) {
                       variant={ButtonVariants.Primary}
                       type={ButtonActionTypes.Submit}
                       onClick={handleSubmit}
-                      disabled={loading}
+                      loading={loading}
                   />
                   <Button
                       title={translate(({buttons}) => buttons.close)}
                       onClick={onClose}
                   />
                 </div>
-              
             </Form>
     )
 }
