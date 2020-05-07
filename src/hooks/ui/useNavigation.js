@@ -1,7 +1,7 @@
 import { useHistory } from 'react-router-dom';
 
 const routes = {
-    home: '/home',
+    // home: '/home',
     moderators: '/moderators',
     organizations: '/organizations',
     organizationDetails: (id) => `/organizations/${id}`,
