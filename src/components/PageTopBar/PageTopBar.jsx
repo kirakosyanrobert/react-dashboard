@@ -6,6 +6,7 @@ import { useTranslation, useNavigation } from '../../hooks';
 import { Button, ButtonSizes, ButtonVariants } from '../ui/Button';
 import { connect } from 'react-redux';
 import { toggleSidebarAction } from '../../store/toggleSidebar/toggleSidebarAction';
+import { Colors } from '../../environment';
 
 function PageTopBar ({toggleSidebar}) {
     const loggedInUser = JSON.parse(localStorage.getItem(StorageKey.LoggedInUser)) || {};
@@ -23,9 +24,10 @@ function PageTopBar ({toggleSidebar}) {
         <Navbar expand="lg" variant="light" bg="light">
             <Button
                icon={IconType.FaBars}
+               iconColor={Colors.green}
                onClick={toggleSidebar}
                size={ButtonSizes.Small}
-               variant={ButtonVariants.Success}
+               variant={ButtonVariants.Light}
             />
 
             {/* <Navbar.Toggle aria-controls="admin-navbar-nav" /> */}

@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 
 import { Button, ButtonVariants, ButtonActionTypes } from '../ui/Button';
-import { useTranslation, useAlerts } from '../../hooks';
+import { useTranslation, useAlerts, useLoggedInAsSuper } from '../../hooks';
 import { IconType } from '../../consts';
 
 
 function UpdateModeratorForm ({moderator, onUpdate, onClose, loading}) {
+    const loggedInAsSuper = useLoggedInAsSuper();
     const [formData, setFormData] = useState({...moderator});
     const [allowEdit, setAllowEdit] = useState(false);
     const translate = useTranslation();
@@ -23,7 +24,8 @@ function UpdateModeratorForm ({moderator, onUpdate, onClose, loading}) {
             ...moderator,
             username: formData.username,
             name: formData.name,
-            phone: formData.phone
+            phone: formData.phone,
+            role: formData.role
           });
           setAllowEdit(false)
         } else {
@@ -36,7 +38,7 @@ function UpdateModeratorForm ({moderator, onUpdate, onClose, loading}) {
               <div className="d-flex justify-content-end">
                  <Button
                       icon={IconType.FaRegEdit}
-                      variant={ButtonVariants.Primary}
+                      variant={ButtonVariants.Success}
                       type={ButtonActionTypes.Button}
                       onClick={() => setAllowEdit(true)}
                       disabled={allowEdit}
@@ -51,6 +53,25 @@ function UpdateModeratorForm ({moderator, onUpdate, onClose, loading}) {
                     onChange={(e) => setFormData({...formData, 'username': e.target.value})}
                   />
                 </Form.Group>
+
+                {
+                  loggedInAsSuper &&
+                  <Form.Group>
+                      <Form.Label>
+                        {translate(({inputs}) => inputs.role.title)}
+                      </Form.Label>
+                      <Form.Control
+                        as="select"
+                        disabled={!allowEdit}
+                        value={formData.role}
+                        onChange={(e) => setFormData({...formData, 'role': e.target.value})}
+                      >
+                        <option value={'1'}>Admin</option>
+                        <option value={'2'}>Moderator</option>
+                      </Form.Control>
+                  </Form.Group>
+                }
+
                 <Form.Group>
                   <Form.Label>{translate(({inputs}) => inputs.name.title)}</Form.Label>
                   <Form.Control
@@ -72,15 +93,20 @@ function UpdateModeratorForm ({moderator, onUpdate, onClose, loading}) {
                 </Form.Group>
 
                 <div className="d-flex justify-content-end">
-                  <Button
-                      className="mr-2"
-                      title={translate(({buttons}) => buttons.save)}
-                      variant={ButtonVariants.Primary}
-                      type={ButtonActionTypes.Submit}
-                      onClick={handleSubmit}
-                      loading={loading}
-                      disabled={!allowEdit}
-                  />
+                  {
+                    allowEdit &&
+                      <Button
+                        className="mr-2"
+                        title={translate(({buttons}) => buttons.save)}
+                        variant={ButtonVariants.Success}
+                        type={ButtonActionTypes.Submit}
+                        onClick={handleSubmit}
+                        loading={loading}
+                        disabled={!allowEdit}
+                      />
+
+                  }
+                  
                   <Button
                       title={translate(({buttons}) => buttons.close)}
                       onClick={onClose}

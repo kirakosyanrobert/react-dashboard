@@ -14,14 +14,14 @@ function Sidebar() {
     let Links = [];
 
     const AdminLinks = [
-      {title: translate(({navigation}) => navigation.home), path: routes.home},
+      // {title: translate(({navigation}) => navigation.home), path: routes.home},
       {title: translate(({navigation}) => navigation.moderators), path: routes.moderators},
       {title: translate(({navigation}) => navigation.organizations), path: routes.organizations},
       {title: translate(({navigation}) => navigation.settings), path: routes.settings}
     ];
 
     const ModeratorLinks = [
-      {title: translate(({navigation}) => navigation.home), path: routes.home},
+      // {title: translate(({navigation}) => navigation.home), path: routes.home},
       {title: translate(({navigation}) => navigation.organizations), path: routes.organizations},
       {title: translate(({navigation}) => navigation.settings), path: routes.settings}
     ];
@@ -42,7 +42,7 @@ function Sidebar() {
                 <NavLink
                   key={`nav-link-${index}`}
                   to={link.path} 
-                  className="list-group-item list-group-item-action"
+                  className="list-group-item list-group-item-action list-group-item-success"
                 >
                     {link.title}
                 </NavLink>

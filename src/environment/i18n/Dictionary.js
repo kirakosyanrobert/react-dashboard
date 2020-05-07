@@ -31,6 +31,9 @@ export const Dictionary = {
         password: {
             title: 'inputs.password.title',
         },
+        role: {
+            title: 'inputs.role.title'
+        },
         firstName: {
             title: 'inputs.firstName.title',
         },
@@ -123,7 +126,12 @@ export const Dictionary = {
         delete: 'table.delete',
         title: 'table.title',
         login: 'table.login',
-        fullName: 'table.fullName'
+        fullName: 'table.fullName',
+        role: 'table.role'
+    },
+    modalTitles: {
+        createModerator: 'modalTitles.createModerator',
+        updateModerator: 'modalTitles.updateModerator'
     },
     days: {
         monday: 'days.monday',

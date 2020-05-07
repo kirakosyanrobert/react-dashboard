@@ -12,7 +12,8 @@ export const ButtonVariants = {
     Danger: 'danger',
     Info: 'info',
     Dark: 'dark',
-    Link: 'link'
+    Link: 'link',
+    Light: 'light'
 }
 
 export const ButtonActionTypes = {
@@ -33,6 +34,7 @@ export function Button({
     className,
     title,
     icon,
+    iconColor = '#fff',
     outlined = false,
     variant = ButtonVariants.Secondary,
     type = ButtonActionTypes.Button,
@@ -55,7 +57,7 @@ export function Button({
             onClick={onClick}
             className={`base-button ${className}`}
             >
-                <Icon name={icon} size={18} color="fff" />
+                <Icon name={icon} size={18} color={iconColor} />
             </BaseButton>
         )
     }
@@ -70,7 +72,7 @@ export function Button({
             onClick={onClick}
             className={`base-button ${className}`}
         >
-            {!!leftIcon && <Icon name={leftIcon} size={18} color="fff" />}
+            {!!leftIcon && <Icon name={leftIcon} size={18} color={iconColor} />}
 
             <p className={`mb-0 ${loading ? 'button-title-hide' : 'button-title-show'} ${!!leftIcon ? 'withLeftIcon' : ''} ${!!rightIcon ? 'withRightIcon' : ''}`}>
                 {title}
@@ -81,7 +83,7 @@ export function Button({
                 </div>
             }
 
-            {!!rightIcon && <Icon name={rightIcon} size={18} color="fff" />}
+            {!!rightIcon && <Icon name={rightIcon} size={18} color={iconColor} />}
         </BaseButton>
     )
 }

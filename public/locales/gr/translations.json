@@ -31,6 +31,9 @@
         "password": {
             "title": "Password"
         },
+        "role": {
+            "title": "Role"
+        },
         "firstName": {
             "title": "First name"
         },
@@ -123,7 +126,12 @@
         "delete": "Delete",
         "title": "Title",
         "login": "Login",
-        "fullName": "Full name"
+        "fullName": "Full name",
+        "role": "Role"
+    },
+    "modalTitles": {
+        "createModerator": "Create new moderator",
+        "updateModerator": "Moderator info"
     },
     "days": {
         "monday": "MO",

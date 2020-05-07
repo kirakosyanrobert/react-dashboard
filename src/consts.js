@@ -18,5 +18,6 @@ export const IconType = {
     FaEdit: 'FaEdit',
     FaRegEdit: 'FaRegEdit',
     FaList: 'FaList',
-    FaBars: 'FaBars'
+    FaBars: 'FaBars',
+    FaSyncAlt: 'FaSyncAlt'
 }

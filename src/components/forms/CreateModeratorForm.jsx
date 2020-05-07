@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 
 import { Button, ButtonVariants, ButtonActionTypes } from '../ui/Button';
-import { useTranslation, useAlerts } from '../../hooks';
+import { useTranslation, useAlerts, useLoggedInAsSuper } from '../../hooks';
+
 
 const formInitialState = {
     username: '',
     password: '',
     name: '',
-    phoneNumber: ''
+    phoneNumber: '',
+    role: '2'
 }
 
 function CreateModeratorForm ({onCreate, onClose, loading}) {
+    const loggedInAsSuper = useLoggedInAsSuper();
     const [formData, setFormData] = useState(formInitialState);
     const translate = useTranslation();
     const { setError } = useAlerts();
@@ -28,7 +31,8 @@ function CreateModeratorForm ({onCreate, onClose, loading}) {
             username: formData.username,
             password: formData.password,
             name: formData.name,
-            phone: formData.phoneNumber
+            phone: formData.phoneNumber,
+            role: formData.role
           });
         } else {
           setError({message: 'Inputs can`t be empty!'});
@@ -56,6 +60,24 @@ function CreateModeratorForm ({onCreate, onClose, loading}) {
                   />
                 </Form.Group>
 
+                {
+                  loggedInAsSuper &&
+                  <Form.Group>
+                      <Form.Label>
+                        {translate(({inputs}) => inputs.role.title)}
+                      </Form.Label>
+                      <Form.Control
+                        as="select"
+                        value={formData.role}
+                        onChange={(e) => setFormData({...formData, 'role': e.target.value})}
+                      >
+                        <option value={'1'}>Admin</option>
+                        <option value={'2'}>Moderator</option>
+                      </Form.Control>
+                  </Form.Group>
+                }
+
+
                 <Form.Group>
                   <Form.Label>{translate(({inputs}) => inputs.name.title)}</Form.Label>
                   <Form.Control
@@ -75,11 +97,12 @@ function CreateModeratorForm ({onCreate, onClose, loading}) {
                         onChange={(e) => setFormData({...formData, 'phoneNumber': e.target.value})}
                     />
                 </Form.Group>
+
                 <div className="d-flex justify-content-end">
                   <Button
                       className="mr-2"
                       title={translate(({buttons}) => buttons.create)}
-                      variant={ButtonVariants.Primary}
+                      variant={ButtonVariants.Success}
                       type={ButtonActionTypes.Submit}
                       onClick={handleSubmit}
                       loading={loading}
