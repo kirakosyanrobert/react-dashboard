@@ -44,7 +44,8 @@ export function Button({
     disabled = false || loading,
     leftIcon,
     rightIcon,
-    onClick
+    onClick,
+    style
 }) {
     if(!!icon) {
         return (
@@ -55,9 +56,10 @@ export function Button({
             block={block}
             disabled={disabled}
             onClick={onClick}
-            className={`base-button ${className}`}
+            className={`base-button ${className} ${variant}`}
+            style={style}
             >
-                <Icon name={icon} size={18} color={iconColor} />
+                <Icon name={icon} size={18} color={iconColor}/>
             </BaseButton>
         )
     }

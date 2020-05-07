@@ -4,6 +4,7 @@ import { Form } from 'react-bootstrap';
 import { Button, ButtonVariants, ButtonActionTypes } from '../ui/Button';
 import { useTranslation, useAlerts, useLoggedInAsSuper } from '../../hooks';
 import { IconType } from '../../consts';
+import {Colors} from "../../environment/theme";
 
 
 function UpdateModeratorForm ({moderator, onUpdate, onClose, loading}) {
@@ -25,7 +26,8 @@ function UpdateModeratorForm ({moderator, onUpdate, onClose, loading}) {
             username: formData.username,
             name: formData.name,
             phone: formData.phone,
-            role: formData.role
+            role: formData.role,
+            password: formData.password,
           });
           setAllowEdit(false)
         } else {
@@ -38,8 +40,8 @@ function UpdateModeratorForm ({moderator, onUpdate, onClose, loading}) {
               <div className="d-flex justify-content-end">
                  <Button
                       icon={IconType.FaRegEdit}
-                      variant={ButtonVariants.Success}
-                      type={ButtonActionTypes.Button}
+                      iconColor={Colors.green}
+                      variant={ButtonVariants.Light}
                       onClick={() => setAllowEdit(true)}
                       disabled={allowEdit}
                   />
@@ -52,6 +54,16 @@ function UpdateModeratorForm ({moderator, onUpdate, onClose, loading}) {
                     value={formData.username}
                     onChange={(e) => setFormData({...formData, 'username': e.target.value})}
                   />
+                </Form.Group>
+
+                <Form.Group>
+                    <Form.Label>{translate(({inputs}) => inputs.password.title)}</Form.Label>
+                    <Form.Control
+                        type="text"
+                        disabled={!allowEdit}
+                        value={formData.password}
+                        onChange={(e) => setFormData({...formData, 'password': e.target.value})}
+                    />
                 </Form.Group>
 
                 {

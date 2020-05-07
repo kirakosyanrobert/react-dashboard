@@ -127,7 +127,9 @@ export const Dictionary = {
         title: 'table.title',
         login: 'table.login',
         fullName: 'table.fullName',
-        role: 'table.role'
+        role: 'table.role',
+        createDate: 'table.createDate',
+        updateDate: 'table.updateDate'
     },
     modalTitles: {
         createModerator: 'modalTitles.createModerator',

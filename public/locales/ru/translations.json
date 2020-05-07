@@ -127,7 +127,9 @@
         "title": "Название",
         "login": "Логин",
         "fullName": "ФИО",
-        "role": "Роль"
+        "role": "Роль",
+		"createDate" : "Создан",
+		"updateDate" : "Изменён"
     },
     "modalTitles": {
         "createModerator": "Создать нового сотрудника",

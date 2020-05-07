@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navbar, Dropdown, SplitButton, Nav, } from 'react-bootstrap';
+import './PageTopBar.scss'
 
 import { StorageKey, IconType } from '../../consts';
 import { useTranslation, useNavigation } from '../../hooks';
@@ -33,8 +34,15 @@ function PageTopBar ({toggleSidebar}) {
             {/* <Navbar.Toggle aria-controls="admin-navbar-nav" /> */}
 
             {/* <Navbar.Collapse id="admin-navbar-nav"> */}
+
                 <Nav className="ml-auto mt-2 mt-lg-0">
-                    <Nav.Item >
+
+                    <div className="mr-5 user-info">
+                        <span className="mr-3">{loggedInUser.name || ''}</span>
+                        <span>{loggedInUser.phone || ''}</span>
+                    </div>
+
+                    <Nav.Item>
                         <SplitButton
                             alignRight
                             variant="info"

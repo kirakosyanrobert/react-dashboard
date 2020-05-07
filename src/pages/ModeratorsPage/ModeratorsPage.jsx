@@ -154,15 +154,22 @@ function ModeratorsPage() {
                     />
                 </div>
             </div>
-            {moderators.length > 0
-            ?
+
+            {getUsersLoading && <Loader />}
+
+            {/*@TODO сделать translate для сообщения*/}
+            {!getUsersLoading && moderators.length === 0 && textSearch.length !== 0 && <span>No users found.</span>}
+
+            {/*@TODO сделать translate для сообщения*/}
+            {!getUsersLoading && moderators.length === 0 && textSearch.length === 0 && <span>No users.</span>}
+
+            {!getUsersLoading && moderators.length > 0 &&
                 <ModeratorsTable
+                     textSearch={textSearch}
                      moderators={moderators}
                      onEdit={handleToggleUpdateModal}
                      onDelete={handleDeleteModerator}
                 />
-            :
-                <Loader /> 
             }
            
         </div>

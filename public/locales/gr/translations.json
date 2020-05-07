@@ -127,7 +127,9 @@
         "title": "Title",
         "login": "Login",
         "fullName": "Full name",
-        "role": "Role"
+        "role": "Role",
+		"createDate" : "Created",
+		"updateDate" : "Updated"
     },
     "modalTitles": {
         "createModerator": "Create new moderator",

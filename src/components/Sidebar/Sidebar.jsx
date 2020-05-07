@@ -41,8 +41,9 @@ function Sidebar() {
               {Links.map((link, index) => (
                 <NavLink
                   key={`nav-link-${index}`}
-                  to={link.path} 
-                  className="list-group-item list-group-item-action list-group-item-success"
+                  to={link.path}
+                  activeClassName="list-group-item-success"
+                  className="list-group-item list-group-item-action"
                 >
                     {link.title}
                 </NavLink>
