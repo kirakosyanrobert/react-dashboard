@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Form } from 'react-bootstrap';
+
 
 import { useEffectOnce, useTranslation, useAlerts, useRequest } from '../../hooks'
 import ModeratorsTable from '../../components/table/ModeratorsTable/ModeratorsTable';
@@ -8,7 +10,6 @@ import { Button, ButtonVariants } from '../../components/ui/Button';
 import CreateModeratorForm from '../../components/forms/CreateModeratorForm';
 import UpdateModeratorForm from '../../components/forms/UpdateModeratorForm';
 import { IconType } from '../../consts';
-import { Form } from 'react-bootstrap';
 
 
 
@@ -53,7 +54,7 @@ function ModeratorsPage() {
         } catch (err) {
             setError({message: err.message});
         }
-    }
+    };
 
 
     async function handleCreateModerator(newModerator) {
@@ -157,11 +158,13 @@ function ModeratorsPage() {
 
             {getUsersLoading && <Loader />}
 
-            {/*@TODO сделать translate для сообщения*/}
-            {!getUsersLoading && moderators.length === 0 && textSearch.length !== 0 && <span>No users found.</span>}
+            {!getUsersLoading && moderators.length === 0 && textSearch.length !== 0 &&
+              <span>{translate(({messages}) => messages.noUsersFound)}</span>
+            }
 
-            {/*@TODO сделать translate для сообщения*/}
-            {!getUsersLoading && moderators.length === 0 && textSearch.length === 0 && <span>No users.</span>}
+            {!getUsersLoading && moderators.length === 0 && textSearch.length === 0 &&
+                <span>{translate(({messages}) => messages.noUsers)}</span>
+            }
 
             {!getUsersLoading && moderators.length > 0 &&
                 <ModeratorsTable

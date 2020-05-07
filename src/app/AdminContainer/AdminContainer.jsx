@@ -3,7 +3,7 @@ import React from 'react';
 // import './AdminContainer.scss';
 import { Route } from '../../components/ui/Route';
 import Sidebar from '../../components/Sidebar/Sidebar';
-import HomePage from '../../pages/HomePage/HomePage';
+// import HomePage from '../../pages/HomePage/HomePage';
 import ModeratorsPage from '../../pages/ModeratorsPage/ModeratorsPage';
 import SettingsPage from '../../pages/SettingsPage/SettingsPage';
 import OrganizationsPage from '../../pages/OrganizationsPage/OrganizationsPage';
@@ -11,6 +11,7 @@ import CreateOrganizationPage from '../../pages/CreateOrganizationPage/CreateOrg
 import OrganizationDetailsPage from '../../pages/OrganizationDetailsPage/OrganizationDetailsPage';
 import PageTopBar from '../../components/PageTopBar/PageTopBar';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 
 
@@ -18,7 +19,7 @@ function AdminContainer ({sidebarIsOpen}) {
     
     const AdminRoutes = {
         Root: '/',
-        Home: '/home',
+        // Home: '/home',
         Moderators: '/moderators',
         Organizations: '/organizations',
         OrganizationDetails: '/organizations/:id',
@@ -32,7 +33,7 @@ function AdminContainer ({sidebarIsOpen}) {
             <div id="page-content-wrapper">
                 <PageTopBar />
                 <div className="container-fluid">
-                    <Route exact guarded path={AdminRoutes.Home} component={HomePage} />
+                    {/* <Route exact guarded path={AdminRoutes.Home} component={HomePage} /> */}
                     <Route exact guarded path={AdminRoutes.Moderators} component={ModeratorsPage} />
                     <Route exact guarded path={AdminRoutes.Organizations} component={OrganizationsPage} />
                     <Route 
@@ -48,7 +49,12 @@ function AdminContainer ({sidebarIsOpen}) {
                         component={CreateOrganizationPage}
                     />
                     <Route exact guarded path={AdminRoutes.Settings} component={SettingsPage} />
-                    <Route exact guarded path={AdminRoutes.Root} component={HomePage} />
+                    <Route 
+                        exact 
+                        guarded 
+                        path={AdminRoutes.Root}
+                        component={() => <Redirect to={AdminRoutes.Organizations} />} 
+                    />
                 </div>
             </div>
         </div>

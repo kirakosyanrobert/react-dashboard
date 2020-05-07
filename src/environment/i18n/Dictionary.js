@@ -107,6 +107,10 @@ export const Dictionary = {
             title: 'inputs.workTime.title'
         }
     },
+    messages: {
+        noUsers: 'messages.noUsers',
+        noUsersFound: 'messages.noUsers'
+    },
     navigation: {
         home: 'navigation.home',
         moderators: 'navigation.moderators',

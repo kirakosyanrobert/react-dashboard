@@ -107,6 +107,10 @@
             "title": "Режим работы"
         }
     },
+    "messages": {
+        "noUsers": "Нет пользователей",
+        "noUsersFound": "Пользователи не найдены"
+    },
     "navigation": {
         "home": "Главная",
         "moderators": "Сотрудники",

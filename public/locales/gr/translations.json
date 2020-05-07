@@ -107,6 +107,10 @@
             "title": "Worktime"
         }
     },
+    "messages": {
+        "noUsers": "No users found",
+        "noUsersFound": "No users found"
+    },
     "navigation": {
         "home": "Home",
         "moderators": "Moderators",
