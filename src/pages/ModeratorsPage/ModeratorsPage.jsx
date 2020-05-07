@@ -8,14 +8,17 @@ import { Button, ButtonVariants } from '../../components/ui/Button';
 import CreateModeratorForm from '../../components/forms/CreateModeratorForm';
 import UpdateModeratorForm from '../../components/forms/UpdateModeratorForm';
 import { IconType } from '../../consts';
+import { Form } from 'react-bootstrap';
 
 
 
 function ModeratorsPage() {
+    const [allModerators, setAllModerators] = useState([]);
     const [moderators, setModerators] = useState([]);
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
     const [updatingModerator, setUpdatingModerator] = useState({});
+    const [textSearch, setTextSearch] = useState('');
     const translate = useTranslation();
     const { setError, setNotification } = useAlerts();
 
@@ -23,6 +26,19 @@ function ModeratorsPage() {
     const { loading: createUserLoading, request: createUser } = useRequest();
     const { loading: updateUserLoading, request: updateUser } = useRequest();
     const { request: deleteUser } = useRequest();
+
+    function handleGetSearchValue(e) {
+        const value = e.target.value;
+        setTextSearch(value);
+
+        const filteredModeratros = allModerators.filter(moderator => (
+            moderator.username.includes(value) ||
+            moderator.name.includes(value) ||
+            moderator.phone.includes(value)
+        ));
+
+        setModerators(filteredModeratros);
+    };
 
 
     useEffectOnce(() => {
@@ -33,6 +49,7 @@ function ModeratorsPage() {
         try {
             const data = await getUsers('/users');
             setModerators(data);
+            setAllModerators(data);
         } catch (err) {
             setError({message: err.message});
         }
@@ -85,9 +102,9 @@ function ModeratorsPage() {
     };
 
     return (
-        <div className="px-4">
+        <div className="px-4"> 
             <Modal
-                title={"Create New Moderator"}
+                title={translate(({modalTitles}) => modalTitles.createModerator)}
                 open={showCreateModal}
                 onClose={() => setShowCreateModal(false)}
             >
@@ -99,7 +116,7 @@ function ModeratorsPage() {
             </Modal>
 
             <Modal
-                title={"Update Moderator Info"}
+                title={translate(({modalTitles}) => modalTitles.updateModerator)}
                 open={showEditModal}
                 onClose={() => setShowEditModal(false)}
             >
@@ -111,20 +128,31 @@ function ModeratorsPage() {
                 />
             </Modal>
 
-            <div className="d-flex py-4">
-                <Button
-                    className="mr-2"
-                    title={translate(({buttons}) => buttons.updateList)}
-                    variant={ButtonVariants.Primary}
-                    onClick={handleGetModerators}
-                    loading={getUsersLoading}
-                />
-                <Button
-                    title={translate(({buttons}) => buttons.createModerator)}
-                    rightIcon={IconType.FaPlus}
-                    variant={ButtonVariants.Primary}
-                    onClick={() => setShowCreateModal(true)}
-                />
+            <div className="d-flex justify-content-between py-4">
+                <div className="d-flex">
+                    <Button
+                        className="mr-2"
+                        // title={translate(({buttons}) => buttons.updateList)}
+                        icon={IconType.FaSyncAlt}
+                        variant={ButtonVariants.Success}
+                        onClick={handleGetModerators}
+                        loading={getUsersLoading}
+                    />
+                    <Button
+                        title={translate(({buttons}) => buttons.createModerator)}
+                        rightIcon={IconType.FaPlus}
+                        variant={ButtonVariants.Success}
+                        onClick={() => setShowCreateModal(true)}
+                    />
+                </div>
+                <div>
+                    <Form.Control
+                        type="text"
+                        placeholder="Search..."
+                        value={textSearch}
+                        onChange={handleGetSearchValue}
+                    />
+                </div>
             </div>
             {moderators.length > 0
             ?
