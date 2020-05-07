@@ -26,14 +26,7 @@ function LoginPage() {
               
             localStorage.setItem(StorageKey.Token, data.token);
             localStorage.setItem(StorageKey.LoggedInUser, JSON.stringify(data));
-            if(data.role === '0') {
-              //change
-              navigate(routes.moderators);
-            }else if(data.role === '1') {
-              navigate(routes.moderators);
-            } else {
-              navigate(routes.organizations);
-            }
+            navigate(routes.organizations);
           } catch(e) {
                setError({message: e.message});
           }
