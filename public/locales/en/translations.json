@@ -105,6 +105,9 @@
         },
         "workTime": {
             "title": "Worktime"
+        },
+        "search": {
+            "title": "Search"
         }
     },
     "messages": {
