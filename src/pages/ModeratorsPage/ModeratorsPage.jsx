@@ -149,7 +149,7 @@ function ModeratorsPage() {
                 <div>
                     <Form.Control
                         type="text"
-                        placeholder="Search..."
+                        placeholder={translate(({inputs}) => inputs.search.title)}
                         value={textSearch}
                         onChange={handleGetSearchValue}
                     />

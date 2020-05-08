@@ -4,7 +4,7 @@ import { Table, Form, Pagination } from 'react-bootstrap';
 import { useTable, usePagination } from 'react-table'
 
 import { Button, ButtonVariants } from '../../ui/Button';
-import { useTranslation } from '../../../hooks';
+import { useTranslation, useLanguage } from '../../../hooks';
 import { IconType } from '../../../consts';
 
 // function OrganizationsTable ({
@@ -62,6 +62,7 @@ function OrganizationsTable ({
     onDelete,
 }) {
     const translate = useTranslation();
+    const [language] = useLanguage();
 
     const columns = React.useMemo(
         () => [
@@ -73,7 +74,7 @@ function OrganizationsTable ({
             },
           {
             Header: translate(({table}) => table.title),
-            accessor: 'properties.title.en',
+            accessor: `properties.title[${language}]`,
           },
           {
             Header: translate(({table}) => table.details),

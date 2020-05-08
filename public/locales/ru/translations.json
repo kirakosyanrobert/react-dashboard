@@ -105,6 +105,9 @@
         },
         "workTime": {
             "title": "Режим работы"
+        },
+        "search": {
+            "title": "Поиск"
         }
     },
     "messages": {
@@ -133,7 +136,7 @@
         "fullName": "ФИО",
         "role": "Роль",
 		"createDate" : "Создан",
-		"updateDate" : "Изменён"
+		"updateDate" : "Дата изменения"
     },
     "modalTitles": {
         "createModerator": "Создать нового сотрудника",

@@ -105,6 +105,9 @@ export const Dictionary = {
         },
         workTime: {
             title: 'inputs.workTime.title'
+        },
+        search: {
+            title: 'inputs.search.title'
         }
     },
     messages: {

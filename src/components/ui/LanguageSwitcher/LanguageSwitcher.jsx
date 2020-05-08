@@ -16,6 +16,8 @@ export function LanguageSwitcher () {
         } else {
           changeLanguage(LanguageCode.EN)
         }
+
+        window.location.reload();
     }
 
     return (
