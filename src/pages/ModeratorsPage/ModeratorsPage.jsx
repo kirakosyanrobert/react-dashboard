@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form } from 'react-bootstrap';
 
 
@@ -22,6 +22,7 @@ function ModeratorsPage() {
     const [textSearch, setTextSearch] = useState('');
     const translate = useTranslation();
     const { setError, setNotification } = useAlerts();
+    const [usersToShow, setUsersToShow] = useState([])
 
     const { loading: getUsersLoading, request: getUsers } = useRequest();
     const { loading: createUserLoading, request: createUser } = useRequest();
@@ -102,6 +103,22 @@ function ModeratorsPage() {
         }
     };
 
+    useEffect(() => {
+        if(moderators.length > 0) {
+           const admins = moderators.filter(moder => moder.role === '1');
+           admins.forEach(admin => admin.subRows = []);
+            moderators.forEach((moder) => {
+                admins.forEach((admin) => {
+                    if(moder.createdBy === admin.username) {
+                        admin.subRows = [...admin.subRows, moder]
+                    }
+                })
+            })
+            console.log(admins);
+            setUsersToShow(admins)
+        }
+    }, [moderators])
+
     return (
         <div className="px-4"> 
             <Modal
@@ -133,7 +150,6 @@ function ModeratorsPage() {
                 <div className="d-flex">
                     <Button
                         className="mr-2"
-                        // title={translate(({buttons}) => buttons.updateList)}
                         icon={IconType.FaSyncAlt}
                         variant={ButtonVariants.Success}
                         onClick={handleGetModerators}
@@ -169,7 +185,7 @@ function ModeratorsPage() {
             {!getUsersLoading && moderators.length > 0 &&
                 <ModeratorsTable
                      textSearch={textSearch}
-                     moderators={moderators}
+                     moderators={usersToShow}
                      onEdit={handleToggleUpdateModal}
                      onDelete={handleDeleteModerator}
                 />

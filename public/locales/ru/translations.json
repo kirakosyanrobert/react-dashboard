@@ -11,7 +11,7 @@
         "save": "Сохранить",
         "add": "Добавить",
         "cancel": "Отменить",
-        "createModerator": "Создать Сотрудника",
+        "createModerator": "Создать менеджера",
         "createOrganization": "Создать Организацию",
         "updateList": "Обновления списка",
         "showOnMap": "Показать на карте",
@@ -32,7 +32,7 @@
             "title": "Пароль"
         },
         "role": {
-            "title": "Роль"
+            "title": "Должность"
         },
         "firstName": {
             "title": "Имя"
@@ -116,7 +116,7 @@
     },
     "navigation": {
         "home": "Главная",
-        "moderators": "Сотрудники",
+        "moderators": "Менеджеры",
         "organizations": "Организации",
         "settings": "Настройки"
     },
@@ -134,13 +134,13 @@
         "title": "Название",
         "login": "Логин",
         "fullName": "ФИО",
-        "role": "Роль",
+        "role": "Должность",
 		"createDate" : "Создан",
 		"updateDate" : "Дата изменения"
     },
     "modalTitles": {
-        "createModerator": "Создать нового сотрудника",
-        "updateModerator": "Данные сотрудника"
+        "createModerator": "Создать нового менеджера",
+        "updateModerator": "Данные менеджера"
     },
     "days": {
         "monday": "ПН",
