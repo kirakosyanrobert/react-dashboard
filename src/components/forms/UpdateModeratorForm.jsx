@@ -37,8 +37,10 @@ function UpdateModeratorForm ({moderator, onUpdate, onClose, loading}) {
 
     return (
             <Form onSubmit={handleSubmit}>
-              <div className="d-flex justify-content-end">
-                 <Button
+              {
+                (loggedInAsSuper || (!loggedInAsSuper && moderator.role === '2')) && 
+                <div className="d-flex justify-content-end">
+                  <Button
                       icon={IconType.FaRegEdit}
                       iconColor={Colors.green}
                       variant={ButtonVariants.Light}
@@ -46,6 +48,7 @@ function UpdateModeratorForm ({moderator, onUpdate, onClose, loading}) {
                       disabled={allowEdit}
                   />
               </div>
+              }
                 <Form.Group>
                   <Form.Label>{translate(({inputs}) => inputs.username.title)}</Form.Label>
                   <Form.Control

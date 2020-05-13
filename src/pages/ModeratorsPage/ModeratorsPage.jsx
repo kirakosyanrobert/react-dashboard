@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Form } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Form, Row, Col } from 'react-bootstrap';
 
 
 import { useEffectOnce, useTranslation, useAlerts, useRequest } from '../../hooks'
@@ -20,8 +20,10 @@ function ModeratorsPage() {
     const [showEditModal, setShowEditModal] = useState(false);
     const [updatingModerator, setUpdatingModerator] = useState({});
     const [textSearch, setTextSearch] = useState('');
+    const [selectedStatus, setSelectedStatus] = useState('all');
     const translate = useTranslation();
     const { setError, setNotification } = useAlerts();
+    const [usersToShow, setUsersToShow] = useState([]);
 
     const { loading: getUsersLoading, request: getUsers } = useRequest();
     const { loading: createUserLoading, request: createUser } = useRequest();
@@ -31,15 +33,23 @@ function ModeratorsPage() {
     function handleGetSearchValue(e) {
         const value = e.target.value;
         setTextSearch(value);
-
         const filteredModeratros = allModerators.filter(moderator => (
+            moderator.role === '1' ||
             moderator.username.includes(value) ||
             moderator.name.includes(value) ||
             moderator.phone.includes(value)
         ));
-
-        setModerators(filteredModeratros);
+        setModerators([...filteredModeratros]);
     };
+
+    useEffect(() => {
+        if(selectedStatus === 'all') {
+            setModerators(allModerators);
+        } else {
+            const filteredModeratros = allModerators.filter(moderator => (moderator.role === '1') || moderator.status === selectedStatus);
+            setModerators([...filteredModeratros]);
+        }
+    }, [selectedStatus])
 
 
     useEffectOnce(() => {
@@ -82,6 +92,7 @@ function ModeratorsPage() {
 
             const newData = [...moderators].map(moderator => moderator.id !== updatedModerator.id ? moderator : updatedModerator)
             setModerators(newData);
+            setShowEditModal(false);
             console.log(newData)
         } catch (err) {
             setError({message: err.message});
@@ -101,6 +112,26 @@ function ModeratorsPage() {
             }
         }
     };
+
+    useEffect(() => {
+        if(moderators.length > 0) {
+           const admins = moderators.filter(moder => moder.role === '1');
+           admins.forEach(admin => {
+            admin.subRows = [];
+            admin.opened = false;
+           });
+            moderators.forEach((moder) => {
+                admins.forEach((admin) => {
+                    if(moder.createdBy === admin.username) {
+                        admin.subRows = [...admin.subRows, moder]
+                    }
+                })
+            })
+            console.log(admins);
+            setUsersToShow(admins)
+        }
+    }, [moderators]);
+
 
     return (
         <div className="px-4"> 
@@ -133,7 +164,6 @@ function ModeratorsPage() {
                 <div className="d-flex">
                     <Button
                         className="mr-2"
-                        // title={translate(({buttons}) => buttons.updateList)}
                         icon={IconType.FaSyncAlt}
                         variant={ButtonVariants.Success}
                         onClick={handleGetModerators}
@@ -146,7 +176,18 @@ function ModeratorsPage() {
                         onClick={() => setShowCreateModal(true)}
                     />
                 </div>
-                <div>
+                <div className="d-flex align-items-center">
+                    <Form.Control
+                        className="mr-2"
+                        as="select"
+                        value={selectedStatus}
+                        onChange={(e) => setSelectedStatus(e.target.value)}
+                    >
+                        <option value="all">All</option>
+                        <option value="online">Online</option>
+                        <option value="offline">Offline</option>
+                    </Form.Control> 
+
                     <Form.Control
                         type="text"
                         placeholder={translate(({inputs}) => inputs.search.title)}
@@ -166,10 +207,10 @@ function ModeratorsPage() {
                 <span>{translate(({messages}) => messages.noUsers)}</span>
             }
 
-            {!getUsersLoading && moderators.length > 0 &&
+            {!getUsersLoading && usersToShow.length > 0 &&
                 <ModeratorsTable
                      textSearch={textSearch}
-                     moderators={moderators}
+                     usersToShow={usersToShow}
                      onEdit={handleToggleUpdateModal}
                      onDelete={handleDeleteModerator}
                 />

@@ -148,6 +148,26 @@ export function useCategoriesList() {
         }, 
         {
             category: {
+                title: translate(({category}) => category.services),
+                value: 'services'
+            }, 
+            subCategories: [ 
+                {title: translate(({subCategory}) => subCategory.law), value: 'law'},
+                {title: translate(({subCategory}) => subCategory.finance), value: 'finance'},
+                {title: translate(({subCategory}) => subCategory.construction), value: 'construction'},
+                {title: translate(({subCategory}) => subCategory.household), value: 'household'},
+                {title: translate(({subCategory}) => subCategory.beauty), value: 'beauty'},
+                {title: translate(({subCategory}) => subCategory.trucking), value: 'trucking'},
+                {title: translate(({subCategory}) => subCategory.realtor), value: 'realtor'},
+                {title: translate(({subCategory}) => subCategory.provider), value: 'provider'},
+                {title: translate(({subCategory}) => subCategory.bank), value: 'bank'},
+                {title: translate(({subCategory}) => subCategory.atm), value: 'atm'},
+                {title: translate(({subCategory}) => subCategory.taxi), value: 'taxi'},
+                {title: translate(({subCategory}) => subCategory.other), value: 'other'},
+            ]
+        }, 
+        {
+            category: {
                 title: translate(({category}) => category.fun),
                 value: 'fun'
             }, 
