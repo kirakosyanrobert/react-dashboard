@@ -21,5 +21,6 @@ export const IconType = {
     FaBars: 'FaBars',
     FaSyncAlt: 'FaSyncAlt',
     FaAngleLeft: 'FaAngleLeft',
-    FaAngleDown: 'FaAngleDown'
+    FaAngleDown: 'FaAngleDown',
+    FaRegEye: 'FaRegEye'
 }

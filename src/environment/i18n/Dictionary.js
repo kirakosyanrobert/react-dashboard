@@ -136,11 +136,15 @@ export const Dictionary = {
         fullName: 'table.fullName',
         role: 'table.role',
         createDate: 'table.createDate',
-        updateDate: 'table.updateDate'
+        updateDate: 'table.updateDate',
+        sessionStart: 'table.sessionStart',
+        sessionEnd: 'table.sessionEnd',
+        sessionDuration: 'table.sessionDuration'
     },
     modalTitles: {
         createModerator: 'modalTitles.createModerator',
-        updateModerator: 'modalTitles.updateModerator'
+        updateModerator: 'modalTitles.updateModerator',
+        userActivity: 'modalTitles.userActivity'
     },
     days: {
         monday: 'days.monday',

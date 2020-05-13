@@ -3,7 +3,7 @@ import { Navbar, Dropdown, SplitButton, Nav, } from 'react-bootstrap';
 import './PageTopBar.scss'
 
 import { StorageKey, IconType } from '../../consts';
-import { useTranslation, useNavigation } from '../../hooks';
+import { useTranslation, useNavigation, useRequest, useAlerts } from '../../hooks';
 import { Button, ButtonSizes, ButtonVariants } from '../ui/Button';
 import { connect } from 'react-redux';
 import { toggleSidebarAction } from '../../store/toggleSidebar/toggleSidebarAction';
@@ -13,12 +13,21 @@ function PageTopBar ({toggleSidebar}) {
     const loggedInUser = JSON.parse(localStorage.getItem(StorageKey.LoggedInUser)) || {};
 
     const { navigate, routes } = useNavigation();
+    const { setError } = useAlerts();
     const translate = useTranslation();
+    const { request: logOut} = useRequest();
     
-    function handleLogOut () {
-      localStorage.removeItem(StorageKey.Token);
-      localStorage.removeItem(StorageKey.LoggedInUser);
-      navigate(routes.login);
+    async function handleLogOut () {
+        try {
+            const data = await logOut(`/auth/admin-signout/${loggedInUser.token}`);
+            if(data === 'Signed out') {
+                localStorage.removeItem(StorageKey.Token);
+                localStorage.removeItem(StorageKey.LoggedInUser);
+                navigate(routes.login);
+            }
+        } catch(e) {
+            setError({message: e.message});
+        }
     }
     
     return (
