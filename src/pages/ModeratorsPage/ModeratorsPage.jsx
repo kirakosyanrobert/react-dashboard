@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Row, Col } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 
 
 import { useEffectOnce, useTranslation, useAlerts, useRequest } from '../../hooks'
@@ -118,7 +118,7 @@ function ModeratorsPage() {
            const admins = moderators.filter(moder => moder.role === '1');
            admins.forEach(admin => {
             admin.subRows = [];
-            admin.opened = false;
+            admin.opened = true;
            });
             moderators.forEach((moder) => {
                 admins.forEach((admin) => {
@@ -127,7 +127,6 @@ function ModeratorsPage() {
                     }
                 })
             })
-            console.log(admins);
             setUsersToShow(admins)
         }
     }, [moderators]);
@@ -140,11 +139,13 @@ function ModeratorsPage() {
                 open={showCreateModal}
                 onClose={() => setShowCreateModal(false)}
             >
-                <CreateModeratorForm
-                    onCreate={handleCreateModerator}
-                    loading={createUserLoading}
-                    onClose={() => setShowCreateModal(false)}
-                />
+                <Modal.Body>
+                    <CreateModeratorForm
+                        onCreate={handleCreateModerator}
+                        loading={createUserLoading}
+                        onClose={() => setShowCreateModal(false)}
+                    />
+                </Modal.Body>
             </Modal>
 
             <Modal
@@ -152,12 +153,15 @@ function ModeratorsPage() {
                 open={showEditModal}
                 onClose={() => setShowEditModal(false)}
             >
-                <UpdateModeratorForm
-                    onClose={() => setShowEditModal(false)}
-                    onUpdate={handleUpdateModerator}
-                    moderator={updatingModerator}
-                    loading={updateUserLoading}
-                />
+                <Modal.Body>
+                    <UpdateModeratorForm
+                        onClose={() => setShowEditModal(false)}
+                        onUpdate={handleUpdateModerator}
+                        moderator={updatingModerator}
+                        loading={updateUserLoading}
+                    />
+                </Modal.Body>
+
             </Modal>
 
             <div className="d-flex justify-content-between py-4">

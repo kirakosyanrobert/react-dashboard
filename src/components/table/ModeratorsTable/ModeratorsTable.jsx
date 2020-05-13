@@ -1,5 +1,5 @@
 import React, { useState, Fragment, useEffect } from 'react';
-import { Table } from 'react-bootstrap';
+import { Table, Form } from 'react-bootstrap';
 import * as moment from "moment";
 import Highlighter from "react-highlight-words";
 
@@ -8,6 +8,9 @@ import { Button, ButtonVariants, ButtonSizes } from '../../ui/Button';
 import {useTranslation, useLoggedInAsSuper, useLanguage} from '../../../hooks';
 import { IconType } from '../../../consts';
 import { Colors } from '../../../environment';
+import Modal from '../../ui/Modal/Modal';
+import { AuthHistoryTable } from './AuthHistoryTable';
+import { Pagination } from '../../ui/Pagination/Pagination';
 
 function ModeratorsTable ({
     usersToShow,
@@ -19,10 +22,15 @@ function ModeratorsTable ({
     const [ language ] = useLanguage();
     const loggedInAsSuper = useLoggedInAsSuper();
     const [admins, setAdmins] = useState(usersToShow);
+    const [showAuthHistoryModal, setShowAuthHistoryModal] = useState(false);
+    const [selectedUser, setSelectedUser] = useState(null);
+
+    const [perPage, setPerPage] = useState(5);
+    const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
         setAdmins(usersToShow);
-    }, [usersToShow])
+    }, [usersToShow]);
 
 
     function toggleAdminRow(adminIndex) {
@@ -30,6 +38,22 @@ function ModeratorsTable ({
         tempAdmins[adminIndex].opened = !tempAdmins[adminIndex].opened;
         setAdmins(tempAdmins)
     }
+
+    function handleToggleAuthHistoryModal(user) {
+        setSelectedUser(user);
+    }
+
+    useEffect(() => {
+        if(selectedUser) {
+            setShowAuthHistoryModal(true);
+        }
+    }, [selectedUser]);
+
+    useEffect(() => {
+        if(!showAuthHistoryModal) {
+            setSelectedUser(null);
+        }
+    }, [showAuthHistoryModal])
 
 
 
@@ -41,8 +65,66 @@ function ModeratorsTable ({
         return momentDate.format("LL");
     };
 
+    function handleToPrev(pageToShow) {
+        setCurrentPage(pageToShow);
+    }
+
+    function handleToNext(pageToShow) {
+        setCurrentPage(pageToShow);
+    }
+
+    useEffect(() => {
+        setAdmins(
+            usersToShow.slice( (currentPage - 1) * perPage, currentPage * perPage )
+        )
+    }, [perPage, currentPage])
+
   
     return (
+        <>
+        <Modal 
+            title={translate(({modalTitles}) => modalTitles.userActivity)}
+            open={showAuthHistoryModal}
+            onClose={() => setShowAuthHistoryModal(false)}
+        >
+            <Modal.Body>
+                {
+                    selectedUser &&
+                    <AuthHistoryTable authHistory={selectedUser.authHistory} />
+                }
+            </Modal.Body>
+            <Modal.Footer>
+                <Button
+                    title={translate(({buttons}) => buttons.close)}
+                    onClick={() => setShowAuthHistoryModal(false)}
+                />
+            </Modal.Footer>
+        </Modal>
+
+        <div className="d-flex">
+            <Form.Group>
+                <Form.Control 
+                    as="select"
+                    value={perPage}
+                    onChange={(e) => setPerPage(+e.target.value)}
+                >
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                </Form.Control>
+            </Form.Group>
+
+            <Pagination
+                total={usersToShow.length}
+                currentPage={currentPage}
+                perPage={perPage}
+                onPrev={handleToPrev}
+                onNext={handleToNext}
+            />
+        </div>
+
+       
+
         <Table bordered hover size="sm" responsive="md">
             <thead>
                 <tr>
@@ -108,7 +190,7 @@ function ModeratorsTable ({
 
                         <td className="text-center">
 
-                            <div className="d-flex justify-content-center">
+                            <div className="d-flex">
                                 <Button
                                     outlined
                                     className="border-0"
@@ -117,6 +199,16 @@ function ModeratorsTable ({
                                     variant={ButtonVariants.Light}
                                     size={ButtonSizes.Small}
                                     onClick={() => onEdit(admin)}
+                                />
+
+                                <Button
+                                    outlined
+                                    className="border-0"
+                                    icon={IconType.FaRegEye}
+                                    iconColor={Colors.black}
+                                    variant={ButtonVariants.Light}
+                                    size={ButtonSizes.Small}
+                                    onClick={() => handleToggleAuthHistoryModal(admin)}
                                 />
 
 
@@ -196,7 +288,7 @@ function ModeratorsTable ({
                             </td>
 
                             <td className="text-center">
-                                <div className="d-flex justify-content-center">
+                                <div className="d-flex">
                                     <Button
                                         outlined
                                         className="border-0"
@@ -205,6 +297,16 @@ function ModeratorsTable ({
                                         variant={ButtonVariants.Light}
                                         size={ButtonSizes.Small}
                                         onClick={() => onEdit(moderator)}
+                                    />
+
+                                    <Button
+                                        outlined
+                                        className="border-0"
+                                        icon={IconType.FaRegEye}
+                                        iconColor={Colors.black}
+                                        variant={ButtonVariants.Light}
+                                        size={ButtonSizes.Small}
+                                        onClick={() => handleToggleAuthHistoryModal(moderator)}
                                     />
                                     {
                                         (loggedInAsSuper || (!loggedInAsSuper && moderator.role === '2')) &&
@@ -228,6 +330,7 @@ function ModeratorsTable ({
                 ))}
             </tbody>
         </Table>
+        </>
     )
 }
 

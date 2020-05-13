@@ -136,11 +136,15 @@
         "fullName": "ФИО",
         "role": "Должность",
 		"createDate" : "Создан",
-		"updateDate" : "Дата изменения"
+        "updateDate" : "Дата изменения",
+        "sessionStart": "Начало сессии",
+        "sessionEnd": "Конец сессии",
+        "sessionDuration": "Длительность"
     },
     "modalTitles": {
         "createModerator": "Создать нового менеджера",
-        "updateModerator": "Данные менеджера"
+        "updateModerator": "Данные менеджера",
+        "userActivity": "Активность пользователя"
     },
     "days": {
         "monday": "ПН",

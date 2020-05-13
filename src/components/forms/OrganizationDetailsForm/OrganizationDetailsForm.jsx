@@ -384,11 +384,13 @@ function OrganizationDetailsForm ({organization, onUpdate}) {
             open={openCategoriesModal}
             onClose={() => setOpenCategoriesModal(false)}
         > 
+        <Modal.Body>
             <ChooseOrgCategories
                 orgCategories={categories}
                 deleteCategory={handleRemoveCategory}
                 addCategory={handleAddCategory}
             />
+        </Modal.Body>
         </Modal>
         <Form onSubmit={handleSubmit} className="mb-4">
             <Form.Row>

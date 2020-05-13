@@ -8,11 +8,12 @@ function Modal ({open, children, onClose, title, size = 'md'}) {
             <BaseModal.Header closeButton>
                 <BaseModal.Title>{title}</BaseModal.Title>
             </BaseModal.Header>
-            <BaseModal.Body>
                 {children}
-            </BaseModal.Body>
         </BaseModal>
     )
 }
+
+Modal.Body = BaseModal.Body;
+Modal.Footer = BaseModal.Footer;
 
 export default Modal;

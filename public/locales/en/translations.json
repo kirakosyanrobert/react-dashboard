@@ -136,11 +136,15 @@
         "fullName": "Full name",
         "role": "Role",
 		"createDate" : "Created",
-		"updateDate" : "Updated"
+        "updateDate" : "Updated",
+        "sessionStart": "Session start",
+        "sessionEnd": "Session end",
+        "sessionDuration": "Duration"
     },
     "modalTitles": {
         "createModerator": "Create new moderator",
-        "updateModerator": "Moderator info"
+        "updateModerator": "Moderator info",
+        "userActivity": "User activity"
     },
     "days": {
         "monday": "MO",

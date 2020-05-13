@@ -21,7 +21,7 @@ export function Pagination ({
     return (
         <div className="d-flex align-items-center px-3">
             <div className="px-2">
-                {`Items ${((currentPage - 1) * perPage) + 1}-${(currentPage * perPage) >= total ? total : (currentPage * perPage)} from ${total}`}
+                {`Page ${currentPage} from ${Math.ceil(total / perPage)}`}
             </div>
             <BasePagination>
                 {/* <BasePagination.First /> */}
