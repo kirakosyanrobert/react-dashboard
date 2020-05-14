@@ -4,8 +4,9 @@ import { Table, Form, Pagination } from 'react-bootstrap';
 import { useTable, usePagination } from 'react-table'
 
 import { Button, ButtonVariants } from '../../ui/Button';
-import { useTranslation, useLanguage } from '../../../hooks';
+import { useTranslation, useLanguage, useFormatDate } from '../../../hooks';
 import { IconType } from '../../../consts';
+import { Colors } from '../../../environment';
 
 // function OrganizationsTable ({
 //     organizations,
@@ -63,11 +64,14 @@ function OrganizationsTable ({
 }) {
     const translate = useTranslation();
     const [language] = useLanguage();
+    const formatDate = useFormatDate();
+
 
     const columns = React.useMemo(
         () => [
             {
                 Header: '#',
+                className: 'text-center',
                 Cell: ({ row }) => (
                     +row.id + 1
                 )
@@ -77,23 +81,45 @@ function OrganizationsTable ({
             accessor: `properties.title[${language}]`,
           },
           {
-            Header: translate(({table}) => table.details),
-            Cell: ({row}) => (
-                <Button
-                    title={translate(({buttons}) => buttons.details)}
-                    variant={ButtonVariants.Primary}
-                    onClick={() => onDetails(row.original.properties.id)}
-                />
+            Header: translate(({table}) => table.days),
+            Cell: ({ row }) => (
+                365
             )
           },
           {
-            Header: translate(({table}) => table.delete),
+            Header: translate(({table}) => table.start),
+            Cell: ({ row }) => (
+                formatDate(row.original.properties.createDate)
+            )
+          },
+          {
+            Header: translate(({table}) => table.end),
+            Cell: ({ row }) => (
+                formatDate(row.original.properties.lastUpdateDate)
+            )
+          },
+          {
+            id: 'org-actions',
             Cell: ({row}) => (
-                <Button
-                    icon={IconType.FaRegTrashAlt}
-                    variant={ButtonVariants.Danger}
-                    onClick={() => onDelete(row.original.properties.id)}
-                />
+                <div className="d-flex justify-content-center">
+                    <Button
+                        outlined
+                        className="border-0"
+                        icon={IconType.FaList}
+                        iconColor={Colors.green}
+                        variant={ButtonVariants.Light}
+                        onClick={() => onDetails(row.original.properties.id)}
+                    />
+
+                    <Button
+                        outlined
+                        className="border-0 ml-2"
+                        icon={IconType.FaRegTrashAlt}
+                        iconColor={Colors.red}
+                        variant={ButtonVariants.Light}
+                        onClick={() => onDelete(row.original.properties.id)}
+                    />
+                </div>
             )
           },
         ], [])
@@ -159,7 +185,11 @@ function OrganizationsTable ({
                     {headerGroups.map(headerGroup => (
                     <tr {...headerGroup.getHeaderGroupProps()}>
                         {headerGroup.headers.map(column => (
-                        <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                            <th {...column.getHeaderProps({
+                                className: column.className
+                            })}>
+                                {column.render('Header')}
+                            </th>
                         ))}
                     </tr>
                     ))}
@@ -170,7 +200,13 @@ function OrganizationsTable ({
                     return (
                         <tr {...row.getRowProps()}>
                             {row.cells.map(cell => {
-                                return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                                return (
+                                    <td {...cell.getCellProps({
+                                        className: cell.column.className
+                                    })}>
+                                        {cell.render('Cell')}
+                                    </td>
+                                ) 
                             })}
                         </tr>
                     )

@@ -116,6 +116,7 @@
     },
     "navigation": {
         "home": "Главная",
+        "administrators": "Администраторы",
         "moderators": "Менеджеры",
         "organizations": "Организации",
         "settings": "Настройки"
@@ -139,7 +140,10 @@
         "updateDate" : "Дата изменения",
         "sessionStart": "Начало сессии",
         "sessionEnd": "Конец сессии",
-        "sessionDuration": "Длительность"
+        "sessionDuration": "Длительность",
+        "days": "Дней",
+        "start": "Начало",
+        "end": "Окончание"
     },
     "modalTitles": {
         "createModerator": "Создать нового менеджера",

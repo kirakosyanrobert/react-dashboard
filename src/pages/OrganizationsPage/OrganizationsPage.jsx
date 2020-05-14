@@ -48,12 +48,12 @@ function OrganizationsPage () {
 
 
     return (
-        <div className="px-4">
+        <div className="px-2 px-sm-3"> 
             <div className="d-flex py-4">
                 <Button
                     title={translate(({buttons}) => buttons.createOrganization)}
                     rightIcon={IconType.FaPlus}
-                    variant={ButtonVariants.Primary}
+                    variant={ButtonVariants.Success}
                     onClick={() => navigate(routes.createOrganization)}
                 />
             </div>

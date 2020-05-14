@@ -35,8 +35,8 @@ function OrganizationDetailsPage() {
         }
     }
 
-    return (
-        <div className="px-4">
+    return ( 
+        <div className="px-2 px-sm-3">
             <div className="d-flex py-4">
                 <Button
                     icon={IconType.FaChevronLeft}
