@@ -118,7 +118,7 @@ function ModeratorsPage() {
            const admins = moderators.filter(moder => moder.role === '1');
            admins.forEach(admin => {
             admin.subRows = [];
-            admin.opened = true;
+            admin.opened = false;
            });
             moderators.forEach((moder) => {
                 admins.forEach((admin) => {
@@ -133,7 +133,7 @@ function ModeratorsPage() {
 
 
     return (
-        <div className="px-4"> 
+        <div className="px-2 px-sm-3"> 
             <Modal
                 title={translate(({modalTitles}) => modalTitles.createModerator)}
                 open={showCreateModal}

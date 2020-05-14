@@ -15,7 +15,7 @@ function Sidebar() {
 
     const AdminLinks = [
       // {title: translate(({navigation}) => navigation.home), path: routes.home},
-      {title: translate(({navigation}) => navigation.moderators), path: routes.moderators},
+      {title: translate(({navigation}) => navigation.administrators), path: routes.moderators},
       {title: translate(({navigation}) => navigation.organizations), path: routes.organizations},
       {title: translate(({navigation}) => navigation.settings), path: routes.settings}
     ];

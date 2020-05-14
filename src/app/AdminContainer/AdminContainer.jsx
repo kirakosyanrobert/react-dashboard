@@ -32,7 +32,7 @@ function AdminContainer ({sidebarIsOpen}) {
 
             <div id="page-content-wrapper">
                 <PageTopBar />
-                <div className="container-fluid">
+                <div className="container-fluid px-0">
                     {/* <Route exact guarded path={AdminRoutes.Home} component={HomePage} /> */}
                     <Route exact guarded path={AdminRoutes.Moderators} component={ModeratorsPage} />
                     <Route exact guarded path={AdminRoutes.Organizations} component={OrganizationsPage} />

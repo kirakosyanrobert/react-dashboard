@@ -116,6 +116,7 @@ export const Dictionary = {
     },
     navigation: {
         home: 'navigation.home',
+        administrators: 'navigation.administrators',
         moderators: 'navigation.moderators',
         organizations: 'navigation.organizations',
         settings: 'navigation.settings',
@@ -139,7 +140,10 @@ export const Dictionary = {
         updateDate: 'table.updateDate',
         sessionStart: 'table.sessionStart',
         sessionEnd: 'table.sessionEnd',
-        sessionDuration: 'table.sessionDuration'
+        sessionDuration: 'table.sessionDuration',
+        days: 'table.days',
+        start: 'table.start',
+        end: 'table.end',
     },
     modalTitles: {
         createModerator: 'modalTitles.createModerator',

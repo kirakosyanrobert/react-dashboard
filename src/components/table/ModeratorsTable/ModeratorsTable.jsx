@@ -1,11 +1,10 @@
 import React, { useState, Fragment, useEffect } from 'react';
 import { Table, Form } from 'react-bootstrap';
-import * as moment from "moment";
 import Highlighter from "react-highlight-words";
 
 
 import { Button, ButtonVariants, ButtonSizes } from '../../ui/Button';
-import {useTranslation, useLoggedInAsSuper, useLanguage} from '../../../hooks';
+import {useTranslation, useLoggedInAsSuper, useFormatDate} from '../../../hooks';
 import { IconType } from '../../../consts';
 import { Colors } from '../../../environment';
 import Modal from '../../ui/Modal/Modal';
@@ -19,8 +18,9 @@ function ModeratorsTable ({
     textSearch
 }) {
     const translate = useTranslation();
-    const [ language ] = useLanguage();
     const loggedInAsSuper = useLoggedInAsSuper();
+    const formatDate = useFormatDate();
+
     const [admins, setAdmins] = useState(usersToShow);
     const [showAuthHistoryModal, setShowAuthHistoryModal] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
@@ -57,13 +57,7 @@ function ModeratorsTable ({
 
 
 
-    const formatDate = (date) =>
-    {
-        //@TODO сделать другое форматирование, если Алекандр попросит
-        moment.locale(language.toLowerCase());
-        let momentDate = moment(date);
-        return momentDate.format("LL");
-    };
+   
 
     function handleToPrev(pageToShow) {
         setCurrentPage(pageToShow);
@@ -238,9 +232,9 @@ function ModeratorsTable ({
                         </td>
                     </tr>
                     {admin.opened && admin.subRows.map((moderator, i) => (
+                    <Fragment key={`table-moderator-item-${moderator.id}__${i}`}>
                         <tr
                             style={{backgroundColor: '#f5f5f5'}}
-                            key={`table-moderator-item-${moderator.id}__${i}`}
                         >
                             <td
                                 className={`text-center ${moderator.status === 'online' ? 'bg-success text-light' : ''}`}
@@ -324,8 +318,14 @@ function ModeratorsTable ({
                             </td>
                             <td></td>
                         </tr>
+                        {
+                            i === (admin.subRows.length - 1) &&
+                            <tr style={{height: '2rem'}} />
+                        }
+                        
+                    </Fragment>
                     ))}
-                    <tr style={{height: '2rem'}} />
+                    
                 </Fragment>
                 ))}
             </tbody>

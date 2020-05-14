@@ -116,6 +116,7 @@
     },
     "navigation": {
         "home": "Home",
+        "administrators": "Administrators",
         "moderators": "Moderators",
         "organizations": "Organizations",
         "settings": "Settings"
@@ -139,7 +140,10 @@
         "updateDate" : "Updated",
         "sessionStart": "Session start",
         "sessionEnd": "Session end",
-        "sessionDuration": "Duration"
+        "sessionDuration": "Duration",
+        "days": "Days",
+        "start": "Start",
+        "end": "Finish"
     },
     "modalTitles": {
         "createModerator": "Create new moderator",
